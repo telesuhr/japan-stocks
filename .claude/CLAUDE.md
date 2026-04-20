@@ -16,3 +16,9 @@
 ```python
 PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
 ```
+
+## ファイル管理
+- 分析スクリプトは必ずセッションごとのフォルダに格納する
+- フォルダ名: `analyses/YYYYMMDD_分析内容/`
+- 例: `analyses/20260421_semiconductor_leadlag/`
+- セッション開始時に必ずフォルダを作成してから作業を始める
