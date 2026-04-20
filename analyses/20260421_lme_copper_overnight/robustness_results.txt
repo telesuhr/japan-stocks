@@ -1,0 +1,269 @@
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:33: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:60: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_lme_copper_overnight/robustness_check.py:220: FutureWarning: 'M' is deprecated and will be removed in a future version, please use 'ME' instead.
+  monthly = df_m.resample('M').agg(pnl=('pnl','sum'), n=('pnl','count'), mean=('pnl','mean'))
+==============================================================================================================
+ロバストネス検証: 前半 (2025-04-01 ~ 2025-10-20) vs 後半 (2025-10-20 ~ 2026-04-21)
+==============================================================================================================
+
+[シグナル分布]
+  前半: N=138, |move|>=1%: 9日
+  後半: N=125, |move|>=1%: 27日
+  前半LME累積: +9.7%
+  後半LME累積: +24.5%
+
+==============================================================================================================
+個別銘柄 前半 vs 後半 (th=1.0%)
+==============================================================================================================
+Symbol     Name          |  H1 N  H1 WR H1 PF  H1 Mean  H1 Shp |  H2 N  H2 WR H2 PF  H2 Mean  H2 Shp |  Stable
+----------------------------------------------------------------------------------------------------------------------------------
+285A.T     キオクシア         |     3 100.0%   inf  +271.9 +13.46 |    18  61.1%  4.55  +369.2 +10.11 |       ✓
+4502.T     武田            |     6  50.0%  1.02    +1.1  +0.17 |    26  69.2%  4.03   +53.1  +9.18 |       △
+6501.T     日立            |     5  60.0% 13.53  +373.6 +10.53 |    21  57.1%  3.12  +126.2  +6.38 |       ✓
+5016.T     出光            |     5  40.0%  3.84  +160.9  +5.74 |    24  62.5%  3.04  +126.4  +7.01 |       ✓
+5711.T     三菱マテリアル       |     6  50.0%  2.69   +93.9  +6.47 |    23  69.6%  2.59   +81.9  +6.20 |       ✓
+7011.T     三菱重工          |     4  25.0%  1.90   +27.3  +3.51 |    23  56.5%  4.43  +110.5  +6.62 |       ✓
+6963.T     ローム           |     6  50.0%  4.46  +158.6  +9.63 |    26  65.4%  2.38   +88.6  +4.64 |       ✓
+4063.T     信越化学          |     5  60.0% 13.69  +152.1  +8.23 |    26  57.7%  2.30   +50.7  +4.46 |       ✓
+5706.T     三井金属          |     5  60.0% 12.42  +216.2  +8.52 |    25  60.0%  1.94   +78.2  +3.83 |       ✓
+1605.T     INPEX         |     6  50.0%  3.09   +91.5  +7.25 |    24  54.2%  1.95   +41.9  +3.92 |       ✓
+6146.T     ディスコ          |     4  75.0%  2.57   +34.5  +6.93 |    21  47.6%  2.19  +102.2  +4.57 |       ✓
+6857.T     アドバンテスト       |     4 100.0%   inf   +61.5 +20.87 |    21  61.9%  2.19  +123.2  +4.40 |       ✓
+8306.T     三菱UFJ         |     5  60.0%  3.43   +84.1  +6.56 |    24  62.5%  1.85   +41.5  +3.80 |       ✓
+4503.T     アステラス         |     6  66.7%  2.08   +33.0  +4.56 |    24  70.8%  2.26   +54.9  +4.11 |       ✓
+5713.T     住友金属鉱山        |     4  50.0%  0.99    -1.5  -0.10 |    21  61.9%  2.08   +86.4  +4.58 |       ✗
+8035.T     TEL           |     4 100.0%   inf  +158.0 +60.05 |    23  52.2%  1.70   +59.1  +2.93 |       ✓
+6305.T     日立建機          |     5  60.0%  4.74  +179.6  +6.08 |    22  50.0%  2.69   +94.6  +4.36 |       ✓
+5332.T     TOTO          |     6  50.0%  5.90  +144.5  +8.11 |    26  57.7%  2.29   +55.0  +3.66 |       ✓
+9101.T     日本郵船          |     5  40.0%  4.14  +110.4  +6.22 |    26  57.7%  1.36   +11.8  +1.74 |       ✓
+6098.T     リクルート         |     6  50.0% 36.48  +139.7 +13.45 |    24  58.3%  1.47   +24.9  +2.35 |       ✓
+4578.T     大塚HD          |     6  33.3%  0.53   -31.3  -4.54 |    26  76.9%  3.22   +46.1  +7.08 |       ✗
+6702.T     富士通           |     5  80.0% 148.18  +192.7 +11.87 |    26  50.0%  1.65   +40.8  +2.83 |       ✓
+
+==============================================================================================================
+コア5銘柄等加重ポートフォリオ検証 (Long only)
+==============================================================================================================
+バスケット: 5711.T(三菱マテリアル), 6501.T(日立), 7011.T(三菱重工), 5016.T(出光), 4502.T(武田)
+
+--- threshold = 0.5% (Long only) ---
+  全期間: N_days= 49, Mean= +84.9bps, Total= +4160bps, WR= 71.4%, Sharpe=+7.10
+  前半H1: N_days= 12, Mean= +96.4bps, Total= +1157bps, WR= 75.0%, Sharpe=+7.39
+  後半H2: N_days= 37, Mean= +81.2bps, Total= +3003bps, WR= 70.3%, Sharpe=+7.02
+
+--- threshold = 0.8% (Long only) ---
+  全期間: N_days= 25, Mean=+117.7bps, Total= +2942bps, WR= 76.0%, Sharpe=+9.55
+  前半H1: N_days=  5, Mean=+193.6bps, Total=  +968bps, WR= 80.0%, Sharpe=+11.22
+  後半H2: N_days= 20, Mean= +98.7bps, Total= +1974bps, WR= 75.0%, Sharpe=+9.49
+
+--- threshold = 1.0% (Long only) ---
+  全期間: N_days= 19, Mean=+146.9bps, Total= +2791bps, WR= 84.2%, Sharpe=+11.50
+  前半H1: N_days=  4, Mean=+192.5bps, Total=  +770bps, WR= 75.0%, Sharpe=+9.98
+  後半H2: N_days= 15, Mean=+134.7bps, Total= +2021bps, WR= 86.7%, Sharpe=+13.16
+
+--- threshold = 1.5% (Long only) ---
+  全期間: N_days=  9, Mean=+111.7bps, Total= +1006bps, WR= 77.8%, Sharpe=+9.42
+  前半H1: N_days=  1, Mean=-100.5bps, Total=  -101bps, WR=  0.0%, Sharpe=+0.00
+  後半H2: N_days=  8, Mean=+138.3bps, Total= +1106bps, WR= 87.5%, Sharpe=+11.98
+
+==============================================================================================================
+コア5銘柄Long only (th=1.0%) 月次PnL推移
+==============================================================================================================
+Month         N  Total(bps)  Mean(bps)
+2025-04       1       +702    +702.3
+2025-05       1        +30     +29.7
+2025-06       0         +0      +nan
+2025-07       0         +0      +nan
+2025-08       0         +0      +nan
+2025-09       0         +0      +nan
+2025-10       2        +38     +19.0
+2025-11       0         +0      +nan
+2025-12       4       +376     +94.0
+2026-01       6       +766    +127.6
+2026-02       2       +478    +238.8
+2026-03       1        +76     +75.5
+2026-04       2       +327    +163.3
+
+勝ち月/取引月: 8/8
+
+==============================================================================================================
+コア5銘柄Long (th=1.0%) リスク指標
+==============================================================================================================
+最大ドローダウン: -173 bps
+最大DD発生日: 2025-12-29
+最大連敗日数: 2
+累積PnL: +2791 bps
+年率換算(252営業日): +37019 bps
