@@ -44,6 +44,7 @@
 | [20260422_brent_shipping](20260422_brent_shipping/) | Brent+2% → 海運Long | 3社平均で月2回 | +3.56 |
 | [20260422_nikkei_futures_gap](20260422_nikkei_futures_gap/) | 日経先物夜間+0.3% → コア5 Long | 独立シグナル、週1-2 | +4.68 |
 | [20260422_topix_futures_gap](20260422_topix_futures_gap/) | TOPIX夜間+0.3% → Long | 独立シグナル、週1-2 | +4.79 |
+| [20260422_us_jp_leadlag](20260422_us_jp_leadlag/) | **米(前日)→日(翌日) 長期リードラグ** | N=2758(11年), Gap相関+0.62, Intra相関+0.11。**.SOX<-2% → TOPIX Short t=+2.36** | +2.11 (short) |
 
 ### 主要発見
 
