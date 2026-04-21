@@ -4,7 +4,7 @@
 **ステータス**: 採用 (実運用推奨)
 **運用目標資金**: ¥5,000万 (5銘柄 × ¥1,000万)
 **期待リターン**: 年率 +14〜27% (税引前) / +¥700〜1,400万
-**検証分析**: [`analyses/20260421_lme_copper_overnight/`](../analyses/20260421_lme_copper_overnight/)
+**検証分析**: [`analyses/20260421_lme_copper_overnight/`](../../analyses/20260421_lme_copper_overnight/)
 
 ---
 
@@ -89,7 +89,7 @@ LMEは**夏時間 (BST) / 冬時間 (GMT)** で決済時刻が異なる:
 | **+1.0%** | **19** | **6-11** | **最適域 (採用)** |
 | +1.5% | 14 | 3-5 | N少で統計脆弱 |
 
-詳細: [`analyses/20260421_lme_copper_overnight/README.md`](../analyses/20260421_lme_copper_overnight/README.md#閾値感応度)
+詳細: [`analyses/20260421_lme_copper_overnight/README.md`](../../analyses/20260421_lme_copper_overnight/README.md#閾値感応度)
 
 ---
 

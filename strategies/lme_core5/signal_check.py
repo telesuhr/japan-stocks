@@ -12,7 +12,7 @@ import os
 from datetime import date, datetime, timedelta
 import psycopg2
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'analyses', '20260421_common')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'analyses', '20260421_common')))
 import mdutil as U
 
 THRESHOLD_PCT = 1.0
