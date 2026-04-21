@@ -106,6 +106,7 @@
 | [20260422_nonfer_intraday_patterns](20260422_nonfer_intraday_patterns/) | **非鉄3銘柄** イントラデイ典型パターン | 5706 first30 reversal でコスト後+10bps/日が最有力 |
 | [20260422_semi_intraday_patterns](20260422_semi_intraday_patterns/) | **半導体5銘柄** イントラデイ典型パターン | **6857 first30<-50 Long (WR 65%, +26bps)** / **4063 first30>+50 Long (+31bps)** |
 | [20260422_orb_morning](20260422_orb_morning/) | ORB (9:00-9:30 → 11:30) | 全体Sharpe+0.3、銘柄依存でエッジ薄い |
+| [20260422_orb_volume](20260422_orb_volume/) | **出来高フィルター付きORB 最適化** | 集約では効果なし。**5711 Sharpe+5.83 / 4063 Sharpe+6.04** が合格 (方向は銘柄特性で決定) |
 | [20260422_gap_fade](20260422_gap_fade/) | ギャップフェード/モメンタム | 全閾値で Sharpe<1、明確にエッジなし (不採用) |
 
 ### 主要発見
