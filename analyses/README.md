@@ -109,6 +109,7 @@
 | [20260422_orb_morning](20260422_orb_morning/) | ORB (9:00-9:30 → 11:30) | 全体Sharpe+0.3、銘柄依存でエッジ薄い |
 | [20260422_orb_volume](20260422_orb_volume/) | **出来高フィルター付きORB 最適化** | 集約では効果なし。**5711 Sharpe+5.83 / 4063 Sharpe+6.04** が合格 (方向は銘柄特性で決定) |
 | [20260422_gap_fade](20260422_gap_fade/) | ギャップフェード/モメンタム | 全閾値で Sharpe<1、明確にエッジなし (不採用) |
+| [20260422_vwap_direction](20260422_vwap_direction/) | **VWAP乖離方向判定** | 銘柄別エッジ: 8035 11:30 Reversion Sharpe+6.17 / 4063 10:00 Trend Sharpe+2.95。Pool集約はフラット |
 
 ### 主要発見
 
