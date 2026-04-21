@@ -55,20 +55,20 @@ def fetch_vwap_dev():
     cum_vol = vol.cumsum()
     vwap_series = cum_pv / cum_vol
 
-    # 9:30時点のデータ
-    at_930 = morning[
-        (morning.index.hour == SIGNAL_HOUR) & (morning.index.minute <= SIGNAL_MIN)
+    # 9:30バーを厳密に要求（minute == 30 のバーが存在しない場合はスキップ）
+    bar_930 = morning[
+        (morning.index.hour == SIGNAL_HOUR) & (morning.index.minute == SIGNAL_MIN)
     ]
-    if at_930.empty:
-        return None
+    if bar_930.empty:
+        return None  # 9:30バー欠損 → 判定不能としてスキップ
 
-    latest = at_930.iloc[-1]
+    latest = bar_930.iloc[-1]
     close_930 = float(latest['close'])
-    vwap_930  = float(vwap_series.loc[at_930.index[-1]])
+    vwap_930  = float(vwap_series.loc[bar_930.index[-1]])
     dev_bps   = (close_930 / vwap_930 - 1) * 10000
 
     return {
-        'time': at_930.index[-1].strftime('%H:%M'),
+        'time': bar_930.index[-1].strftime('%H:%M'),
         'close': close_930,
         'vwap': vwap_930,
         'dev_bps': dev_bps,

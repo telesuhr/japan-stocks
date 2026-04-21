@@ -35,7 +35,8 @@ TARGET = {
     "5019.T": "出光HD",
 }
 
-SIGNAL_TIMES = [9, 10, 11]   # JST 時
+# (hour, minute) 形式で定義
+SIGNAL_TIMES = [(9, 30), (10, 0), (11, 0)]
 THRESHOLDS   = [20, 30, 50]  # bps
 
 
@@ -58,23 +59,26 @@ def compute_vwap(day_df):
     return cum_pv / cum_vol
 
 
-def backtest_vwap_trend(df, signal_hour, threshold_bps):
+def backtest_vwap_trend(df, signal_hour, signal_minute, threshold_bps):
     """
-    VWAP Trend戦略: signal_hour時点のdev >= +th → Long / <= -th → Short
-    エントリー: signal_hourの次バーopen / エグジット: 15:20-15:30の最後のclose
+    VWAP Trend戦略: (signal_hour:signal_minute)時点のdev >= +th → Long / <= -th → Short
+    エントリー: シグナル時刻より後の最初のバーopen / エグジット: 15:20-15:30の最後のclose
     """
     trades = []
     for d in sorted(set(df.index.date)):
         day = df[df.index.date == d]
         if len(day) < 10: continue
 
-        # VWAP計算
+        # VWAP計算 (9:00以降の累積)
         morning = day[day.index.hour >= 9]
         if morning.empty: continue
         vwap = compute_vwap(morning)
 
-        # signal_hour時点のdev
-        sig_bar = morning[morning.index.hour <= signal_hour]
+        # signal_hour:signal_minute 以前のバーのみでシグナル判定（将来データ禁止）
+        sig_bar = morning[
+            (morning.index.hour < signal_hour) |
+            ((morning.index.hour == signal_hour) & (morning.index.minute <= signal_minute))
+        ]
         if sig_bar.empty: continue
         sig_price = float(sig_bar['close'].iloc[-1])
         sig_vwap  = float(vwap.loc[sig_bar.index[-1]])
@@ -83,11 +87,14 @@ def backtest_vwap_trend(df, signal_hour, threshold_bps):
         if abs(dev) < threshold_bps: continue
         direction = 1 if dev > 0 else -1
 
-        # エントリー: signal_hour以降の最初のバー
-        entry_bar = day[day.index.hour >= signal_hour]
-        if len(entry_bar) < 2: continue
-        entry_price = float(entry_bar['open'].iloc[1])
-        entry_time  = entry_bar.index[1]
+        # エントリー: シグナル時刻より後の最初のバー
+        entry_bar = day[
+            (day.index.hour > signal_hour) |
+            ((day.index.hour == signal_hour) & (day.index.minute > signal_minute))
+        ]
+        if entry_bar.empty: continue
+        entry_price = float(entry_bar['open'].iloc[0])
+        entry_time  = entry_bar.index[0]
 
         # エグジット: 15:20-15:30の最後のclose
         exit_bar = day[(day.index.hour == 15) & (day.index.minute >= 20)]
@@ -157,7 +164,7 @@ def main():
     df_full = load_stock("5020.T", FULL_START, FULL_END)
 
     for label, df in [("Full  ", df_full), ("H1(IS)", df_h1), ("H2(OoS)", df_h2)]:
-        tdf = backtest_vwap_trend(df, 9, 50)
+        tdf = backtest_vwap_trend(df, 9, 30, 50)
         r = evaluate(tdf)
         tag = " ← 採用根拠" if "Full" in label else (" ← OoS" if "H2" in label else "")
         print(f"  {label}:{fmt(r, show_total=True)}{tag}")
@@ -170,17 +177,17 @@ def main():
     print(f"  {'-'*6} {'-'*5}  {'-'*4} {'-'*7} {'-'*6} {'-'*6} {'-'*5}")
 
     param_results = []
-    for hr in SIGNAL_TIMES:
+    for (hr, mn) in SIGNAL_TIMES:
         for th in THRESHOLDS:
-            tdf = backtest_vwap_trend(df_full, hr, th)
+            tdf = backtest_vwap_trend(df_full, hr, mn, th)
             r = evaluate(tdf)
-            tag = " ◀ 採用値" if hr == 9 and th == 50 else ""
+            tag = " ◀ 採用値" if hr == 9 and mn == 30 and th == 50 else ""
             if r:
-                param_results.append({'signal_hour': hr, 'threshold': th, **r})
-                print(f"  {hr:02d}:30 {th:>5}  {r['n']:>4} {r['mean']:>+6.1f} "
+                param_results.append({'signal_time': f"{hr:02d}:{mn:02d}", 'threshold': th, **r})
+                print(f"  {hr:02d}:{mn:02d} {th:>5}  {r['n']:>4} {r['mean']:>+6.1f} "
                       f"{r['wr']:>5.1f}% {r['sharpe']:>+6.2f} {r['t_stat']:>+5.2f}{tag}")
             else:
-                print(f"  {hr:02d}:30 {th:>5}  N/A{tag}")
+                print(f"  {hr:02d}:{mn:02d} {th:>5}  N/A{tag}")
 
     # ── 3. OoS パラメータ安定性 (H2のみ) ────────────────────────────────
     print(f"\n{'=' * 75}")
@@ -189,16 +196,16 @@ def main():
     print(f"  {'time':>6} {'th':>5}  {'N':>4} {'Mean':>7} {'WR':>6} {'Shp':>6} {'t':>5}")
     print(f"  {'-'*6} {'-'*5}  {'-'*4} {'-'*7} {'-'*6} {'-'*6} {'-'*5}")
 
-    for hr in SIGNAL_TIMES:
+    for (hr, mn) in SIGNAL_TIMES:
         for th in THRESHOLDS:
-            tdf = backtest_vwap_trend(df_h2, hr, th)
+            tdf = backtest_vwap_trend(df_h2, hr, mn, th)
             r = evaluate(tdf)
-            tag = " ◀ 採用値" if hr == 9 and th == 50 else ""
+            tag = " ◀ 採用値" if hr == 9 and mn == 30 and th == 50 else ""
             if r:
-                print(f"  {hr:02d}:30 {th:>5}  {r['n']:>4} {r['mean']:>+6.1f} "
+                print(f"  {hr:02d}:{mn:02d} {th:>5}  {r['n']:>4} {r['mean']:>+6.1f} "
                       f"{r['wr']:>5.1f}% {r['sharpe']:>+6.2f} {r['t_stat']:>+5.2f}{tag}")
             else:
-                print(f"  {hr:02d}:30 {th:>5}   N<5{tag}")
+                print(f"  {hr:02d}:{mn:02d} {th:>5}   N<5{tag}")
 
     # ── 4. エネルギーセクター横断 ─────────────────────────────────────────
     print(f"\n{'=' * 75}")
@@ -209,7 +216,7 @@ def main():
         if df.empty:
             print(f"  {sym} {name}: データなし")
             continue
-        tdf = backtest_vwap_trend(df, 9, 50)
+        tdf = backtest_vwap_trend(df, 9, 30, 50)
         r = evaluate(tdf)
         tag = " ◀ 本命" if sym == "5020.T" else ""
         if r:
@@ -221,7 +228,7 @@ def main():
     print(f"\n{'=' * 75}")
     print("5. 月別パフォーマンス  [ENEOS, signal=09:30, th=50bps]")
     print(f"{'=' * 75}")
-    tdf_full = backtest_vwap_trend(df_full, 9, 50)
+    tdf_full = backtest_vwap_trend(df_full, 9, 30, 50)
     if not tdf_full.empty:
         tdf_full['ym'] = pd.to_datetime(tdf_full['date']).dt.to_period('M')
         print(f"  {'月':>8}  {'N':>4} {'Mean':>7} {'WR':>6} {'Total':>8}")
