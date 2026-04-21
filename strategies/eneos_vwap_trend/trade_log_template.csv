@@ -1,0 +1,2 @@
+trade_date,symbol,dow,signal_fired,skipped_reason,vwap_0930,close_0930,dev_bps,side,entry_time,entry_price,exit_time,exit_price,shares,ret_bps,gross_pnl_jpy,commission_jpy,net_pnl_jpy,notes
+2026-04-22,5020.T,Tue,Yes,,565.20,568.50,58,Long,09:31,568.60,15:30,573.80,17500,91,91000,14000,77000,sample_intraday_trend
