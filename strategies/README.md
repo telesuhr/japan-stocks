@@ -9,7 +9,10 @@
 
 | # | 戦略名 | ステータス | Sharpe | 頻度 | 想定資金 | 期待P&L (年) |
 |:-:|---|:-:|:-:|:-:|:-:|:-:|
-| 1 | [lme_core5](lme_core5/) | ★本命 採用 | +11.50 | 月1-2回 | ¥5,000万 | +¥700〜1,360万 |
+| 1 | [lme_core5](lme_core5/) | ★本命 採用 (v1.1 ON) | +11.50 | 月1-2回 | ¥5,000万 | +¥700〜1,360万 |
+| 2 | [topix_overnight](topix_overnight/) | 採用 (Satellite) | +4.79 | 月4-5回 | ¥5,000万 (lme_core5と同資金) | +¥250〜500万 |
+
+**注**: 両戦略は同じCORE5バスケット・同じ ¥5,000万 を共有する。両方のシグナルが同日発動した場合は **lme_core5 を優先** (Sharpeが高い) し、topix_overnight 側は取消。両戦略の発動日は重複しないケースが多く、合計で月5-7回のエントリー機会を創出。
 
 ---
 
@@ -35,8 +38,7 @@
 
 | 候補 | Sharpe | N | 検証分析 | 次のステップ |
 |---|:-:|:-:|---|---|
-| TOPIX先物夜間 +0.3% → Long | +4.79 | 100 | [`topix_futures_gap/`](../analyses/20260422_topix_futures_gap/) | Out-of-Sample検証 |
-| LME累積 LB=10 +3% → コア5 Long | +7.55 | 37 | [`lme_momentum/`](../analyses/20260422_lme_momentum/) | 本命との重複検証 |
+| LME累積 LB=10 +3% → コア5 Long | +7.55 | 37 | [`lme_momentum/`](../analyses/20260422_lme_momentum/) | lme_core5との重複検証 |
 | 5020 ENEOS VWAP Trend 9:30 | +5.79 | 73 | [`vwap_comprehensive/`](../analyses/20260422_vwap_comprehensive/) | 単独戦略化検討 |
 | 9101 日本郵船 VWAP Breakout | +4.18 | 99 | 同上 | 単独戦略化検討 |
 | 5016 出光 VWAP Reversion | +3.43 | 169 | 同上 | 高頻度だが銘柄集中リスク |
