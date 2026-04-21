@@ -1,0 +1,250 @@
+{
+  "generated_at": "2026-04-21T13:20:52.868377",
+  "db": "market_data.intraday_data",
+  "timezone_note": "timestamps are stored in UTC; add +9h for JST",
+  "symbols": {
+    "5711.T": {
+      "start_date": "2024-11-14",
+      "end_date": "2026-04-20",
+      "row_count": 122844,
+      "valid_rows": 110648,
+      "mean_close": 3051.16,
+      "std_close": 1053.66,
+      "md5_ts_close": "f5623d21c8e981e628845520cda2aa20"
+    },
+    "6501.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 107042,
+      "valid_rows": 98159,
+      "mean_close": 4369.94,
+      "std_close": 587.73,
+      "md5_ts_close": "6a9b332af4daab3056418d901ca82b9e"
+    },
+    "7011.T": {
+      "start_date": "2024-11-14",
+      "end_date": "2026-04-20",
+      "row_count": 119026,
+      "valid_rows": 109817,
+      "mean_close": 3484.83,
+      "std_close": 929.91,
+      "md5_ts_close": "0dd15fc9b712c04053230714581e9087"
+    },
+    "5016.T": {
+      "start_date": "2025-03-19",
+      "end_date": "2026-04-20",
+      "row_count": 94201,
+      "valid_rows": 85898,
+      "mean_close": 1844.38,
+      "std_close": 1122.21,
+      "md5_ts_close": "e255e007212e64585cad59b2cd757354"
+    },
+    "4502.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 107062,
+      "valid_rows": 98103,
+      "mean_close": 4630.25,
+      "std_close": 539.82,
+      "md5_ts_close": "d0002b86cfcb36be3f4c7dc62d7e18f1"
+    },
+    "5706.T": {
+      "start_date": "2024-11-14",
+      "end_date": "2026-04-20",
+      "row_count": 122607,
+      "valid_rows": 107731,
+      "mean_close": 12539.55,
+      "std_close": 9839.29,
+      "md5_ts_close": "5610f5a9ce8a70b78d72e715e1c5cf19"
+    },
+    "5713.T": {
+      "start_date": "2024-12-02",
+      "end_date": "2026-04-20",
+      "row_count": 118979,
+      "valid_rows": 108584,
+      "mean_close": 5116.34,
+      "std_close": 2456.96,
+      "md5_ts_close": "297cab250094c7a68f807228b8db350e"
+    },
+    "8035.T": {
+      "start_date": "2024-12-02",
+      "end_date": "2026-04-20",
+      "row_count": 116204,
+      "valid_rows": 106910,
+      "mean_close": 28866.58,
+      "std_close": 7495.65,
+      "md5_ts_close": "5dff48f67d522512cb49769014db4509"
+    },
+    "6857.T": {
+      "start_date": "2024-11-14",
+      "end_date": "2026-04-20",
+      "row_count": 123435,
+      "valid_rows": 112877,
+      "mean_close": 14117.74,
+      "std_close": 6763.29,
+      "md5_ts_close": "0d17cd67df566079cc26e9e2a49bb884"
+    },
+    "6146.T": {
+      "start_date": "2024-11-14",
+      "end_date": "2026-04-20",
+      "row_count": 123260,
+      "valid_rows": 112537,
+      "mean_close": 46601.91,
+      "std_close": 12531.34,
+      "md5_ts_close": "f8c3c318e9ff57257e93e881ac7cf24b"
+    },
+    "4063.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 107123,
+      "valid_rows": 98332,
+      "mean_close": 4897.18,
+      "std_close": 670.97,
+      "md5_ts_close": "fb042b27bfec6e1863e6ec959d6dbb45"
+    },
+    "6963.T": {
+      "start_date": "2025-03-25",
+      "end_date": "2026-04-20",
+      "row_count": 85445,
+      "valid_rows": 85445,
+      "mean_close": 2179.32,
+      "std_close": 608.52,
+      "md5_ts_close": "052aa9ab10f9ff34461696f25643312c"
+    },
+    "9101.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 104013,
+      "valid_rows": 95947,
+      "mean_close": 5185.53,
+      "std_close": 345.54,
+      "md5_ts_close": "1f6434198a04506514424c987f202195"
+    },
+    "9104.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 107192,
+      "valid_rows": 98355,
+      "mean_close": 5066.05,
+      "std_close": 595.28,
+      "md5_ts_close": "7e3243bb9d85dd81b6e26cc610f26e49"
+    },
+    "9107.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 107059,
+      "valid_rows": 98319,
+      "mean_close": 2191.22,
+      "std_close": 215.33,
+      "md5_ts_close": "f2d6cea33fda79307d9540c858e21d99"
+    },
+    "1605.T": {
+      "start_date": "2025-01-23",
+      "end_date": "2026-04-20",
+      "row_count": 107026,
+      "valid_rows": 98336,
+      "mean_close": 2689.6,
+      "std_close": 819.29,
+      "md5_ts_close": "75cb9939ceb88cc099c01649e603a2e9"
+    },
+    "5020.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 106986,
+      "valid_rows": 98276,
+      "mean_close": 962.28,
+      "std_close": 253.16,
+      "md5_ts_close": "bc0afd4a45eb4aa1ea09766fb80f45ba"
+    },
+    "8267.T": {
+      "start_date": "2024-12-02",
+      "end_date": "2026-04-20",
+      "row_count": 114644,
+      "valid_rows": 105678,
+      "mean_close": 1751.86,
+      "std_close": 454.5,
+      "md5_ts_close": "88476ea96b02f21c9acdbd59eaa9772f"
+    },
+    "9020.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 113862,
+      "valid_rows": 97276,
+      "mean_close": 3456.8,
+      "std_close": 403.26,
+      "md5_ts_close": "55b9d3415886af1eb84048a444f80fcc"
+    },
+    "7974.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 102638,
+      "valid_rows": 94808,
+      "mean_close": 11427.48,
+      "std_close": 1681.36,
+      "md5_ts_close": "2c789b4bf3e842fce02ec6e7c4e0e999"
+    },
+    "6758.T": {
+      "start_date": "2024-11-14",
+      "end_date": "2026-04-20",
+      "row_count": 117419,
+      "valid_rows": 108480,
+      "mean_close": 3644.35,
+      "std_close": 430.63,
+      "md5_ts_close": "19c5a80acc2f01084eb93bc288f3b962"
+    },
+    "8411.T": {
+      "start_date": "2025-01-24",
+      "end_date": "2026-04-20",
+      "row_count": 102653,
+      "valid_rows": 94837,
+      "mean_close": 5002.15,
+      "std_close": 1127.34,
+      "md5_ts_close": "cbb106ec9649ccea1091af3848b15275"
+    },
+    ".TOPX": {
+      "start_date": "2025-04-17",
+      "end_date": "2026-04-20",
+      "row_count": 81672,
+      "valid_rows": 81672,
+      "mean_close": 3223.96,
+      "std_close": 365.05,
+      "md5_ts_close": "5558cb24518a39f3648aa3f32377aa8f"
+    },
+    "JNIc1": {
+      "start_date": "2025-03-20",
+      "end_date": "2026-04-17",
+      "row_count": 278038,
+      "valid_rows": 278005,
+      "mean_close": 46802.23,
+      "std_close": 6952.85,
+      "md5_ts_close": "7c314983047148e781168524b01033d7"
+    },
+    "CMCU3": {
+      "start_date": "2025-03-20",
+      "end_date": "2026-04-20",
+      "row_count": 256278,
+      "valid_rows": 256278,
+      "mean_close": 10912.14,
+      "std_close": 1406.75,
+      "md5_ts_close": "d0cff68ebb77c7431e9879607e0ba818"
+    },
+    "CLc1": {
+      "start_date": "2025-03-20",
+      "end_date": "2026-04-20",
+      "row_count": 351894,
+      "valid_rows": 351817,
+      "mean_close": 66.84,
+      "std_close": 11.65,
+      "md5_ts_close": "07d86fe101c9becdae3a79fdde23eb66"
+    },
+    "LCOc1": {
+      "start_date": "2025-03-20",
+      "end_date": "2026-04-20",
+      "row_count": 332029,
+      "valid_rows": 331693,
+      "mean_close": 70.72,
+      "std_close": 12.27,
+      "md5_ts_close": "2c14f6ae089763ba6e137308e7ce3206"
+    }
+  }
+}

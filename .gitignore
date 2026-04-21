@@ -1,0 +1,24 @@
+# raw full data never committed (Refinitiv license restriction)
+data/raw/
+*.parquet
+*.db
+*.sqlite
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.key
+credentials.json
+
+# Large outputs
+*.pkl
