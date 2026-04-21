@@ -129,9 +129,9 @@ def check_signal():
         print(f"  {code} {name}")
 
     print("\n[重要: 最終確認事項]")
-    print("  □ lme_core5 シグナルが発動していないか")
+    print("  □ lme_on_copper シグナルが発動していないか")
     print("     → 発動していれば本戦略は取消 (重複回避)")
-    print("     → 15:15にlme_core5 signal_check.pyを実行して再確認")
+    print("     → 15:15にlme_on_copper signal_check.pyを実行して再確認")
     print("  □ Day N / Day N+1 の決算発表銘柄なし")
     print("  □ Day N+1 の配当落ち該当なし")
     print("  □ FOMC/米雇用統計/日銀会合前でない (該当ならサイズ半減)")

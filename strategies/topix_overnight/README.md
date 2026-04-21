@@ -1,7 +1,7 @@
 # 戦略: TOPIX夜間ギャップ → コア5 ON Long
 
 バージョン: **v1.0** (2026-04-22)
-ステータス: **採用** (lme_core5 の Satellite/分散用)
+ステータス: **採用** (lme_on_copper の Satellite/分散用)
 
 ---
 
@@ -35,9 +35,11 @@
 
 **コスト**: 片道2bps × 往復 = 4bps/trade 控除済
 
+> **Sharpe注記**: 上記は `mean/std × √252` で年率化したper-trade Sharpe。年間発動N≈50のため、トレード頻度調整後の実効値は `+4.79 × √(50/252) ≈ +2.13` 程度。t-stat = +3.02 は年率化と無関係で、統計的有意性を示す。
+
 ---
 
-## 対象銘柄 (lme_core5 と同じ CORE5)
+## 対象銘柄 (lme_on_copper と同じ CORE5)
 
 | コード | 銘柄 | 理由 |
 |---|---|---|
@@ -97,7 +99,7 @@ CORE5 各 ¥1,000万 を 引成 (CLO) で Long
 
 ## リスク
 
-lme_core5 と同じく ONホールドのテールリスクを負う:
+lme_on_copper と同じく ONホールドのテールリスクを負う:
 
 | ケース | 想定頻度 | 想定損失 |
 |---|:-:|:-:|
@@ -114,7 +116,7 @@ lme_core5 と同じく ONホールドのテールリスクを負う:
 - [x] 2年バックテスト完了 (N=100)
 - [x] t-stat = +3.02 で統計的に有意
 - [ ] **Out-of-Sample検証** (別期間での確認) → TODO
-- [ ] lme_core5との日次相関計測 → TODO
+- [ ] lme_on_copperとの日次相関計測 → TODO
 - [ ] 併用時の実質Sharpe算出 → TODO
 
 **運用開始前にOoS検証を必ず実施**。
@@ -124,5 +126,5 @@ lme_core5 と同じく ONホールドのテールリスクを負う:
 ## 関連
 
 - 元分析: [`../../analyses/20260422_topix_futures_gap/`](../../analyses/20260422_topix_futures_gap/)
-- 姉妹戦略: [`../lme_core5/`](../lme_core5/)
+- 姉妹戦略: [`../lme_on_copper/`](../lme_on_copper/)
 - 共通ユーティリティ: [`../../analyses/20260421_common/`](../../analyses/20260421_common/)

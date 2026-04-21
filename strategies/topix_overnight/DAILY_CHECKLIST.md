@@ -47,9 +47,9 @@ python3 signal_check.py
 - [ ] Day N+1 が配当落ち日でないか
 - [ ] FOMC/米雇用統計/日銀会合が Day N+1 朝までに控えていないか
   - 控えている → **サイズ半減 (各¥500万)**
-- [ ] 本日 (Day N) は木曜日でないか (lme_core5と同様に翌金曜寄付決済を避ける)
+- [ ] 本日 (Day N) は木曜日でないか (lme_on_copperと同様に翌金曜寄付決済を避ける)
 - [ ] 日経225先物が急落中 (-2%超) でないか
-- [ ] lme_core5 シグナルが既に発動していないか → 発動済みなら本戦略はスキップ (重複回避)
+- [ ] lme_on_copper シグナルが既に発動していないか → 発動済みなら本戦略はスキップ (重複回避)
 
 ---
 
@@ -121,6 +121,6 @@ python3 signal_check.py
 - `earnings`: 決算日該当
 - `macro_event`: マクロイベント前 (サイズ半減で代替も可)
 - `panic`: 先物急落中
-- `lme_core5_priority`: lme_core5が既に発動 (重複回避)
+- `lme_on_copper_priority`: lme_on_copperが既に発動 (重複回避)
 - `system_failure`: 証券会社システム障害
 - `discretionary`: 手動裁量スキップ

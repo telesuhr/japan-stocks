@@ -8,10 +8,10 @@
 START (Day N 09:05)
   │
   ▼
-① lme_core5 シグナルが本日発動予定か?
+① lme_on_copper シグナルが本日発動予定か?
    (LME 東京セッション 9:00 開始直後の動きから推測)
   │
-  ├── Yes → 本戦略はスキップ (重複回避 skipped_reason=lme_core5_priority)
+  ├── Yes → 本戦略はスキップ (重複回避 skipped_reason=lme_on_copper_priority)
   │
   └── No/未定 ▼
 
@@ -52,9 +52,9 @@ START (Day N 09:05)
   │
   └── No  ▼
 
-⚠️ Day N 15:15 — lme_core5 シグナル最終確認
+⚠️ Day N 15:15 — lme_on_copper シグナル最終確認
   │
-  ├── lme_core5 発動確定 → 本戦略は取消 (lme_core5優先)
+  ├── lme_on_copper 発動確定 → 本戦略は取消 (lme_on_copper優先)
   │
   └── 未発動 ▼
 
@@ -66,7 +66,7 @@ START (Day N 09:05)
 
 ## 🌙 Day N 夜間
 
-lme_core5 と同じ — 通常放置、-3%超時のみ翌朝検討。
+lme_on_copper と同じ — 通常放置、-3%超時のみ翌朝検討。
 
 ---
 
@@ -88,7 +88,7 @@ END
 
 ## 📊 ポジションサイジング
 
-lme_core5 と同じルール。
+lme_on_copper と同じルール。
 
 ```
 基準: 1銘柄 = ¥1,000万, バスケット合計 = ¥5,000万
@@ -115,12 +115,12 @@ lme_core5 と同じルール。
 
 ---
 
-## 🔗 lme_core5 との併用ルール
+## 🔗 lme_on_copper との併用ルール
 
 | 状況 | 対応 |
 |---|---|
-| 両方発動 | lme_core5 のみ実行 (Sharpeが高い) |
-| lme_core5 のみ | lme_core5 実行 |
+| 両方発動 | lme_on_copper のみ実行 (Sharpeが高い) |
+| lme_on_copper のみ | lme_on_copper 実行 |
 | topix のみ | topix_overnight 実行 |
 | 両方不発 | ノーポジ |
 
@@ -130,7 +130,7 @@ lme_core5 と同じルール。
 
 ## 💡 裁量介入ルール
 
-lme_core5 と同じ。年間5回以内の裁量スキップ許容。
+lme_on_copper と同じ。年間5回以内の裁量スキップ許容。
 
 ---
 
@@ -140,4 +140,4 @@ lme_core5 と同じ。年間5回以内の裁量スキップ許容。
 - topix_prev_close, topix_open_day_n, topix_gap_pct
 - 5銘柄 entry/exit/ret_bps
 - 手数料, Gross/Net P&L
-- lme_core5同日シグナル有無 (competing_signal列)
+- lme_on_copper同日シグナル有無 (competing_signal列)
