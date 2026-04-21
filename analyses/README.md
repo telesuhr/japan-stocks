@@ -109,7 +109,8 @@
 | [20260422_orb_morning](20260422_orb_morning/) | ORB (9:00-9:30 → 11:30) | 全体Sharpe+0.3、銘柄依存でエッジ薄い |
 | [20260422_orb_volume](20260422_orb_volume/) | **出来高フィルター付きORB 最適化** | 集約では効果なし。**5711 Sharpe+5.83 / 4063 Sharpe+6.04** が合格 (方向は銘柄特性で決定) |
 | [20260422_gap_fade](20260422_gap_fade/) | ギャップフェード/モメンタム | 全閾値で Sharpe<1、明確にエッジなし (不採用) |
-| [20260422_vwap_direction](20260422_vwap_direction/) | **VWAP乖離方向判定** | 銘柄別エッジ: 8035 11:30 Reversion Sharpe+6.17 / 4063 10:00 Trend Sharpe+2.95。Pool集約はフラット |
+| [20260422_vwap_direction](20260422_vwap_direction/) | **VWAP乖離方向判定** (8銘柄) | 銘柄別エッジ: 8035 11:30 Reversion Sharpe+6.17 / 4063 10:00 Trend Sharpe+2.95。Pool集約はフラット |
+| [20260422_vwap_comprehensive](20260422_vwap_comprehensive/) | **VWAP 徹底分析 (全22銘柄・6手法)** | 合格10件。5020 ENEOS Trend+5.79 / 9101 郵船 Breakout+4.18 / 5016 出光 Reversion+3.43 / 4063 信越 Slope+3.59。4タイプ分類 (Trend 7銘柄/Reversion 11/Breakout 2/Slope 2) |
 
 ### 主要発見
 
@@ -128,6 +129,8 @@
 **D. 6857 アドバンテスト**: first30<-50bps → rest +30bps (WR 65%) が全28銘柄中最強の単一シグナル。
 
 **E. VWAP乖離は11:30で最強のReversion時刻** — 8035 TEL `|dev|>=120bps` → 15:30決済で Sharpe+6.17 (t=+2.09, WR 69%)。4063 信越化学は全時刻でTrend型 (first30/ORBと整合)。Pool集約はフラットで、方向は銘柄特性 (mom/rev) で決定する必要あり — 3分析 (first30/ORB/VWAP) で同一結論。
+
+**F. VWAP 銘柄特性は4タイプに分かれる** (全22銘柄検証) — **Trend 7銘柄 / Reversion 11 / Breakout 2 / Slope 2**。合格戦略10件。★エース: **5020 ENEOS Trend Sharpe+5.79 (t=+3.11)**、**9101 日本郵船 Breakout Sharpe+4.18**、**5016 出光 Reversion Sharpe+3.43 (N=169)**、**4063 信越化学 Slope Sharpe+3.59**。同セクター (エネルギー) でも5020/5016が真逆の性格 → 銘柄別最適化必須。
 
 ---
 
