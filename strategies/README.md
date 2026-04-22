@@ -52,6 +52,7 @@
 | 3 | [eneos_vwap_trend](eneos_vwap_trend/) | イントラ | 5020 ENEOS VWAP乖離 ≥ ±50bps @ 09:30 | 09:30 | 月5-6回 | **+5.54** | ¥1,000-3,000万 (別枠) |
 | 4 | [sox_overnight_short](sox_overnight_short/) | イントラ **Short** | 前日 .SOX ≤ -2% (推奨 AND ESc1≤-1%) | 朝 07:00 (前日NY引け後) | 月2-3回 | **+2.11** (H2 +2.46) | ¥1,000-3,000万 (別枠) |
 | 5 | [vwap_morning_meanrevert](vwap_morning_meanrevert/) | イントラ **両方向** | TEL/ディスコ/レーザー 10:00-11:30 VWAP乖離 \|dev\|≥275bps | 10:00-11:30 連続監視 | 月2-5回 | **+6.11** (H2 +7.85) | ¥900-1,500万 (別枠) |
+| 6 | [orb_breakout_long](orb_breakout_long/) | イントラ **Long** | ディスコ 60min OR High / 三井金属 30min OR High ブレイク | 9:30 / 10:00 | 月20-25回 | **+2.15** (H1 +2.08 / H2 +2.23) | ¥1,000-2,000万 (別枠) |
 
 ---
 
@@ -86,6 +87,14 @@
 - **SOX Short を優先**、topix_overnight (Long) をキャンセル
 - 理由: .SOX ≤ -2% は市場全体の下落バイアスを示唆 → 同日の Long エントリーは逆行
 - sox_overnight_short は日中のみなので、翌日以降の topix_overnight 新規は制限なし
+
+### orb_breakout_long × vwap_morning_meanrevert (ディスコ共通)
+- **ディスコは両戦略とも監視対象**
+- 同日両発動時は **vwap_morning_meanrevert を優先** (Sharpe+6.11 > +2.15)
+- 三井金属は ORB 単独発動なので影響なし
+
+### orb_breakout_long × sox_overnight_short
+- sox_overnight_short 発動日 → **ORB をスキップ** (市場下落バイアス下での Long 順張りは逆行)
 
 ### sox_overnight_short × lme_on_copper (ON Long)
 - **両方実行可** (時間帯・方向・商品が独立)
