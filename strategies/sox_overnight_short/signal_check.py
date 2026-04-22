@@ -1,16 +1,23 @@
 #!/usr/bin/env python3
 """
-.SOX急落 → TOPIX日中Short シグナル判定スクリプト (v1.0)
+.SOX急落 → TOPIX日中Short シグナル判定スクリプト (v1.1)
 
 Day N 朝 07:00-08:30 JST に実行:
-  python3 signal_check.py
+  python3 signal_check.py               # シグナル判定
+  python3 signal_check.py --verify-db   # MariaDB 接続 + daily_data テーブル存在確認のみ
 
 主シグナル: 前日 .SOX 日次リターン ≤ -2.0%
 推奨AND条件: 前日 ESc1 日次リターン ≤ -1.0%
 除外: VIX < 15 (低ボラ) or VIX ≥ 35 (パニック) or 火曜日
 発動 → Day N 09:00 寄成 Short (1306.T)
 決済 → Day N 15:30 引成 買戻し
+
+依存:
+  - NAS MariaDB 100.92.181.92 (fallback: 192.168.0.250) database=refinitiv_news
+  - テーブル: daily_data (symbol, trade_date, close)
+  - 必要シンボル: .SOX, ESc1, NQc1, VXc1
 """
+import argparse
 import sys
 from datetime import date, datetime, timedelta
 import pandas as pd
@@ -31,12 +38,48 @@ VIX_LOW = 15.0
 VIX_PANIC = 35.0
 
 
+def _connect_maria():
+    """MariaDB 接続 (Tailscale → LAN fallback)"""
+    try:
+        return pymysql.connect(**MARIA, connect_timeout=5)
+    except Exception:
+        return pymysql.connect(**{**MARIA, 'host': LAN_FALLBACK}, connect_timeout=5)
+
+
+def verify_db():
+    """MariaDB 接続 + daily_data テーブル + 必要シンボルの存在確認"""
+    print("=" * 70)
+    print("sox_overnight_short — MariaDB 依存性検証")
+    print("=" * 70)
+    try:
+        conn = _connect_maria()
+    except Exception as e:
+        print(f"❌ MariaDB 接続失敗: {e}")
+        print(f"   接続先候補: {MARIA['host']} / {LAN_FALLBACK}")
+        return 1
+    cur = conn.cursor()
+    print(f"✅ 接続成功 → {MARIA['database']}")
+    cur.execute("SHOW TABLES LIKE 'daily_data'")
+    if not cur.fetchone():
+        print("❌ テーブル 'daily_data' が存在しません")
+        cur.close(); conn.close(); return 1
+    print("✅ テーブル 'daily_data' 存在")
+    required = ['.SOX', 'ESc1', 'NQc1', 'VXc1']
+    for sym in required:
+        cur.execute("SELECT MAX(trade_date), COUNT(*) FROM daily_data WHERE symbol=%s", (sym,))
+        latest, n = cur.fetchone()
+        if not n:
+            print(f"❌ {sym}: データなし")
+        else:
+            print(f"✅ {sym}: N={n}  latest={latest}")
+    cur.close(); conn.close()
+    print("=" * 70)
+    return 0
+
+
 def fetch_daily(symbol, days_back=10):
     """NAS MariaDB から symbol の直近N営業日分取得"""
-    try:
-        conn = pymysql.connect(**MARIA, connect_timeout=5)
-    except Exception:
-        conn = pymysql.connect(**{**MARIA, 'host': LAN_FALLBACK}, connect_timeout=5)
+    conn = _connect_maria()
 
     cutoff = (date.today() - timedelta(days=days_back * 2)).strftime('%Y-%m-%d')
     q = f"""
@@ -163,4 +206,10 @@ def check_signal():
 
 
 if __name__ == "__main__":
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--verify-db", action="store_true",
+                    help="MariaDB 接続 + daily_data テーブル存在確認のみ実行")
+    args = ap.parse_args()
+    if args.verify_db:
+        sys.exit(verify_db())
     sys.exit(check_signal())
