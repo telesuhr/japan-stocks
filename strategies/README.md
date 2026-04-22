@@ -53,6 +53,7 @@
 | 4 | [sox_overnight_short](sox_overnight_short/) | イントラ **Short** | 前日 .SOX ≤ -2% (推奨 AND ESc1≤-1%) | 朝 07:00 (前日NY引け後) | 月2-3回 | **+2.11** (H2 +2.46) | ¥1,000-3,000万 (別枠) |
 | 5 | [vwap_morning_meanrevert](vwap_morning_meanrevert/) | イントラ **両方向** | TEL/ディスコ/レーザー 10:00-11:30 VWAP乖離 \|dev\|≥275bps | 10:00-11:30 連続監視 | 月2-5回 | **+6.11** (H2 +7.85) | ¥900-1,500万 (別枠) |
 | 6 | [orb_breakout_long](orb_breakout_long/) | イントラ **Long** | ディスコ 60min OR High / 三井金属 30min OR High ブレイク | 9:30 / 10:00 | 月20-25回 | **+2.15** (H1 +2.08 / H2 +2.23) | ¥1,000-2,000万 (別枠) |
+| 7 | [lasertec_ma25_support](lasertec_ma25_support/) | **スイング Long** (10営業日) | 6920.T dd20≤-5% + MA25±1%接触 + MA25上昇中 | 日次 15:30引け後判定 | 月 1-2回 | **+7.68** (H2 +12.96) | ¥500-1,000万 (別枠) |
 
 ---
 
@@ -92,6 +93,15 @@
 - **ディスコは両戦略とも監視対象**
 - 同日両発動時は **vwap_morning_meanrevert を優先** (Sharpe+6.11 > +2.15)
 - 三井金属は ORB 単独発動なので影響なし
+
+### lasertec_ma25_support × vwap_morning_meanrevert (レーザーテック共通)
+- 時間軸が完全に独立 (日足スイング vs イントラ日中)
+- **両方発動可、独立管理**
+- スイング枠 ¥500-1,000万 とイントラ枠は別資金として運用
+
+### lasertec_ma25_support × orb_breakout_long
+- 銘柄重複なし (ORBはディスコ/三井金属、本戦略はレーザーテック)
+- 独立運用
 
 ### orb_breakout_long × sox_overnight_short
 - sox_overnight_short 発動日 → **ORB をスキップ** (市場下落バイアス下での Long 順張りは逆行)
