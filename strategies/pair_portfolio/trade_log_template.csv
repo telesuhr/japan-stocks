@@ -1,0 +1,2 @@
+entry_date,exit_date,pair,p1,p2,entry_z,exit_z,direction,beta,hold_days,reason,p1_side,p2_side,p1_entry_price,p2_entry_price,p1_exit_price,p2_exit_price,pnl_bps,notes
+2026-04-23,,車トヨタ-ホンダ,7203.T,7267.T,-2.49,,LONG_SPREAD,0.515,,,LONG,SHORT,3191.0,1322.5,,,,初回エントリー例
