@@ -51,6 +51,7 @@
 | 2 | [topix_overnight](topix_overnight/) | ON Long | 前日終値→当日9:00 TOPIXギャップ ≥ +0.3% | 09:05 | 月4-5回 | +4.79 | ¥5,000万 (ON枠と共用) |
 | 3 | [eneos_vwap_trend](eneos_vwap_trend/) | イントラ | 5020 ENEOS VWAP乖離 ≥ ±50bps @ 09:30 | 09:30 | 月5-6回 | **+5.54** | ¥1,000-3,000万 (別枠) |
 | 4 | [sox_overnight_short](sox_overnight_short/) | イントラ **Short** | 前日 .SOX ≤ -2% (推奨 AND ESc1≤-1%) | 朝 07:00 (前日NY引け後) | 月2-3回 | **+2.11** (H2 +2.46) | ¥1,000-3,000万 (別枠) |
+| 5 | [vwap_morning_meanrevert](vwap_morning_meanrevert/) | イントラ **両方向** | TEL/ディスコ/レーザー 10:00-11:30 VWAP乖離 \|dev\|≥275bps | 10:00-11:30 連続監視 | 月2-5回 | **+6.11** (H2 +7.85) | ¥900-1,500万 (別枠) |
 
 ---
 
