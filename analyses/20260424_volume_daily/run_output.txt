@@ -1,0 +1,154 @@
+======================================================================
+ 日次 (multi-day) 出来高 → 方向性予測 
+======================================================================
+期間: 2018-01-01 〜 2026-04-23
+  loaded 5711.T 三菱マテリアル: 2025 days
+  loaded 5706.T 三井金属: 2025 days
+  loaded 5713.T 住友金属鉱山: 2025 days
+  loaded 8035.T TEL: 2025 days
+  loaded 6857.T アドバンテスト: 2025 days
+  loaded 6146.T ディスコ: 2025 days
+  loaded 4063.T 信越化学: 2025 days
+  loaded 6963.T ローム: 2025 days
+
+======================================================================
+ [A] 日次 vol_ratio → T+1, T+5, T+10 リターン
+======================================================================
+
+== 集約 8銘柄 Spearman ==
+  vol_ratio vs fwd_1     : N=16112  r=-0.017  p=0.034
+  vol_ratio vs fwd_1_oc  : N=16112  r=-0.015  p=0.054
+  vol_ratio vs fwd_5     : N=16080  r=+0.000  p=0.997
+  vol_ratio vs fwd_10    : N=16040  r=+0.008  p=0.335
+
+== 銘柄別 Spearman (vol_ratio vs fwd_5) ==
+   sym    N spearman_r     p
+5711.T 2010      -0.01 0.505
+5706.T 2010      -0.03 0.199
+5713.T 2010      +0.01 0.772
+8035.T 2010      +0.04 0.091
+6857.T 2010      +0.02 0.355
+6146.T 2010      -0.05 0.031
+4063.T 2010      +0.04 0.072
+6963.T 2010      -0.01 0.778
+
+== 集約 5分位バケット (target=fwd_5) ==
+bucket    N mean_bps   wr t_stat
+ Q1(低) 3216    +59.4 52.7  +6.44
+    Q2 3216    +48.3 53.5  +4.97
+    Q3 3216    +47.8 53.3  +4.77
+    Q4 3216    +50.7 54.0  +4.78
+ Q5(高) 3216    +57.8 53.4  +5.14
+
+== 集約 5分位バケット (target=fwd_10) ==
+bucket    N mean_bps   wr t_stat
+ Q1(低) 3208   +103.4 55.5  +7.56
+    Q2 3208   +101.6 54.6  +7.17
+    Q3 3208    +94.5 53.9  +6.53
+    Q4 3208   +111.4 55.7  +7.55
+ Q5(高) 3208   +119.9 55.9  +7.77
+
+======================================================================
+ [B] 日次 OBV × 価格モメンタム ダイバージェンス
+======================================================================
+
+== 集約 Spearman: divergence vs forward ret ==
+  divergence vs fwd_1     : N=16024  r=+0.006  p=0.441
+  divergence vs fwd_5     : N=15992  r=+0.012  p=0.133
+  divergence vs fwd_10    : N=15952  r=+0.013  p=0.090
+
+== 4象限 → T+5 リターン ==
+quad    N mean_bps   wr t_stat
+P+O+ 6649    +47.2 51.0  +6.74
+P+O- 1327    +86.6 54.9  +5.72
+P-O+ 1346    +23.8 52.4  +1.47
+P-O- 6670    +64.9 56.3  +9.07
+
+強気div (P-O+) mean - 弱気div (P+O-) mean = -62.73 bps  Welch t=-2.83 (p=0.005)
+
+== 4象限 → T+10 リターン ==
+quad    N mean_bps   wr t_stat
+P+O+ 6638    +86.3 52.2  +8.44
+P+O- 1307   +156.6 56.6  +6.88
+P-O+ 1346    +84.3 54.9  +3.75
+P-O- 6661   +134.3 58.5 +13.63
+
+== divergence 5分位 → T+5 ==
+bucket    N mean_bps   wr t_stat
+ Q1(低) 3199    +33.9 52.7  +3.25
+    Q2 3198    +62.3 54.7  +6.25
+    Q3 3198    +57.1 52.8  +5.01
+    Q4 3198    +50.7 53.7  +5.29
+ Q5(高) 3199    +75.3 54.4  +7.94
+
+== divergence 5分位 → T+10 ==
+bucket    N mean_bps   wr t_stat
+ Q1(低) 3191    +67.8 54.2  +4.54
+    Q2 3190   +117.2 56.8  +8.10
+    Q3 3190   +131.9 56.2  +8.43
+    Q4 3190   +118.2 54.8  +8.57
+ Q5(高) 3191   +124.5 54.9  +9.14
+
+======================================================================
+ [C] 出来高急増イベントスタディ (vol >= 3.0x 20日中央値)
+======================================================================
+  up spike events: 66
+  down spike events: 59
+
+== 平均リターンパス (bps 基準: T=0 終値) ==
+  offset |   up_spike (N=66)   |  dn_spike (N=59)
+    T -5  |  mean=  -583.4       |  mean=  +576.9
+    T -4  |  mean=  -541.2       |  mean=  +550.3
+    T -3  |  mean=  -562.3       |  mean=  +534.1
+    T -2  |  mean=  -531.9       |  mean=  +471.8
+    T -1  |  mean=  -457.9       |  mean=  +443.4
+    T +0  |  mean=    +0.0       |  mean=    +0.0
+    T +1  |  mean=   -22.2       |  mean=    +5.5
+    T +2  |  mean=   -58.9       |  mean=  +110.7
+    T +3  |  mean=    -0.7       |  mean=  +134.6
+    T +4  |  mean=   -31.8       |  mean=  +146.8
+    T +5  |  mean=   -39.3       |  mean=  +195.2
+    T +6  |  mean=    +4.7       |  mean=  +193.1
+    T +7  |  mean=   +40.9       |  mean=  +210.7
+    T +8  |  mean=   +46.6       |  mean=  +234.3
+    T +9  |  mean=  +149.2       |  mean=  +222.1
+    T+10  |  mean=  +209.0       |  mean=  +305.6
+
+== t-stat of mean = 0 (T+1〜T+10) ==
+  [up_spike] T+1〜T+10 mean cum ret (T=0基準):
+    T+ 1: N=  66  mean=  -22.2 bps  t=-0.66
+    T+ 2: N=  66  mean=  -58.9 bps  t=-1.10
+    T+ 3: N=  66  mean=   -0.7 bps  t=-0.01
+    T+ 4: N=  66  mean=  -31.8 bps  t=-0.48
+    T+ 5: N=  66  mean=  -39.3 bps  t=-0.54
+    T+ 6: N=  66  mean=   +4.7 bps  t=+0.07
+    T+ 7: N=  66  mean=  +40.9 bps  t=+0.53
+    T+ 8: N=  66  mean=  +46.6 bps  t=+0.57
+    T+ 9: N=  66  mean= +149.2 bps  t=+1.68
+    T+10: N=  66  mean= +209.0 bps  t=+2.31
+  [dn_spike] T+1〜T+10 mean cum ret:
+    T+ 1: N=  59  mean=   +5.5 bps  t=+0.11
+    T+ 2: N=  59  mean= +110.7 bps  t=+2.10
+    T+ 3: N=  59  mean= +134.6 bps  t=+2.32
+    T+ 4: N=  59  mean= +146.8 bps  t=+2.25
+    T+ 5: N=  59  mean= +195.2 bps  t=+2.75
+    T+ 6: N=  59  mean= +193.1 bps  t=+2.55
+    T+ 7: N=  59  mean= +210.7 bps  t=+2.45
+    T+ 8: N=  59  mean= +234.3 bps  t=+2.69
+    T+ 9: N=  59  mean= +222.1 bps  t=+2.56
+    T+10: N=  59  mean= +305.6 bps  t=+3.23
+
+可視化中...
+Traceback (most recent call last):
+  File "/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_daily/run.py", line 551, in <module>
+    main()
+  File "/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_daily/run.py", line 484, in main
+    pool_fwd5_sp = stats.spearmanr(a_pool['vol_ratio'].dropna(),
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Yusuke/.pyenv/versions/3.12.0/lib/python3.12/site-packages/scipy/stats/_stats_py.py", line 5386, in spearmanr
+    a = np.column_stack((a, b))
+        ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/Yusuke/.pyenv/versions/3.12.0/lib/python3.12/site-packages/numpy/lib/shape_base.py", line 652, in column_stack
+    return _nx.concatenate(arrays, 1)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: all the input array dimensions except for the concatenation axis must match exactly, but along dimension 0, the array at index 0 has size 16120 and the array at index 1 has size 16080

@@ -1,0 +1,367 @@
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_common/mdutil.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_common/mdutil.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_common/mdutil.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_common/mdutil.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_common/mdutil.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_common/mdutil.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_common/mdutil.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260421_common/mdutil.py:30: UserWarning: pandas only supports SQLAlchemy connectable (engine/connection) or database string URI or sqlite3 DBAPI2 connection. Other DBAPI2 objects are not tested. Please consider using SQLAlchemy.
+  df = pd.read_sql(q, conn); conn.close()
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 12469 (\N{KATAKANA LETTER SA}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 12510 (\N{KATAKANA LETTER MA}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 12522 (\N{KATAKANA LETTER RI}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 12540 (\N{KATAKANA-HIRAGANA PROLONGED SOUND MARK}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 20986 (\N{CJK UNIFIED IDEOGRAPH-51FA}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 26469 (\N{CJK UNIFIED IDEOGRAPH-6765}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 39640 (\N{CJK UNIFIED IDEOGRAPH-9AD8}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 26041 (\N{CJK UNIFIED IDEOGRAPH-65B9}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 21521 (\N{CJK UNIFIED IDEOGRAPH-5411}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 24615 (\N{CJK UNIFIED IDEOGRAPH-6027}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 20104 (\N{CJK UNIFIED IDEOGRAPH-4E88}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 28204 (\N{CJK UNIFIED IDEOGRAPH-6E2C}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 21147 (\N{CJK UNIFIED IDEOGRAPH-529B}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 23492 (\N{CJK UNIFIED IDEOGRAPH-5BC4}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 20184 (\N{CJK UNIFIED IDEOGRAPH-4ED8}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 20998 (\N{CJK UNIFIED IDEOGRAPH-5206}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 21152 (\N{CJK UNIFIED IDEOGRAPH-52A0}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 36895 (\N{CJK UNIFIED IDEOGRAPH-901F}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 24230 (\N{CJK UNIFIED IDEOGRAPH-5EA6}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 21069 (\N{CJK UNIFIED IDEOGRAPH-524D}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 22580 (\N{CJK UNIFIED IDEOGRAPH-5834}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 21028 (\N{CJK UNIFIED IDEOGRAPH-5224}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 23450 (\N{CJK UNIFIED IDEOGRAPH-5B9A}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 22522 (\N{CJK UNIFIED IDEOGRAPH-57FA}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 28310 (\N{CJK UNIFIED IDEOGRAPH-6E96}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 23455 (\N{CJK UNIFIED IDEOGRAPH-5B9F}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 36074 (\N{CJK UNIFIED IDEOGRAPH-8CEA}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 28961 (\N{CJK UNIFIED IDEOGRAPH-7121}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 30456 (\N{CJK UNIFIED IDEOGRAPH-76F8}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 38306 (\N{CJK UNIFIED IDEOGRAPH-95A2}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 24369 (\N{CJK UNIFIED IDEOGRAPH-5F31}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 12356 (\N{HIRAGANA LETTER I}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 31034 (\N{CJK UNIFIED IDEOGRAPH-793A}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 21766 (\N{CJK UNIFIED IDEOGRAPH-5506}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 21462 (\N{CJK UNIFIED IDEOGRAPH-53D6}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 24341 (\N{CJK UNIFIED IDEOGRAPH-5F15}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 21487 (\N{CJK UNIFIED IDEOGRAPH-53EF}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 33021 (\N{CJK UNIFIED IDEOGRAPH-80FD}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 12354 (\N{HIRAGANA LETTER A}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+/Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/run.py:617: UserWarning: Glyph 12426 (\N{HIRAGANA LETTER RI}) missing from font(s) DejaVu Sans Mono.
+  plt.savefig(out, dpi=130, bbox_inches='tight')
+======================================================================
+ 出来高 → 方向性 予測力の検証 (5 signals)
+======================================================================
+対象 8 銘柄: 5711.T, 5706.T, 5713.T, 8035.T, 6857.T, 6146.T, 4063.T, 6963.T
+
+  loaded 5711.T 三菱マテリアル: 82073 rows
+  loaded 5706.T 三井金属: 81258 rows
+  loaded 5713.T 住友金属鉱山: 83565 rows
+  loaded 8035.T TEL: 81467 rows
+  loaded 6857.T アドバンテスト: 83717 rows
+  loaded 6146.T ディスコ: 83375 rows
+  loaded 4063.T 信越化学: 83980 rows
+  loaded 6963.T ローム: 83815 rows
+
+======================================================================
+ [S1] 寄付30分出来高レシオ → 9:30-15:30 方向
+======================================================================
+
+[5711.T 三菱マテリアル]
+  vol_ratio vs fwd_bps: N=247  Spearman=-0.137 (p=0.032)  Pearson=-0.042 (p=0.516)
+
+[5706.T 三井金属]
+  vol_ratio vs fwd_bps: N=246  Spearman=+0.037 (p=0.566)  Pearson=+0.055 (p=0.391)
+
+[5713.T 住友金属鉱山]
+  vol_ratio vs fwd_bps: N=246  Spearman=-0.083 (p=0.197)  Pearson=-0.024 (p=0.707)
+
+[8035.T TEL]
+  vol_ratio vs fwd_bps: N=244  Spearman=+0.054 (p=0.399)  Pearson=+0.028 (p=0.661)
+
+[6857.T アドバンテスト]
+  vol_ratio vs fwd_bps: N=244  Spearman=+0.052 (p=0.418)  Pearson=+0.032 (p=0.615)
+
+[6146.T ディスコ]
+  vol_ratio vs fwd_bps: N=245  Spearman=+0.021 (p=0.742)  Pearson=-0.004 (p=0.945)
+
+[4063.T 信越化学]
+  vol_ratio vs fwd_bps: N=244  Spearman=+0.044 (p=0.490)  Pearson=+0.069 (p=0.281)
+
+[6963.T ローム]
+  vol_ratio vs fwd_bps: N=247  Spearman=-0.082 (p=0.201)  Pearson=-0.101 (p=0.112)
+
+[集約 8銘柄] vol_ratio vs fwd_bps:
+  POOLED: N=1963  Spearman=-0.015 (p=0.509)  Pearson=-0.004 (p=0.850)
+
+[集約 5分位バケット分析]
+bucket   N mean_bps median_bps   wr t_stat
+ Q1(低) 393    +20.6      +24.8 58.5  +2.78
+    Q2 392     -2.1       -3.5 48.0  -0.26
+    Q3 393    +15.3      +12.5 52.7  +1.60
+    Q4 392    +26.4      +23.1 56.6  +2.81
+ Q5(高) 393     -4.8       +0.0 49.4  -0.48
+
+======================================================================
+ [S2] 1分足出来高スパイク (20bar中央値の3倍以上) → 直後方向
+======================================================================
+
+[5711.T 三菱マテリアル] horizon=5min
+  bar_dir=up    N=3406  mean_bps=  -0.63  wr= 44.1%  t=-2.11
+  bar_dir=down  N=3373  mean_bps=  +0.00  wr= 46.0%  t=+0.00
+  bar_dir=flat  N= 841  mean_bps=  +0.10  wr= 46.7%  t=+0.18
+
+[5711.T 三菱マテリアル] horizon=30min
+  bar_dir=up    N=3117  mean_bps=  -0.08  wr= 48.1%  t=-0.12
+  bar_dir=down  N=3062  mean_bps=  +0.66  wr= 50.8%  t=+0.84
+  bar_dir=flat  N= 768  mean_bps=  +1.34  wr= 52.7%  t=+1.07
+
+[5706.T 三井金属] horizon=5min
+  bar_dir=up    N=3052  mean_bps=  +0.58  wr= 47.0%  t=+1.11
+  bar_dir=down  N=2620  mean_bps=  -0.39  wr= 48.4%  t=-0.69
+  bar_dir=flat  N= 422  mean_bps=  -1.17  wr= 41.9%  t=-1.05
+
+[5706.T 三井金属] horizon=30min
+  bar_dir=up    N=2796  mean_bps=  +2.22  wr= 51.1%  t=+1.80
+  bar_dir=down  N=2366  mean_bps=  -1.14  wr= 51.0%  t=-0.81
+  bar_dir=flat  N= 381  mean_bps=  -1.59  wr= 49.6%  t=-0.55
+
+[5713.T 住友金属鉱山] horizon=5min
+  bar_dir=up    N=2442  mean_bps=  +0.08  wr= 45.2%  t=+0.13
+  bar_dir=down  N=2604  mean_bps=  -0.55  wr= 47.7%  t=-1.10
+  bar_dir=flat  N= 563  mean_bps=  +2.20  wr= 49.9%  t=+1.61
+
+[5713.T 住友金属鉱山] horizon=30min
+  bar_dir=up    N=2240  mean_bps=  -0.43  wr= 48.4%  t=-0.36
+  bar_dir=down  N=2390  mean_bps=  -1.27  wr= 49.3%  t=-0.93
+  bar_dir=flat  N= 515  mean_bps=  +2.07  wr= 52.2%  t=+1.04
+
+[8035.T TEL] horizon=5min
+  bar_dir=up    N=1859  mean_bps=  +0.49  wr= 45.0%  t=+0.86
+  bar_dir=down  N=1705  mean_bps=  +0.33  wr= 47.5%  t=+0.63
+  bar_dir=flat  N= 405  mean_bps=  +2.35  wr= 48.9%  t=+1.75
+
+[8035.T TEL] horizon=30min
+  bar_dir=up    N=1697  mean_bps=  +0.03  wr= 46.8%  t=+0.03
+  bar_dir=down  N=1533  mean_bps=  +1.17  wr= 51.0%  t=+1.02
+  bar_dir=flat  N= 377  mean_bps=  +4.87  wr= 50.9%  t=+2.08
+
+[6857.T アドバンテスト] horizon=5min
+  bar_dir=up    N=1729  mean_bps=  -1.81  wr= 43.4%  t=-2.90
+  bar_dir=down  N=1561  mean_bps=  -1.48  wr= 45.9%  t=-2.03
+  bar_dir=flat  N= 219  mean_bps=  +0.87  wr= 47.0%  t=+0.59
+
+[6857.T アドバンテスト] horizon=30min
+  bar_dir=up    N=1585  mean_bps=  -2.23  wr= 47.0%  t=-1.54
+  bar_dir=down  N=1402  mean_bps=  -2.30  wr= 49.8%  t=-1.25
+  bar_dir=flat  N= 198  mean_bps=  +5.66  wr= 54.0%  t=+1.65
+
+[6146.T ディスコ] horizon=5min
+  bar_dir=up    N=1774  mean_bps=  -1.14  wr= 43.6%  t=-2.03
+  bar_dir=down  N=1623  mean_bps=  -0.06  wr= 50.5%  t=-0.11
+  bar_dir=flat  N= 199  mean_bps=  -0.11  wr= 47.7%  t=-0.05
+
+[6146.T ディスコ] horizon=30min
+  bar_dir=up    N=1575  mean_bps=  -0.38  wr= 49.6%  t=-0.30
+  bar_dir=down  N=1429  mean_bps=  -2.33  wr= 50.0%  t=-1.57
+  bar_dir=flat  N= 191  mean_bps=  +0.38  wr= 44.5%  t=+0.10
+
+[4063.T 信越化学] horizon=5min
+  bar_dir=up    N=2128  mean_bps=  +0.09  wr= 44.6%  t=+0.29
+  bar_dir=down  N=2057  mean_bps=  +0.12  wr= 48.1%  t=+0.38
+  bar_dir=flat  N= 596  mean_bps=  -0.30  wr= 41.1%  t=-0.58
+
+[4063.T 信越化学] horizon=30min
+  bar_dir=up    N=1970  mean_bps=  +1.38  wr= 48.9%  t=+1.87
+  bar_dir=down  N=1888  mean_bps=  +0.02  wr= 47.3%  t=+0.03
+  bar_dir=flat  N= 549  mean_bps=  -0.56  wr= 46.6%  t=-0.50
+
+[6963.T ローム] horizon=5min
+  bar_dir=up    N=3046  mean_bps=  -0.29  wr= 44.6%  t=-0.64
+  bar_dir=down  N=2786  mean_bps=  +1.59  wr= 48.6%  t=+2.00
+  bar_dir=flat  N= 542  mean_bps=  -0.21  wr= 46.9%  t=-0.25
+
+[6963.T ローム] horizon=30min
+  bar_dir=up    N=2789  mean_bps=  +1.14  wr= 47.1%  t=+1.07
+  bar_dir=down  N=2550  mean_bps=  +2.12  wr= 52.0%  t=+2.10
+  bar_dir=flat  N= 495  mean_bps=  -3.06  wr= 48.3%  t=-1.57
+
+[集約] スパイク倍率別の forward 5min リターン (bar_dir=up)
+ spike>=     N mean_bps   wr t_stat
+     2.0 19436     -0.3 44.8  -1.52
+     3.0 19436     -0.3 44.8  -1.52
+     5.0  7149     -0.3 45.2  -0.83
+     8.0  3136     -0.0 46.3  -0.01
+    12.0  1557     -0.1 46.8  -0.07
+
+[集約] スパイク倍率別の forward 5min リターン (bar_dir=down)
+ spike>=     N mean_bps   wr t_stat
+     2.0 18329     +0.0 47.7  +0.10
+     3.0 18329     +0.0 47.7  +0.10
+     5.0  6573     -0.0 47.5  -0.15
+     8.0  2850     -0.0 48.2  -0.02
+    12.0  1379     -0.4 47.9  -0.45
+
+======================================================================
+ [S3] 寄付出来高加速度 (9:15-9:30 / 9:00-9:15) → 9:30-15:30
+======================================================================
+
+[5711.T 三菱マテリアル]
+  acc vs fwd_bps: N=250  Spearman=+0.017 (p=0.792)  Pearson=-0.022 (p=0.728)
+
+[5706.T 三井金属]
+  acc vs fwd_bps: N=242  Spearman=-0.110 (p=0.089)  Pearson=-0.088 (p=0.174)
+
+[5713.T 住友金属鉱山]
+  acc vs fwd_bps: N=247  Spearman=+0.070 (p=0.274)  Pearson=+0.021 (p=0.737)
+
+[8035.T TEL]
+  acc vs fwd_bps: N=249  Spearman=-0.054 (p=0.393)  Pearson=-0.084 (p=0.186)
+
+[6857.T アドバンテスト]
+  acc vs fwd_bps: N=242  Spearman=+0.002 (p=0.973)  Pearson=+0.014 (p=0.829)
+
+[6146.T ディスコ]
+  acc vs fwd_bps: N=239  Spearman=-0.002 (p=0.981)  Pearson=+0.011 (p=0.868)
+
+[4063.T 信越化学]
+  acc vs fwd_bps: N=248  Spearman=-0.015 (p=0.813)  Pearson=-0.057 (p=0.375)
+
+[6963.T ローム]
+  acc vs fwd_bps: N=252  Spearman=+0.042 (p=0.510)  Pearson=+0.016 (p=0.805)
+
+[集約] acc vs fwd_bps:
+  POOLED: N=1969  Spearman=+0.010 (p=0.647)  Pearson=-0.016 (p=0.484)
+
+[集約 5分位バケット分析]
+bucket   N mean_bps median_bps   wr t_stat
+ Q1(低) 394     +8.3       +2.0 50.5  +1.18
+    Q2 394     +3.7       +2.5 50.5  +0.45
+    Q3 393    +12.8      +14.7 55.5  +1.45
+    Q4 394    +32.3      +26.8 55.8  +3.26
+ Q5(高) 394     -9.4       +6.2 50.8  -0.94
+
+======================================================================
+ [S4] 前場累計出来高レシオ (9:00-11:30 / 20日中央値) → 後場 12:30-15:30
+======================================================================
+
+[5711.T 三菱マテリアル]
+  vol_ratio vs fwd_bps: N=247  Spearman=-0.096 (p=0.131)  Pearson=-0.034 (p=0.600)
+
+[5706.T 三井金属]
+  vol_ratio vs fwd_bps: N=247  Spearman=+0.037 (p=0.565)  Pearson=+0.038 (p=0.550)
+
+[5713.T 住友金属鉱山]
+  vol_ratio vs fwd_bps: N=248  Spearman=+0.003 (p=0.959)  Pearson=+0.014 (p=0.832)
+
+[8035.T TEL]
+  vol_ratio vs fwd_bps: N=247  Spearman=-0.005 (p=0.943)  Pearson=-0.076 (p=0.235)
+
+[6857.T アドバンテスト]
+  vol_ratio vs fwd_bps: N=248  Spearman=+0.018 (p=0.779)  Pearson=-0.050 (p=0.431)
+
+[6146.T ディスコ]
+  vol_ratio vs fwd_bps: N=246  Spearman=+0.083 (p=0.193)  Pearson=+0.058 (p=0.361)
+
+[4063.T 信越化学]
+  vol_ratio vs fwd_bps: N=247  Spearman=+0.112 (p=0.078)  Pearson=+0.068 (p=0.289)
+
+[6963.T ローム]
+  vol_ratio vs fwd_bps: N=247  Spearman=-0.027 (p=0.668)  Pearson=-0.023 (p=0.724)
+
+[集約] vol_ratio vs fwd_bps:
+  POOLED: N=1977  Spearman=+0.012 (p=0.601)  Pearson=+0.003 (p=0.908)
+
+[集約 5分位バケット分析]
+bucket   N mean_bps median_bps   wr t_stat
+ Q1(低) 396     +6.6       +4.3 50.8  +1.42
+    Q2 395     +3.5       +4.5 52.9  +0.68
+    Q3 395    +18.9      +17.6 57.0  +3.51
+    Q4 395    +15.3      +13.3 54.9  +2.53
+ Q5(高) 396     +5.4       +0.0 49.7  +0.92
+
+======================================================================
+ [S5] ギャップ × 出来高 4象限 → 寄付〜大引け方向
+======================================================================
+集約 N=1403
+ quad   N mean_bps   wr t_stat
+UG_HV 250    +40.2 54.4  +2.77
+UG_LV 544     +0.5 48.0  +0.05
+DG_HV 146    +60.2 56.2  +3.05
+DG_LV 463    +24.4 55.7  +2.94
+
+解釈のキー:
+  UG_HV: UpGap + HighVol → mean+=継続 / mean-=反転
+  DG_HV: DownGap + HighVol → 同上
+  High/Low volの差が方向性のシグナルになりうるか?
+
+[詳細] gap絶対値 + vol_ratio の相互作用
+
+大きなUpGap (>=106bps, N=281): vol_ratio バケット別 fwd
+bucket  N mean_bps median_bps   wr t_stat
+ Q1(低) 57    -37.2      -42.2 42.1  -1.40
+    Q2 56    -52.0      -74.5 33.9  -1.45
+    Q3 56    +32.9      +55.6 55.4  +0.84
+    Q4 56    +36.6       +8.7 51.8  +1.29
+ Q5(高) 56    +17.2       +2.4 50.0  +0.60
+
+大きなDownGap (<=-78bps, N=281): vol_ratio バケット別 fwd
+bucket  N mean_bps median_bps   wr t_stat
+ Q1(低) 57    +16.7      +25.5 52.6  +0.52
+    Q2 56    +43.3      +31.6 57.1  +2.10
+    Q3 56    +36.9      +51.1 60.7  +1.41
+    Q4 56    +44.2      +18.7 53.6  +1.79
+ Q5(高) 56    +65.4      +26.8 55.4  +1.81
+
+可視化中...
+Saved: /Users/Yusuke/claude-code/japan-stocks/analyses/20260424_volume_direction/result.png
+CSV saved: s1..s5_*.csv
+
+======================================================================
+ 完了
+======================================================================
