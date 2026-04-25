@@ -7,14 +7,21 @@
 
 ---
 
-## 最新分析 (2026-04-25)
+## 最新分析 (2026-04-26)
 
-> ### [銘柄価格特性 百科事典 — ORB・パターン・日次シグナル](20260425_price_characteristics/)
+> ### [全セクター × 曜日別 包括分析 — ON/イントラ/全日](20260426_dayofweek_comprehensive/)
 >
-> 非鉄3 + 半導体5 = 8銘柄の価格行動特性をORB・日次シグナル・パターンの3軸で網羅的に分析。
-> 銘柄ごとの「個性」を定量化し、エントリー方向判定の辞書として整備。
+> 6セクター27銘柄を **オーバーナイト / イントラデイ / 全日** の3種別に分解し、曜日効果を網羅的に定量化。
 >
-> **スクリプト**: [price_characteristics.py](20260425_price_characteristics/price_characteristics.py) · [orb_backtest.py](20260425_price_characteristics/orb_backtest.py) · [daily_signal.py](20260425_price_characteristics/daily_signal.py) · [pattern_encyclopedia.py](20260425_price_characteristics/pattern_encyclopedia.py)
+> | 主要発見 | 数値 |
+> |---|---|
+> | 非鉄 水曜全日Long (最強シグナル) | **+112.8bps, t=+4.63** |
+> | 海運 月曜Intraショート | **-49.7bps, t=-4.07** |
+> | 半導体 水曜全日Long | **+79.9bps, t=+3.92** |
+> | CORE5 木曜ON (無条件) | **+52.4bps, t=+4.61** |
+> | **重要**: 「木曜除外」はLME条件付きイントラのみ有効。無条件ONは全セクターでプラス | — |
+>
+> **グラフ**: [result.png](20260426_dayofweek_comprehensive/result.png) · [result_detail.png](20260426_dayofweek_comprehensive/result_detail.png)
 
 ---
 
@@ -103,6 +110,7 @@
 | [20260422_friday_intraday](20260422_friday_intraday/) | 金曜日 イントラデイ特性 | 金曜のイントラデイ構造と他曜日との差異を定量化。引け前ポジション整理の影響を検証 |
 | [20260422_wed_deepdive](20260422_wed_deepdive/) | 水曜深掘り分析 | 非鉄・半導体の水曜優位性を時間帯別に分解。ON vs Day 寄与の内訳確認 |
 | [20260423_5713_dayofweek](20260423_5713_dayofweek/) | **住友金属鉱山 (5713.T)** 曜日別イントラデイ | N=149営業日, Pre/War/Post別。ON/寄→前場/後場/引けの時間帯×曜日マトリクス |
+| [20260426_dayofweek_comprehensive](20260426_dayofweek_comprehensive/) | **全セクター × 曜日 × ON/Intra/Full 包括分析** (最新) | 6セクター27銘柄を3リターン種別で網羅。**非鉄水曜+113bps(t=+4.63)** · **海運月曜Intra-50bps(t=-4.07)** · 木曜ONは無条件でプラス(LMEシグナル条件付きとの逆転を解明) |
 
 ### 主要発見
 

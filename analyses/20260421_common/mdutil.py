@@ -1,14 +1,20 @@
 """
 共通ユーティリティ: DB ロード, JSTタイムスタンプ, バックテスト補助
+
+接続優先順位:
+  1. ローカル PostgreSQL (localhost:5432)
+  2. NAS MariaDB (100.92.181.92:3306) ← PGが落ちているときの自動フォールバック
 """
-import psycopg2
 import pandas as pd
 import numpy as np
 from datetime import date, time as dtime
 
 PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
+NAS_CONFIG = {"host": "100.92.181.92", "port": 3306, "user": "rfnews",
+              "password": "Bleach@924", "database": "refinitiv_news"}
+
 START = "2025-04-01"
-END = "2026-04-21"
+END = "2026-04-24"
 OUTLIER_PCT = 15.0
 COST_BPS = 4.0
 
@@ -23,11 +29,24 @@ def is_bst(d):
     return any(s <= d < e for s, e in BST_PERIODS)
 
 
+def _connect_pg():
+    import psycopg2
+    return psycopg2.connect(**PG_CONFIG)
+
+def _connect_nas():
+    import pymysql
+    return pymysql.connect(**NAS_CONFIG)
+
 def fetch_intraday(symbol, start=START, end=END):
-    conn = psycopg2.connect(**PG_CONFIG)
+    """ローカルPG → NAS MariaDB の順で接続を試みる"""
     q = (f"SELECT timestamp, open, high, low, close, volume FROM intraday_data "
          f"WHERE symbol='{symbol}' AND timestamp>='{start}' AND timestamp<'{end}' ORDER BY timestamp")
-    df = pd.read_sql(q, conn); conn.close()
+    try:
+        conn = _connect_pg()
+        df = pd.read_sql(q, conn); conn.close()
+    except Exception:
+        conn = _connect_nas()
+        df = pd.read_sql(q, conn); conn.close()
     df['timestamp'] = pd.to_datetime(df['timestamp'])
     df['jst'] = df['timestamp'] + pd.Timedelta(hours=9)
     return df.set_index('jst').sort_index()
