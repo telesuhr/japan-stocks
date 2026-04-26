@@ -1,0 +1,10 @@
+import pymysql
+conn = pymysql.connect(host='100.92.181.92', port=3306, user='rfnews', password='Bleach@924', database='refinitiv_news')
+cur = conn.cursor()
+cur.execute("SELECT DISTINCT symbol FROM daily_data WHERE symbol LIKE '%CMC%' OR symbol LIKE '%LME%' OR symbol LIKE '%copper%' LIMIT 20")
+print('LME系:', [r[0] for r in cur.fetchall()])
+cur.execute("SELECT DISTINCT symbol FROM daily_data WHERE symbol LIKE '%9101%' OR symbol LIKE '%9104%' LIMIT 10")
+print('海運:', [r[0] for r in cur.fetchall()])
+cur.execute("SELECT symbol, MAX(trade_date) as latest FROM daily_data WHERE symbol IN ('CMCU3','0#LME-CMC:','CMCU3.L','CMCUc1') GROUP BY symbol")
+print('銅候補:', cur.fetchall())
+conn.close()
