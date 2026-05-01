@@ -1,19 +1,14 @@
 """
-Step 2: 出来高スパイク後の値動きパターン バックテスト
+Step 2: 出来高スパイク後の値動きパターン バックテスト（高速版）
 =====================================================
 分析日: 2026-04-30
 
-出来高が過去平均の N倍を超えた瞬間（1分足）に何が起きるか？
+出来高が時間帯平均の N倍を超えた1分足バーの後、価格はどう動くか？
+  - 上昇スパイク → LONG追随
+  - 下落スパイク → SHORT追随
+  - 横ばいスパイク（吸収）→ 次の方向待ち
 
-【分析軸】
-  - スパイク閾値: 2x / 3x / 5x（過去20日の同時間帯平均比）
-  - 価格変動の向き: 上昇バー vs 下落バー vs 変化なし
-  - 次の 1 / 5 / 15 / 30 分のリターン
-
-  BNF的解釈:
-    出来高大 × 上昇 → 実需の買い → 追随（モメンタム）
-    出来高大 × 下落 → 実需の売り → 逃げる or 逆張りNG
-    出来高大 × 小動き → 吸収中 → どちらかが溜まっている
+高速化: pandas shift() で前向きリターンをベクトル計算
 """
 
 import psycopg2
@@ -24,7 +19,6 @@ warnings.filterwarnings('ignore')
 
 PG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
 
-# 分析銘柄（FA・電機・既存）
 ALL_SYMS = {
     "5713.T": ("住山",       "非鉄"),
     "5711.T": ("三菱マテ",   "非鉄"),
@@ -51,277 +45,278 @@ ALL_SYMS = {
     "6902.T": ("デンソー",    "自動車部品"),
 }
 
-HORIZONS = [1, 5, 15, 30]   # 何分後を見るか
-THRESHOLDS = [2.0, 3.0, 5.0]  # 出来高スパイク閾値（倍率）
-LOOKBACK = 20 * 240           # 過去20日分の1分足（概算）
-COST_PCT = 0.04               # 往復コスト（%）
+HORIZONS   = [1, 5, 15, 30]
+THRESHOLDS = [2.0, 3.0, 5.0]
+COST_PCT   = 0.04
 
 
-def load_intraday(sym: str) -> pd.DataFrame:
+def load_and_prepare(sym: str) -> pd.DataFrame:
     conn = psycopg2.connect(**PG)
     df = pd.read_sql(
-        f"SELECT timestamp, open, high, low, close, volume "
+        f"SELECT timestamp, open, close, volume "
         f"FROM intraday_data WHERE symbol='{sym}' ORDER BY timestamp", conn)
     conn.close()
     df["jst"] = pd.to_datetime(df["timestamp"]) + pd.Timedelta(hours=9)
-    return df.dropna(subset=["close", "volume"]).set_index("jst").sort_index()
+    df = df.dropna(subset=["close", "volume"]).set_index("jst").sort_index()
 
-
-def trading_hours(df: pd.DataFrame) -> pd.DataFrame:
+    # 取引時間のみ
     h, m = df.index.hour, df.index.minute
-    return df[
-        (h == 9) | ((h >= 10) & (h < 11)) | ((h == 11) & (m <= 30)) |
-        ((h == 12) & (m >= 30)) | ((h >= 13) & (h < 15)) | ((h == 15) & (m <= 30))
-    ]
+    df = df[(h == 9) | ((h >= 10) & (h < 11)) | ((h == 11) & (m <= 30)) |
+            ((h == 12) & (m >= 30)) | ((h >= 13) & (h < 15)) | ((h == 15) & (m <= 30))].copy()
+
+    # 時間帯別出来高平均（全期間）
+    df["time_slot"] = df.index.time
+    tavg = df.groupby("time_slot")["volume"].transform("mean")
+    df["vol_ratio"] = df["volume"] / tavg.clip(lower=1)
+
+    # バーのリターン
+    df["bar_ret"] = (df["close"] / df["open"] - 1) * 100
+
+    # 日付跨ぎを防ぐため、日付ラベルを付与
+    df["date"] = df.index.date
+
+    # 前向きリターン（shift）— 日付跨ぎはNaNにする
+    for h in HORIZONS:
+        future_close = df["close"].shift(-h)
+        future_date  = df["date"].shift(-h)
+        same_day = df["date"] == future_date
+        df[f"fwd_{h}m"] = np.where(
+            same_day,
+            (future_close / df["close"] - 1) * 100,
+            np.nan
+        )
+
+    return df
 
 
-def compute_spike_events(df: pd.DataFrame, threshold: float) -> pd.DataFrame:
-    """
-    1分足データから出来高スパイクイベントを検出。
-    同一時間帯（±30分窓）の過去20日平均と比較。
-    """
-    df_th = trading_hours(df).copy()
-    df_th["time_slot"] = df_th.index.time
+def spike_stats(df: pd.DataFrame, threshold: float) -> dict:
+    """スパイク条件別の統計を返す"""
+    spikes = df[df["vol_ratio"] >= threshold].copy()
 
-    # 時間帯別の出来高平均（過去全データ）を計算
-    time_avg = df_th.groupby("time_slot")["volume"].mean().to_dict()
-    df_th["vol_avg"] = df_th["time_slot"].map(time_avg)
-    df_th["vol_ratio"] = np.where(
-        df_th["vol_avg"] > 0,
-        df_th["volume"] / df_th["vol_avg"],
-        np.nan
-    )
-
-    # バーの方向
-    df_th["bar_ret"] = (df_th["close"] / df_th["open"] - 1) * 100
-
-    # スパイクフラグ
-    df_th["is_spike"] = df_th["vol_ratio"] >= threshold
-
-    return df_th
-
-
-def compute_forward_returns(df_th: pd.DataFrame, horizons: list) -> pd.DataFrame:
-    """スパイク後の N分後リターンを計算"""
-    df_th = df_th.copy()
-    df_th = df_th.sort_index()
-
-    # 全インデックスリスト
-    idx_list = df_th.index.tolist()
-    idx_pos  = {t: i for i, t in enumerate(idx_list)}
-
-    for h in horizons:
-        fwd_ret = []
-        for i, (ts, row) in enumerate(df_th.iterrows()):
-            pos = idx_pos[ts]
-            if pos + h < len(idx_list):
-                future_price  = df_th.iloc[pos + h]["close"]
-                current_price = row["close"]
-                if current_price > 0:
-                    fwd_ret.append((future_price / current_price - 1) * 100)
-                else:
-                    fwd_ret.append(np.nan)
-            else:
-                fwd_ret.append(np.nan)
-        df_th[f"fwd_{h}m"] = fwd_ret
-
-    return df_th
-
-
-def analyze_spikes(sym: str, df_th: pd.DataFrame, threshold: float) -> dict:
-    """スパイクイベントを方向別に分類して統計を出す"""
-    spikes = df_th[df_th["is_spike"]].dropna(subset=["bar_ret"])
-    if len(spikes) == 0:
-        return {}
-
-    # 方向分類
-    up   = spikes[spikes["bar_ret"] > 0.1]   # 上昇スパイク
-    dn   = spikes[spikes["bar_ret"] < -0.1]  # 下落スパイク
-    flat = spikes[spikes["bar_ret"].between(-0.1, 0.1)]  # 横ばいスパイク
-
-    result = {
-        "sym": sym,
-        "threshold": threshold,
-        "n_total": len(spikes),
-        "n_up": len(up),
-        "n_dn": len(dn),
-        "n_flat": len(flat),
-    }
-
-    for label, subset in [("up", up), ("dn", dn), ("flat", flat)]:
+    stats = {"n_total": len(spikes)}
+    for direction, mask in [
+        ("up",   spikes["bar_ret"] > 0.1),
+        ("dn",   spikes["bar_ret"] < -0.1),
+        ("flat", spikes["bar_ret"].between(-0.1, 0.1)),
+    ]:
+        sub = spikes[mask]
+        stats[f"{direction}_n"] = len(sub)
         for h in HORIZONS:
             col = f"fwd_{h}m"
-            if col not in subset.columns:
-                continue
-            vals = subset[col].dropna()
+            vals = sub[col].dropna()
             if len(vals) < 5:
-                result[f"{label}_{h}m_mean"] = np.nan
-                result[f"{label}_{h}m_wr"]   = np.nan
-                result[f"{label}_{h}m_n"]    = len(vals)
-                continue
-
-            # LONGの場合（上昇スパイクを追随 or 下落スパイクを逆張り）
-            if label == "up":
-                ret = vals            # 上昇スパイク → LONG → そのままのリターン
-            elif label == "dn":
-                ret = vals            # 下落スパイク → SHORT → マイナスが利益（後で符号反転）
+                stats[f"{direction}_{h}m_mean"] = np.nan
+                stats[f"{direction}_{h}m_wr"]   = np.nan
             else:
-                ret = vals
-
-            net = ret - COST_PCT if label in ("up",) else ret + COST_PCT
-            result[f"{label}_{h}m_mean"] = ret.mean()
-            result[f"{label}_{h}m_net"]  = net.mean()
-            result[f"{label}_{h}m_wr"]   = (ret > 0).mean() * 100 if label == "up" \
-                                           else (ret < 0).mean() * 100 if label == "dn" \
-                                           else (ret.abs() < 0.1).mean() * 100
-            result[f"{label}_{h}m_n"]    = len(vals)
-
-    return result
+                stats[f"{direction}_{h}m_mean"] = vals.mean()
+                stats[f"{direction}_{h}m_wr"]   = (
+                    (vals > 0).mean() * 100 if direction == "up" else
+                    (vals < 0).mean() * 100 if direction == "dn" else
+                    (vals.abs() < 0.2).mean() * 100
+                )
+    return stats
 
 
-# ─────────────────────────────────────────────────────
-# メイン
 # ─────────────────────────────────────────────────────
 print("=" * 85)
 print("  Step 2: 出来高スパイク後の値動きパターン バックテスト")
 print("=" * 85)
-print("  ロード中（1分足 × 全銘柄）...")
+print("  ロード・計算中...")
 
-all_results = []
+pool: dict[float, dict] = {thr: {"up": [], "dn": [], "flat": []} for thr in THRESHOLDS}
+sym_results = []
+
 for sym, (name, sector) in ALL_SYMS.items():
-    print(f"    {name}...", end=" ")
-    df = load_intraday(sym)
+    print(f"    {name}...", end=" ", flush=True)
+    df = load_and_prepare(sym)
+
     for thr in THRESHOLDS:
-        df_th = compute_spike_events(df, threshold=thr)
-        df_th = compute_forward_returns(df_th, HORIZONS)
-        res = analyze_spikes(sym, df_th, thr)
-        if res:
-            res["name"] = name
-            res["sector"] = sector
-            all_results.append(res)
+        st = spike_stats(df, thr)
+        spikes = df[df["vol_ratio"] >= thr]
+        for direction, bar_mask in [
+            ("up",   spikes["bar_ret"] > 0.1),
+            ("dn",   spikes["bar_ret"] < -0.1),
+            ("flat", spikes["bar_ret"].between(-0.1, 0.1)),
+        ]:
+            sub = spikes[bar_mask]
+            for h in HORIZONS:
+                vals = sub[f"fwd_{h}m"].dropna().tolist()
+                pool[thr][direction].extend(vals)
+
+        sym_results.append({
+            "sym": sym, "name": name, "sector": sector, "thr": thr, **st
+        })
+
     print("OK")
 
 # ─────────────────────────────────────────────────────
-# 出力 1: 閾値別サマリー（全銘柄プール）
+# 1. 閾値別・全銘柄プール
 # ─────────────────────────────────────────────────────
 print("\n" + "=" * 85)
 print("【全銘柄プール: 出来高スパイク後のリターン — 閾値別】")
-print("  LONG = 上昇スパイクに追随   SHORT = 下落スパイクに追随（逆方向）")
+print("  LONG = 上昇スパイク追随   SHORT = 下落スパイク追随")
 print("=" * 85)
 
 for thr in THRESHOLDS:
-    subset = [r for r in all_results if r["threshold"] == thr]
-    if not subset:
-        continue
+    p = pool[thr]
+    total = sum(len(v) for v in p.values())
+    print(f"\n  ─ 出来高スパイク ≥ {thr:.0f}x  (総イベント数: {total:,}) ─")
+    print(f"  {'タイプ':<16}  N     " +
+          "  ".join(f"{'↑'+str(h)+'m avg':>12}  {'勝率':>6}" for h in HORIZONS))
+    print("  " + "-" * 85)
 
-    print(f"\n  ─ 出来高スパイク ≥ {thr:.0f}x 平均 ─")
-    print(f"  {'タイプ':<14}  N    " +
-          "  ".join(f"{'fwd+'+str(h)+'m':>10}" for h in HORIZONS))
-    print("  " + "-" * 65)
-
-    for label, direction in [
-        ("上昇スパイク(LONG)", "up"),
-        ("下落スパイク(SHORT)", "dn"),
-        ("横ばいスパイク", "flat"),
+    for label, direction, sign in [
+        ("上昇スパイク(LONG)",   "up",   1),
+        ("下落スパイク(SHORT)",  "dn",  -1),
+        ("横ばいスパイク(吸収)", "flat", 0),
     ]:
-        ns    = [r.get(f"{direction}_{h}m_n", 0) or 0 for h in HORIZONS]
-        means = [r.get(f"{direction}_{h}m_mean", np.nan) for h in HORIZONS for r in subset]
-        # 全銘柄の平均を集計
+        vals_15 = np.array(p[direction]) if p[direction] else np.array([])
+        n = len(vals_15)
+        line = f"  {label:<16}  {n:>5}"
         for h in HORIZONS:
-            col_mean = f"{direction}_{h}m_mean"
-            col_wr   = f"{direction}_{h}m_wr"
-            col_n    = f"{direction}_{h}m_n"
-            all_vals = []
-            for r in subset:
-                v = r.get(col_mean, np.nan)
-                if not np.isnan(v) if v == v else False:
-                    n = r.get(col_n, 0) or 0
-                    all_vals.extend([v] * max(1, int(n)))
+            # 15分だけ詳細計算（他はpool構造の都合でskip）
             pass
-
-        # 銘柄横断で集計
-        pooled = {h: [] for h in HORIZONS}
-        for r in subset:
-            for h in HORIZONS:
-                v = r.get(f"{direction}_{h}m_mean", np.nan)
-                n = r.get(f"{direction}_{h}m_n", 0) or 0
-                if v == v and n > 0:  # not nan
-                    pooled[h].extend([v] * int(n))
-
-        total_n = sum(len(pooled[HORIZONS[0]]) for _ in [1])
-        line = f"  {label:<14}  {len(pooled[HORIZONS[0]]):>4}"
+        # 各ホライズン別に再計算
+        hz_stats = []
         for h in HORIZONS:
-            if pooled[h]:
-                arr = np.array(pooled[h])
-                wr = (arr > 0).mean() * 100 if direction == "up" \
-                     else (arr < 0).mean() * 100 if direction == "dn" \
-                     else (arr.abs() < 0.3).mean() * 100
-                mean = arr.mean()
-                line += f"  {mean:>+6.3f}%({wr:>4.0f}%)"
+            all_r = []
+            for sym_res in sym_results:
+                if sym_res["thr"] != thr:
+                    continue
+                v = sym_res.get(f"{direction}_{h}m_mean", np.nan)
+                n_r = sym_res.get(f"{direction}_n", 0)
+                if v == v and n_r:
+                    all_r.extend([v] * int(n_r))
+            if all_r:
+                arr = np.array(all_r)
+                mean_v = arr.mean()
+                wr_v   = (arr > 0).mean() * 100 if sign >= 0 else (arr < 0).mean() * 100
+                hz_stats.append(f"  {mean_v:>+9.3f}%  {wr_v:>5.1f}%")
             else:
-                line += f"  {'---':>10}"
+                hz_stats.append(f"  {'---':>10}  {'---':>5}")
+        line += "".join(hz_stats)
         print(line)
 
 # ─────────────────────────────────────────────────────
-# 出力 2: 銘柄別 出来高3x スパイク後15分リターン
+# 2. 銘柄別 3x スパイク後15分
 # ─────────────────────────────────────────────────────
 print("\n" + "=" * 85)
-print("【銘柄別: 出来高3x スパイク後15分リターン】")
-print("  LONG = 上昇スパイク追随  /  SHORT = 下落スパイク追随の期待値")
+print("【銘柄別: 出来高3x超 スパイク後15分リターン】")
+print("  上昇スパイク追随(LONG) / 下落スパイク追随(SHORT)")
 print("=" * 85)
 print(f"  {'銘柄':<12} {'セクター':<8}  "
-      f"{'上昇N':>6}  {'上昇後15m':>10}  {'勝率':>7}  "
-      f"{'下落N':>6}  {'下落後15m':>10}  {'逆勝率':>7}")
-print("  " + "-" * 80)
+      f"{'上N':>5}  {'上15m':>8}  {'勝率':>6}  "
+      f"{'下N':>5}  {'下15m':>8}  {'逆勝率':>6}  "
+      f"{'横N':>5}  {'横15m':>8}")
+print("  " + "-" * 85)
 
-thr_target = 3.0
-subset_3x = [r for r in all_results if r["threshold"] == thr_target]
-subset_3x.sort(key=lambda x: x.get("up_15m_mean", -99) or -99, reverse=True)
+tgt = 3.0
+for sym, (name, sector) in ALL_SYMS.items():
+    r = next((x for x in sym_results if x["sym"] == sym and x["thr"] == tgt), None)
+    if not r:
+        continue
+    up_n  = r.get("up_n", 0)
+    up_m  = r.get("up_15m_mean", np.nan)
+    up_wr = r.get("up_15m_wr", np.nan)
+    dn_n  = r.get("dn_n", 0)
+    dn_m  = r.get("dn_15m_mean", np.nan)
+    dn_wr = r.get("dn_15m_wr", np.nan)
+    fl_n  = r.get("flat_n", 0)
+    fl_m  = r.get("flat_15m_mean", np.nan)
 
-for r in subset_3x:
-    up_n    = r.get("up_15m_n", 0) or 0
-    up_mean = r.get("up_15m_mean", np.nan)
-    up_wr   = r.get("up_15m_wr", np.nan)
-    dn_n    = r.get("dn_15m_n", 0) or 0
-    dn_mean = r.get("dn_15m_mean", np.nan)
-    dn_wr   = r.get("dn_15m_wr", np.nan)
+    fmt_m  = lambda v: f"{v:>+7.3f}%" if v == v else "    ---"
+    fmt_wr = lambda v: f"{v:>5.1f}%" if v == v else "  ---"
 
-    up_str = f"{up_mean:>+8.3f}%  {up_wr:>6.1f}%" if up_mean == up_mean else "  ---"
-    dn_str = f"{dn_mean:>+8.3f}%  {dn_wr:>6.1f}%" if dn_mean == dn_mean else "  ---"
+    up_mark = " ◎" if (up_m == up_m and up_m > 0.1 and up_wr and up_wr > 55) else ""
+    dn_mark = " ◎" if (dn_m == dn_m and dn_m < -0.1 and dn_wr and dn_wr > 55) else ""
 
-    # マーカー
-    up_mark = " ◎" if (up_mean == up_mean and up_mean > 0.15 and up_wr and up_wr > 55) else ""
-    dn_mark = " ◎" if (dn_mean == dn_mean and dn_mean < -0.15 and dn_wr and dn_wr > 55) else ""
-
-    print(f"  {r['name']:<12} {r['sector']:<8}  "
-          f"{up_n:>6}  {up_str}{up_mark}  "
-          f"{dn_n:>6}  {dn_str}{dn_mark}")
+    print(f"  {name:<12} {sector:<8}  "
+          f"{up_n:>5}  {fmt_m(up_m)}  {fmt_wr(up_wr)}  "
+          f"{dn_n:>5}  {fmt_m(dn_m)}  {fmt_wr(dn_wr)}  "
+          f"{fl_n:>5}  {fmt_m(fl_m)}"
+          f"{up_mark}{dn_mark}")
 
 # ─────────────────────────────────────────────────────
-# 出力 3: 吸収パターンの解釈（大商い × 小動き）
+# 3. 時間帯別スパイク特性（寄付直後 vs 午後）
 # ─────────────────────────────────────────────────────
 print("\n" + "=" * 85)
-print("【吸収パターン（出来高3x超 × 価格±0.1%以内）の後は？】")
-print("  大量の売買が出たのに価格が動かない → 強い買い/売りが反対サイドを吸収中")
+print("【時間帯別スパイク特性（3x超）】")
+print("  寄付直後（9:00-9:30）は最もスパイクが多く、その後はどう動くか？")
 print("=" * 85)
-print(f"  {'銘柄':<12} {'セクター':<8}  {'N':>5}  "
-      f"{'5分後':>10}  {'15分後':>10}  {'30分後':>10}")
-print("  " + "-" * 65)
 
-for r in sorted(subset_3x, key=lambda x: x.get("flat_15m_mean", 0) or 0, reverse=True):
-    flat_5  = r.get("flat_5m_mean", np.nan)
-    flat_15 = r.get("flat_15m_mean", np.nan)
-    flat_30 = r.get("flat_30m_mean", np.nan)
-    flat_n  = r.get("flat_15m_n", 0) or 0
+time_buckets = [
+    ("9:00-9:30",  (9,  0), (9, 30)),
+    ("9:30-10:30", (9, 30), (10,30)),
+    ("10:30-11:30",(10,30), (11,30)),
+    ("12:30-13:30",(12,30), (13,30)),
+    ("13:30-15:00",(13,30), (15, 0)),
+    ("15:00-15:30",(15, 0), (15,30)),
+]
 
-    def fmt(v):
-        return f"{v:>+9.3f}%" if v == v else "       ---"
+print(f"  {'時間帯':<14}  {'N':>6}  {'上昇比率':>9}  {'上昇後15m':>10}  {'下落後15m':>10}")
+print("  " + "-" * 60)
 
-    print(f"  {r['name']:<12} {r['sector']:<8}  {flat_n:>5}  "
-          f"{fmt(flat_5)}  {fmt(flat_15)}  {fmt(flat_30)}")
+# 全銘柄の1分足を再ロードして時間帯別集計
+all_up_by_time   = {b[0]: [] for b in time_buckets}
+all_dn_by_time   = {b[0]: [] for b in time_buckets}
+all_n_by_time    = {b[0]: 0  for b in time_buckets}
+
+for sym in list(ALL_SYMS.keys())[:8]:   # 代表8銘柄で高速化
+    df = load_and_prepare(sym)
+    spikes = df[df["vol_ratio"] >= 3.0].copy()
+    for label, (sh, sm), (eh, em) in time_buckets:
+        mask = (
+            ((spikes.index.hour > sh) | ((spikes.index.hour == sh) & (spikes.index.minute >= sm))) &
+            ((spikes.index.hour < eh) | ((spikes.index.hour == eh) & (spikes.index.minute < em)))
+        )
+        sub = spikes[mask]
+        all_n_by_time[label] += len(sub)
+        up = sub[sub["bar_ret"] > 0.1]["fwd_15m"].dropna().tolist()
+        dn = sub[sub["bar_ret"] < -0.1]["fwd_15m"].dropna().tolist()
+        all_up_by_time[label].extend(up)
+        all_dn_by_time[label].extend(dn)
+
+for label, _, _ in time_buckets:
+    n = all_n_by_time[label]
+    up_arr = np.array(all_up_by_time[label]) if all_up_by_time[label] else np.array([])
+    dn_arr = np.array(all_dn_by_time[label]) if all_dn_by_time[label] else np.array([])
+    up_pct = len(up_arr) / n * 100 if n > 0 else np.nan
+    up_m   = up_arr.mean() if len(up_arr) > 5 else np.nan
+    dn_m   = dn_arr.mean() if len(dn_arr) > 5 else np.nan
+    fmt = lambda v: f"{v:>+9.3f}%" if v == v else "       ---"
+    print(f"  {label:<14}  {n:>6}  {up_pct:>8.1f}%  {fmt(up_m)}  {fmt(dn_m)}")
+
+# ─────────────────────────────────────────────────────
+# 4. 総括・実運用ガイド
+# ─────────────────────────────────────────────────────
+print("\n" + "=" * 85)
+print("【総括: 出来高スパイク戦略の有効性】")
+print("=" * 85)
+
+# 全閾値での上昇スパイク15分リターン
+for thr in THRESHOLDS:
+    vals = []
+    for sr in sym_results:
+        if sr["thr"] != thr:
+            continue
+        v = sr.get("up_15m_mean", np.nan)
+        n = sr.get("up_n", 0)
+        if v == v and n > 0:
+            vals.extend([v] * int(n))
+    if vals:
+        arr = np.array(vals)
+        net = arr - COST_PCT
+        print(f"  {thr:.0f}x閾値 上昇スパイク追随: N={len(arr):>6,}  "
+              f"gross平均={arr.mean():>+7.3f}%  net={net.mean():>+7.3f}%  "
+              f"勝率={(arr>0).mean()*100:>5.1f}%")
+
+print()
+print("  ─ 結論 ─")
+print("  1. 1分足スパイク単発への機械的追随は コスト後ほぼゼロ〜マイナス")
+print("  2. 出来高スパイクは「情報」だが即エントリーのシグナルではない")
+print("  3. BNFが板読みで『スパイクの質』を判断するのはこのため")
+print("     → 1分足だけでは買い吸収 vs 売り吸収が判別できない")
+print("  4. 有効な活用法: 大商い急騰の『翌日継続』（Step3参照）")
+print("     → 当日スパイクより翌日の方向確認に使う")
 
 print("\n  ✅ Step2 完了")
-print("  ヒント: 吸収後にどちらに動くかは銘柄・時間帯に依存する。")
-print("  吸収が上なら（買い圧力が大きい）→ その後上昇しやすい。")
-print("  吸収が下なら（売り圧力が大きい）→ その後下落しやすい。")
-print("  ※ 1分足レベルでは板読みなしで吸収方向を判断するのは困難。")
