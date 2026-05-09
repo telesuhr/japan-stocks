@@ -1,8 +1,13 @@
 # 戦略: LME銅 東京時間シグナル → コア5 オーバーナイト
 
 **バージョン**: v1.0 (2026-04-21)  
-**ステータス**: 採用  
+**ステータス**: ⚠️ **一時停止** (2026-05-09)  
 **根拠分析**: [`analyses/20260421_lme_copper_overnight/`](../../analyses/20260421_lme_copper_overnight/)
+
+> **⚠️ 一時停止中**: 2026-05-09の継続性検証でSharpe -3.14と大幅劣化を確認。
+> CORE5銘柄 (特に4502.T武田薬品・5016.T出光) とLME銅の連動性が失われている。
+> 代替戦略: LME累積LB=10 +5% (Sharpe +8.25) を `analyses/` で追加検証中。
+> 検証結果: [`analyses/20260509_strategy_validation/`](../../analyses/20260509_strategy_validation/)
 
 ---
 

@@ -28,6 +28,7 @@ TOUCH_TOL_PCT = 1.0
 SLOPE_LOOKBACK = 5
 HOLD_DAYS = 10
 STOP_PCT = 10.0
+COOLDOWN_DAYS = 10  # 前回エントリーからN営業日以内は再エントリー禁止 (2026-05-09追加)
 
 
 def load_daily():
@@ -81,12 +82,23 @@ def check_date(target_date=None):
         slope_pct = (row['ma25'] / row['ma25_5d_ago'] - 1) * 100
         print(f"  MA25 傾き: {slope_pct:+.2f}% (5日変化)")
 
+    # クールダウン確認: 直近 COOLDOWN_DAYS 営業日以内に発動済みか
+    idx_now = df.index.get_loc(ts)
+    recent = df.iloc[max(0, idx_now - COOLDOWN_DAYS): idx_now]
+    last_signal_in_cooldown = recent[recent["signal"]]
+    in_cooldown = not last_signal_in_cooldown.empty
+
     print("\n[判定]")
     print(f"  ① 下落局面 (dd20 ≤ -{DD_THRESH}%):        {'✅ YES' if row['downtrend'] else '❌ NO'}")
     print(f"  ② MA25 接触 (±{TOUCH_TOL_PCT}%):             {'✅ YES' if row['touched'] else '❌ NO'}")
     print(f"  ③ MA25 上昇中 (slope>0):          {'✅ YES' if row['slope_up'] else '❌ NO'}")
+    if in_cooldown:
+        last_sig_dt = last_signal_in_cooldown.index[-1].date()
+        print(f"  ④ クールダウン中 ({last_sig_dt} 発動から{COOLDOWN_DAYS}営業日未満): ❌ 再エントリー禁止")
+    else:
+        print(f"  ④ クールダウン: ✅ OK ({COOLDOWN_DAYS}営業日以内の発動なし)")
     print()
-    if row["signal"]:
+    if row["signal"] and not in_cooldown:
         print("🔔 エントリーシグナル発生!")
         print(f"   → 翌営業日 寄成 Long (¥500-1,000万)")
         print(f"   → Stop: 約定価格 × 0.90 (逆指値成行)")
@@ -110,6 +122,9 @@ def check_date(target_date=None):
                 ret_pct = (exit_price / entry_next_open - 1) * 100 - 0.04
                 print(f"   [過去再生] Exit {exit_date.date()} @ {exit_price:.0f} "
                       f"→ {'STOP' if stop_hit else 'TIME'} {ret_pct:+.2f}%")
+    elif in_cooldown:
+        print("🚫 クールダウン中 → スキップ")
+        print("   skipped_reason=cooldown")
     else:
         print("シグナルなし (本日エントリーは見送り)")
     print("=" * 70)

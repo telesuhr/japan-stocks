@@ -7,6 +7,23 @@
 
 ---
 
+## 最新分析 (2026-05-09)
+
+> ### [全採用戦略 継続性バックテスト + 5タスク詳細分析](20260509_strategy_validation/)
+>
+> 全7採用戦略を最新データで再検証し、さらに5つの詳細タスクを実施。
+>
+> | 主要発見 | 数値 |
+> |---|---|
+> | topix_overnight / vwap_meanrevert / orb_breakout | ✅ 継続 (Sharpe改善または安定) |
+> | **lme_on_copper** | ❌ **一時停止** Sharpe -3.14 (CORE5とLME連動性崩壊) |
+> | sox_overnight_short (TOPIX代理) | ✅ 最新2024〜2026で Sharpe **+5.87** (健在) |
+> | eneos_vwap_trend Long/Short分割 | Long Sharpe+4.73 / Short Sharpe+3.26 (両方機能) |
+> | lasertec 10日クールダウン追加後 | Sharpe **+7.57** (READMEの+7.68と一致、ルール追加済) |
+> | **LME累積 LB=10 +5% 代替シグナル** | Sharpe **+8.25** (2026年もSharpe+9.48) → lme_on_copper後継候補 |
+>
+> **グラフ**: [result.png](20260509_strategy_validation/result.png)
+
 ## 最新分析 (2026-04-26)
 
 > ### [戦略ポートフォリオ統合 — Post-War再評価 / 複合エクイティ](20260426_strategy_portfolio/)
