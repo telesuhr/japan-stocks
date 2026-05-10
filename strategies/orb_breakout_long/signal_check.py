@@ -47,7 +47,7 @@ def load_today_intraday(sym, target_date):
     start_utc = datetime.combine(target_date, datetime.min.time())  # JST 9:00 = UTC 00:00
     end_utc = start_utc + timedelta(hours=9)  # JST 9:00 〜 18:00
     df = pd.read_sql(
-        "SELECT timestamp, open, high, low, close, volume FROM archive.intraday_data "
+        "SELECT timestamp, open, high, low, close, volume FROM intraday_data "
         "WHERE symbol=%s AND timestamp >= %s AND timestamp < %s ORDER BY timestamp",
         conn, params=(sym, start_utc, end_utc),
     )

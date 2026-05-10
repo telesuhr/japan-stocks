@@ -51,7 +51,7 @@ def fetch_lme_tokyo_change(target_date: date) -> dict | None:
     conn = psycopg2.connect(**PG_CONFIG)
     q = f"""
         SELECT timestamp, open, high, low, close
-        FROM archive.intraday_data
+        FROM intraday_data
         WHERE symbol = '{SYMBOL_LME}'
           AND DATE(timestamp + INTERVAL '9 hours') = '{target_date}'
           AND close IS NOT NULL

@@ -37,7 +37,7 @@ def fetch_topix_gap(target_date):
     q = f"""
         SELECT timestamp, open, close,
                (timestamp + INTERVAL '9 hours') AS jst
-        FROM archive.intraday_data
+        FROM intraday_data
         WHERE symbol = '{SYMBOL_TOPIX}'
           AND close IS NOT NULL
           AND DATE(timestamp + INTERVAL '9 hours') <= '{target_date}'

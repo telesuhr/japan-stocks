@@ -18,22 +18,95 @@
 PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
 ```
 
-DBの全体像・テーブル一覧は **[DATA_SCHEMA.md](../DATA_SCHEMA.md) を必ず参照**。
+**新規分析は必ず以下のテーブルを使うこと。** DB の全体像・カラム詳細は [DATA_SCHEMA.md](../DATA_SCHEMA.md) 参照。
 
-### 重要 (2026-05-10 更新)
-- データソースは **JQuants 一本化**（Refinitiv/Bloomberg 解約方針）
-- 旧 `intraday_data` / `daily_stats` は **`archive` スキーマ**に移動済（2026-05-08 で更新停止）
-- 現行データは `stocks_daily`, `stocks_intraday`, `symbol_master`, `jquants_*` 等を使う
-- 銘柄コード canonical は **JQuants 5桁**（例: `72030`）。RIC/4桁との変換は `symbol_master` で
-- 1分足の timestamp 列: 旧 `archive.intraday_data.timestamp` は **UTC**（+9hでJST）、新 `stocks_intraday.ts` は **JST 直接**
-- ティック生データは PG ではなく DuckDB 経由（`~/claude-code/DataFetcher/src/ticks.py`）
+### 必ず使うテーブル（canonical, 自動更新中）
 
-### よくある事故
-- `SELECT FROM intraday_data` → relation does not exist エラー → `archive.intraday_data` か新規 `stocks_intraday` を使う
-- 5桁コードと RIC を混同 → `symbol_master` で必ず正規化
-- `archive.*` は更新停止データ。Refinitiv 解約後は完全凍結のため、リサーチに使うのは過去事例の再現のみ
+| 用途 | テーブル | キー | timestamp |
+|---|---|---|---|
+| 1分足 | **`stocks_intraday`** | `(code, ts)` | JST 直接（変換不要） |
+| 日足 | **`stocks_daily`** | `(code, date)` | DATE |
+| 銘柄マスタ | `symbol_master` | `code5` | — |
+| 指数日足 | `index_daily` | `(code, date)` | DATE |
+| 信用残（週次）| `jquants_margin_interest` | `(date, code)` | — |
+| 信用規制 | `jquants_margin_alert` | `(pub_date, code)` | — |
+| 業種別空売り | `jquants_short_ratio` | `(date, s33)` | — |
+| 空売り報告 | `jquants_short_sale_report` | `(disc_date, code, ss_name)` | — |
+| 投資部門別 | `investor_types` | `(pub_date, section)` | — |
+| 財務サマリ | `fin_summary` | `(code, disc_no)` | — |
+| ティック | (DBなし) | — | DuckDB 経由 |
 
-新規分析は基本的に `stocks_intraday` (5桁、JST) ベースで書く。
+ティックは `~/claude-code/DataFetcher/src/ticks.py` の `TickQuery` を使う。
+
+### 銘柄コードは必ず JQuants 5桁
+
+```python
+# トヨタ → '72030'  (4桁 7203 + 普通株 0)
+# 5桁が canonical。RIC ('7203.T') や4桁 ('7203') を貰ったら必ず変換
+SELECT code5 FROM symbol_master WHERE ric = '7203.T';
+```
+
+### 使ってはいけないテーブル（archive、Refinitiv解約で凍結）
+
+⚠ 以下は新規分析で **絶対に使わない**。誤って使うと `relation does not exist` エラー or 古いデータで分析事故。
+
+- `intraday_data` ／ `archive.intraday_data` ← 122銘柄のみ・2026-05-08 で凍結
+- `daily_stats` ／ `archive.daily_stats` ← Refinitiv 派生指標・凍結
+- `data_fetch_log` ／ `archive.data_fetch_log`
+- `fins_statements` ／ `archive.fins_statements`
+
+過去戦略 (`strategies/*/signal_check.py`) はまだ旧テーブル名を参照しているが、これは未移行コードなので新規分析の参考にしないこと。
+
+### 新規分析テンプレ（コピペ用）
+
+```python
+import psycopg2, pandas as pd
+
+PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
+
+def load_minute(code5: str, start: str, end: str) -> pd.DataFrame:
+    """5桁コード・JST文字列で 1分足を取得。返り値は ts インデックス（JST naive）"""
+    conn = psycopg2.connect(**PG_CONFIG)
+    sql = """
+        SELECT ts, open, high, low, close, volume, turnover_value
+        FROM stocks_intraday
+        WHERE code = %s AND ts >= %s AND ts < %s
+        ORDER BY ts
+    """
+    df = pd.read_sql(sql, conn, params=(code5, start, end))
+    conn.close()
+    return df.set_index('ts')
+
+def load_daily(code5: str, start: str, end: str) -> pd.DataFrame:
+    conn = psycopg2.connect(**PG_CONFIG)
+    sql = """
+        SELECT date, open, high, low, close, volume,
+               adj_open, adj_high, adj_low, adj_close, adj_volume
+        FROM stocks_daily
+        WHERE code = %s AND date BETWEEN %s AND %s ORDER BY date
+    """
+    df = pd.read_sql(sql, conn, params=(code5, start, end))
+    conn.close()
+    return df.set_index('date')
+
+def ric_to_code5(ric: str) -> str:
+    """'7203.T' → '72030' （symbol_master 経由）"""
+    conn = psycopg2.connect(**PG_CONFIG)
+    cur = conn.cursor()
+    cur.execute("SELECT code5 FROM symbol_master WHERE ric=%s", (ric,))
+    r = cur.fetchone()
+    conn.close()
+    return r[0] if r else None
+```
+
+### ティック取得テンプレ
+
+```python
+import sys; sys.path.insert(0, '/Users/Yusuke/claude-code/DataFetcher')
+from src.ticks import TickQuery
+tq = TickQuery()
+bars = tq.bars(code='72030', start='2025-01-01', end='2025-01-31', freq='5min')
+```
 
 ## ファイル管理
 - 分析スクリプトは必ずセッションごとのフォルダに格納する

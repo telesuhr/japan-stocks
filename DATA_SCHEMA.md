@@ -125,18 +125,16 @@ df = tq.bars(code='72030', start='2025-01-01', end='2025-01-31', freq='5min')
 
 ---
 
-## 戦略コードの状態（2026-05-10）
+## 既存戦略コードの状態（2026-05-10）
 
-各戦略の `signal_check.py` は **暫定処置として `archive.intraday_data` / `archive.daily_stats`** を参照するよう書き換え済み（即動く状態）。
+`strategies/*/signal_check.py` は **未移行**で、旧テーブル `intraday_data` / `daily_stats` を直接参照したまま（実DBには存在せず、`archive.*` に移動）。
 
-ただし `archive.*` は **2026-05-08 で更新停止**しており、Refinitiv 解約後は完全に静的データになる。
-**今後の TODO**: 各戦略を `stocks_intraday` (5桁・JST) / `stocks_daily` ベースに書き換える。
+⚠ **これらのコードを新規分析の参考にしない。**
+古い戦略コードを動かしたい場合は手動で `archive.*` に書き換えるか、新テーブルへ書き直す。新規分析は必ず `stocks_intraday` / `stocks_daily` を使う（[.claude/CLAUDE.md](.claude/CLAUDE.md) のテンプレ参照）。
 
-| 戦略 | 状態 | 移行優先度 |
+| 戦略 | 旧テーブル参照 | 新テーブル移行 |
 |---|---|---|
-| `lme_on_copper`, `nonferrous_lme_link` | LME銘柄依存（`CMCU3` 等） | **archive 候補**（LME解約に伴い廃止予定） |
-| `orb_breakout_long`, `vwap_morning_meanrevert`, `topix_overnight`, `eneos_vwap_trend` | 国内株 1分足 | **要移行** (`stocks_intraday`、5桁) |
-| `lasertec_ma25_support` | `daily_stats` 依存 | 要移行 (`stocks_daily`) |
-| `sox_overnight_short`, `semi_sox_fade`, `pair_portfolio` | 未確認 | 別途確認 |
-
-移行作業は別セッションで実施。
+| `lme_on_copper`, `nonferrous_lme_link` | LME銘柄依存（`CMCU3` 等） | **不可**（LME解約方針）→ archive 候補 |
+| `orb_breakout_long`, `vwap_morning_meanrevert`, `topix_overnight`, `eneos_vwap_trend` | `intraday_data` (RIC) | `stocks_intraday` (5桁、JST) に要書き換え |
+| `lasertec_ma25_support` | `daily_stats` (RIC) | `stocks_daily` (5桁) に要書き換え |
+| `sox_overnight_short`, `semi_sox_fade`, `pair_portfolio` | 未調査 | 別途確認 |
