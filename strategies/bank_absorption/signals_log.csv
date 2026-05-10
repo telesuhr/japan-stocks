@@ -1,0 +1,4 @@
+signal_date,code,name,vol_ratio,day_ret,turnover_oku,sig_close,selected,entry_target_date
+2026-05-08,83590,八十二長野銀行,2.21,-1.19,55.5,2201.5,Y,next_business_day_open
+2026-05-08,71730,東京きらぼしフィナンシャルグループ,1.80,-2.96,18.3,11490.0,Y,next_business_day_open
+2026-05-08,84180,山口フィナンシャルグループ,1.75,-0.43,22.9,2640.0,Y,next_business_day_open

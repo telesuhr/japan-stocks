@@ -54,6 +54,7 @@
 | 5 | [vwap_morning_meanrevert](vwap_morning_meanrevert/) | イントラ **両方向** | TEL/ディスコ/レーザー 10:00-11:30 VWAP乖離 \|dev\|≥275bps | 10:00-11:30 連続監視 | 月2-5回 | **+6.11** (H2 +7.85) | ¥900-1,500万 (別枠) |
 | 6 | [orb_breakout_long](orb_breakout_long/) | イントラ **Long** | ディスコ 60min OR High / 三井金属 30min OR High ブレイク | 9:30 / 10:00 | 月20-25回 | **+2.15** (H1 +2.08 / H2 +2.23) | ¥1,000-2,000万 (別枠) |
 | 7 | [lasertec_ma25_support](lasertec_ma25_support/) | **スイング Long** (10営業日) | 6920.T dd20≤-5% + MA25±1%接触 + MA25上昇中 | 日次 15:30引け後判定 | 月 1-2回 | **+7.68** (H2 +12.96) | ¥500-1,000万 (別枠) |
+| 8 | [bank_absorption](bank_absorption/) | **スイング Long** (5営業日) | 銀行株22銘柄 vol≥1.5x×陰線×売買代金10億+ | 日次 15:35引け後判定 | 月 8-10回 | **+1.84** (Test +1.59) | ¥300万 (3銘柄×100万) |
 
 ---
 
