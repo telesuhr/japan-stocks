@@ -28,7 +28,7 @@ def fetch_vwap_dev():
     conn = psycopg2.connect(**PG_CONFIG)
     q = f"""
         SELECT timestamp, open, high, low, close, volume
-        FROM intraday_data
+        FROM archive.intraday_data
         WHERE symbol = '{SYMBOL}'
           AND DATE(timestamp + INTERVAL '9 hours') = '{today}'
           AND close IS NOT NULL

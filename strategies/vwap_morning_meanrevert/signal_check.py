@@ -51,7 +51,7 @@ def load_today_intraday(sym, target_date):
     start_utc = datetime.combine(target_date, datetime.min.time())
     end_utc = start_utc + timedelta(hours=9)  # JST 9:00 〜 18:00 をカバー
     df = pd.read_sql(
-        "SELECT timestamp, open, high, low, close, volume FROM intraday_data "
+        "SELECT timestamp, open, high, low, close, volume FROM archive.intraday_data "
         "WHERE symbol=%s AND timestamp >= %s AND timestamp < %s ORDER BY timestamp",
         conn, params=(sym, start_utc, end_utc),
     )
@@ -115,7 +115,7 @@ def load_baseline_first_hour_range(sym, ref_date, n_days=BASELINE_DAYS):
                                  datetime.min.time())
     end_utc = datetime.combine(ref_date, datetime.min.time())
     df = pd.read_sql(
-        "SELECT timestamp, open, high, low FROM intraday_data "
+        "SELECT timestamp, open, high, low FROM archive.intraday_data "
         "WHERE symbol=%s AND timestamp >= %s AND timestamp < %s ORDER BY timestamp",
         conn, params=(sym, start_utc, end_utc),
     )

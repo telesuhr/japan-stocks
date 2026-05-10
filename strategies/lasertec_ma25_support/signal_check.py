@@ -34,7 +34,7 @@ COOLDOWN_DAYS = 10  # 前回エントリーからN営業日以内は再エント
 def load_daily():
     conn = psycopg2.connect(**PG_CONFIG)
     df = pd.read_sql(
-        "SELECT trade_date, open, high, low, close FROM daily_stats "
+        "SELECT trade_date, open, high, low, close FROM archive.daily_stats "
         "WHERE symbol=%s ORDER BY trade_date", conn, params=(SYM,))
     conn.close()
     df["trade_date"] = pd.to_datetime(df["trade_date"])

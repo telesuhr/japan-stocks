@@ -39,7 +39,7 @@ def load_lme(asof_date: date):
     """asof_date 当日 08:55 までの直近 LME と、24h 前の直近 LME を取得"""
     conn = psycopg2.connect(**PG)
     df = pd.read_sql(
-        f"SELECT timestamp, close FROM intraday_data WHERE symbol='{LME_SYMBOL}' "
+        f"SELECT timestamp, close FROM archive.intraday_data WHERE symbol='{LME_SYMBOL}' "
         f"AND timestamp >= '{asof_date - timedelta(days=4)}' "
         f"ORDER BY timestamp", conn)
     conn.close()
@@ -67,11 +67,11 @@ def verify_db():
     try:
         conn = psycopg2.connect(**PG)
         c = conn.cursor()
-        c.execute(f"SELECT MAX(timestamp) FROM intraday_data WHERE symbol='{LME_SYMBOL}'")
+        c.execute(f"SELECT MAX(timestamp) FROM archive.intraday_data WHERE symbol='{LME_SYMBOL}'")
         r = c.fetchone()
         print(f"  ✓ PostgreSQL: LME 最新 = {r[0]}")
         for s in SYMBOLS:
-            c.execute(f"SELECT MAX(timestamp) FROM intraday_data WHERE symbol='{s}'")
+            c.execute(f"SELECT MAX(timestamp) FROM archive.intraday_data WHERE symbol='{s}'")
             r = c.fetchone()
             print(f"  ✓ {s}: {r[0]}")
         conn.close()

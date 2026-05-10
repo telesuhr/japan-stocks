@@ -13,9 +13,27 @@
 タイムスタンプは必ず +9h でJST変換。
 
 ## DB接続
+
 ```python
 PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
 ```
+
+DBの全体像・テーブル一覧は **[DATA_SCHEMA.md](../DATA_SCHEMA.md) を必ず参照**。
+
+### 重要 (2026-05-10 更新)
+- データソースは **JQuants 一本化**（Refinitiv/Bloomberg 解約方針）
+- 旧 `intraday_data` / `daily_stats` は **`archive` スキーマ**に移動済（2026-05-08 で更新停止）
+- 現行データは `stocks_daily`, `stocks_intraday`, `symbol_master`, `jquants_*` 等を使う
+- 銘柄コード canonical は **JQuants 5桁**（例: `72030`）。RIC/4桁との変換は `symbol_master` で
+- 1分足の timestamp 列: 旧 `archive.intraday_data.timestamp` は **UTC**（+9hでJST）、新 `stocks_intraday.ts` は **JST 直接**
+- ティック生データは PG ではなく DuckDB 経由（`~/claude-code/DataFetcher/src/ticks.py`）
+
+### よくある事故
+- `SELECT FROM intraday_data` → relation does not exist エラー → `archive.intraday_data` か新規 `stocks_intraday` を使う
+- 5桁コードと RIC を混同 → `symbol_master` で必ず正規化
+- `archive.*` は更新停止データ。Refinitiv 解約後は完全凍結のため、リサーチに使うのは過去事例の再現のみ
+
+新規分析は基本的に `stocks_intraday` (5桁、JST) ベースで書く。
 
 ## ファイル管理
 - 分析スクリプトは必ずセッションごとのフォルダに格納する
