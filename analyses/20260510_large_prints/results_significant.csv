@@ -1,0 +1,4 @@
+rule,target,dir,N,mean_raw,mean_net,std,t_stat,p_val,win_rate,sharpe,sig
+B1_BigBuy_Follow_Buy_30min,fwd_30min,1,59403,6.34,2.34,91.46,16.89,0.0,50.6,3.14,True
+B4_BigSell_Reversal_Buy_30min,fwd_30min,1,58691,4.01,0.01,89.65,10.85,0.0,50.3,0.02,True
+B5_SuperBigBuy_Follow_30min,fwd_30min,1,3072,4.66,0.66,107.42,2.41,0.0162,51.5,0.76,True

@@ -1,0 +1,8 @@
+rule,target,dir,N,mean_raw,mean_net,std,t_stat,p_val,win_rate,sharpe,sig
+A8_TickAndVol_Down_Sell_5min,fwd_5min,-1,415,5.09,1.09,32.24,3.22,0.0014,52.5,4.18,True
+A4_TickSpike5x_Down_Sell_15min,fwd_15min,-1,127,23.43,19.43,83.25,3.16,0.002,55.9,28.69,True
+A2_TickSpike3x_Down_Sell_5min,fwd_5min,-1,483,4.75,0.75,33.33,3.13,0.0019,52.6,2.77,True
+A8_TickAndVol_Down_Sell_15min,fwd_15min,-1,406,8.66,4.66,59.38,2.93,0.0035,49.8,9.65,True
+A2_TickSpike3x_Down_Sell_30min,fwd_30min,-1,444,10.55,6.55,77.12,2.88,0.0042,51.6,10.44,True
+A4_TickSpike5x_Down_Sell_5min,fwd_5min,-1,127,8.96,4.96,39.29,2.56,0.0117,52.8,15.52,True
+A2_TickSpike3x_Down_Sell_15min,fwd_15min,-1,471,6.76,2.76,64.63,2.27,0.0238,49.5,5.25,True
