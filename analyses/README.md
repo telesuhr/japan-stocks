@@ -7,6 +7,22 @@
 
 ---
 
+## 最新分析 (2026-05-11)
+
+> ### [採用7戦略 JQuantsベース継続性検証](20260511_strategy_validation_jquants/)
+>
+> 新DB (JQuants) で書き換え済みの全7採用戦略を **5年データ** で再検証。期間延長で前回1年検証の盲点が顕在化。
+>
+> | 主要発見 | 数値 |
+> |---|---|
+> | **topix_overnight** | ❌ Sharpe **+6.27→+0.58** (1年は強かったが5年では機能せず) |
+> | **eneos_vwap_trend** / **vwap_morning_meanrevert** / **orb_breakout_long** | ✅ 全て継続 (Sharpe ≥ +2.0) |
+> | **bank_absorption** | ✅ 5年×22銘柄でも Sharpe **+3.94** 安定 (前回 +1.84 から改善) |
+> | **pair_portfolio (18ペア EW)** | ❌ Sharpe **+0.65** に低下、勝7敗7。半TEL-レーザー単独は **Sharpe +12.89** |
+> | **lasertec_ma25_support** | ⚠️ Sharpe +7.57→+2.95 (期間延長で平均化、継続レベル) |
+>
+> **グラフ**: [result.png](20260511_strategy_validation_jquants/result.png)
+
 ## 最新分析 (2026-05-09)
 
 > ### [全採用戦略 継続性バックテスト + 5タスク詳細分析](20260509_strategy_validation/)

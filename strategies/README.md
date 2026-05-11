@@ -64,15 +64,19 @@
 
 | # | フォルダ | 型 | 発動頻度 | Sharpe | 想定資金 | コード状態 |
 |:-:|---------|:--:|---------|--------|---------|----------|
-| 1 | [topix_overnight](topix_overnight/) | ON Long | 月4-5回 | **+6.27** | ¥5,000万 (ON枠) | ✅ 新DB対応済 |
-| 2 | [eneos_vwap_trend](eneos_vwap_trend/) | イントラ両方向 | 月5-6回 | **+3.81** | ¥1,000-3,000万 | ✅ 新DB対応済 |
-| 3 | [vwap_morning_meanrevert](vwap_morning_meanrevert/) | イントラ両方向 | 月2-5回 | **+6.76** | ¥900-1,500万 | ✅ 新DB対応済 |
-| 4 | [orb_breakout_long](orb_breakout_long/) | イントラ Long | 月20-25回 | **+2.31** | ¥1,000-2,000万 | ✅ 新DB対応済 |
-| 5 | [lasertec_ma25_support](lasertec_ma25_support/) | スイング Long (10営業日) | 月1-2回 | **+7.57** | ¥500-1,000万 | ✅ 新DB対応済 |
-| 6 | [bank_absorption](bank_absorption/) | スイング Long (5営業日) | 月10-20回 | **+1.84** | ¥300万 (¥100万×3銘柄) | ✅ 新DB対応済 |
-| 7 | [pair_portfolio](pair_portfolio/) | 統計裁定 LS | 〜1,400往復/年 | **+1.37** | ¥3,000万 | ✅ 新DB対応済 |
+| 1 | [topix_overnight](topix_overnight/) | ON Long | 月4-5回 | ⚠️ **+0.58** (5年) | ¥5,000万 (ON枠) | ✅ 新DB対応済 |
+| 2 | [eneos_vwap_trend](eneos_vwap_trend/) | イントラ両方向 | 月5-6回 | ✅ **+2.97** (2年) | ¥1,000-3,000万 | ✅ 新DB対応済 |
+| 3 | [vwap_morning_meanrevert](vwap_morning_meanrevert/) | イントラ両方向 | 月2-5回 | ✅ **+4.81** (2年) | ¥900-1,500万 | ✅ 新DB対応済 |
+| 4 | [orb_breakout_long](orb_breakout_long/) | イントラ Long | 月20-25回 | ✅ **+2.19** (2年) | ¥1,000-2,000万 | ✅ 新DB対応済 |
+| 5 | [lasertec_ma25_support](lasertec_ma25_support/) | スイング Long (10営業日) | 月1-2回 | ⚠️ **+2.95** (5年) | ¥500-1,000万 | ✅ 新DB対応済 |
+| 6 | [bank_absorption](bank_absorption/) | スイング Long (5営業日) | 月10-20回 | ✅ **+3.94** (5年) | ¥300万 (¥100万×3銘柄) | ✅ 新DB対応済 |
+| 7 | [pair_portfolio](pair_portfolio/) | 統計裁定 LS | 〜1,400往復/年 | ⚠️ **+0.65** (5年) | ¥3,000万 | ✅ 新DB対応済 |
 
-**Sharpeは [analyses/20260509_strategy_validation/](../analyses/20260509_strategy_validation/) の最新検証値**
+**Sharpe は [analyses/20260511_strategy_validation_jquants/](../analyses/20260511_strategy_validation_jquants/) の JQuants長期検証値**
+
+**緊急対応事項 (2026-05-11検証より)**:
+- 🔴 **topix_overnight 一時停止検討**: 5年検証で Sharpe +0.58、機能消失。1年検証バイアスだった可能性大
+- 🔴 **pair_portfolio v2 検討**: 18ペアEWは勝7敗7で相殺。勝ち7ペアのみ採用に絞る
 
 **コード状態**: 全7戦略が ✅ 新DB対応済 (`stocks_intraday`/`stocks_daily` + 5桁code + JST naive)
 2026-05-11に書き換え完了。詳細は各戦略の `signal_check.py` v2.0 ヘッダ参照。
