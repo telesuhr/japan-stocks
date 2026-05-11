@@ -64,20 +64,18 @@
 
 | # | フォルダ | 型 | 発動頻度 | Sharpe | 想定資金 | コード状態 |
 |:-:|---------|:--:|---------|--------|---------|----------|
-| 1 | [topix_overnight](topix_overnight/) | ON Long | 月4-5回 | **+6.27** | ¥5,000万 (ON枠) | 🟡 旧テーブル参照 |
-| 2 | [eneos_vwap_trend](eneos_vwap_trend/) | イントラ両方向 | 月5-6回 | **+3.81** | ¥1,000-3,000万 | 🟡 旧テーブル参照 |
-| 3 | [vwap_morning_meanrevert](vwap_morning_meanrevert/) | イントラ両方向 | 月2-5回 | **+6.76** | ¥900-1,500万 | 🟡 旧テーブル参照 |
-| 4 | [orb_breakout_long](orb_breakout_long/) | イントラ Long | 月20-25回 | **+2.31** | ¥1,000-2,000万 | 🟡 旧テーブル参照 |
-| 5 | [lasertec_ma25_support](lasertec_ma25_support/) | スイング Long (10営業日) | 月1-2回 | **+7.57** | ¥500-1,000万 | 🟡 旧テーブル参照 |
+| 1 | [topix_overnight](topix_overnight/) | ON Long | 月4-5回 | **+6.27** | ¥5,000万 (ON枠) | ✅ 新DB対応済 |
+| 2 | [eneos_vwap_trend](eneos_vwap_trend/) | イントラ両方向 | 月5-6回 | **+3.81** | ¥1,000-3,000万 | ✅ 新DB対応済 |
+| 3 | [vwap_morning_meanrevert](vwap_morning_meanrevert/) | イントラ両方向 | 月2-5回 | **+6.76** | ¥900-1,500万 | ✅ 新DB対応済 |
+| 4 | [orb_breakout_long](orb_breakout_long/) | イントラ Long | 月20-25回 | **+2.31** | ¥1,000-2,000万 | ✅ 新DB対応済 |
+| 5 | [lasertec_ma25_support](lasertec_ma25_support/) | スイング Long (10営業日) | 月1-2回 | **+7.57** | ¥500-1,000万 | ✅ 新DB対応済 |
 | 6 | [bank_absorption](bank_absorption/) | スイング Long (5営業日) | 月10-20回 | **+1.84** | ¥300万 (¥100万×3銘柄) | ✅ 新DB対応済 |
-| 7 | [pair_portfolio](pair_portfolio/) | 統計裁定 LS | 〜1,400往復/年 | **+1.37** | ¥3,000万 | 🔴 MariaDB依存 (要書換) |
+| 7 | [pair_portfolio](pair_portfolio/) | 統計裁定 LS | 〜1,400往復/年 | **+1.37** | ¥3,000万 | ✅ 新DB対応済 |
 
 **Sharpeは [analyses/20260509_strategy_validation/](../analyses/20260509_strategy_validation/) の最新検証値**
 
-**コード状態**:
-- ✅ 新DB対応済: `stocks_intraday`/`stocks_daily` (5桁code, JST) を使用
-- 🟡 旧テーブル参照: `intraday_data`/`daily_stats` (RIC, UTC) のまま → `archive.*` に退避済みなので動かない、書き換え必要
-- 🔴 MariaDB依存: NAS MariaDB を直接参照、PostgreSQL 移行が必要
+**コード状態**: 全7戦略が ✅ 新DB対応済 (`stocks_intraday`/`stocks_daily` + 5桁code + JST naive)
+2026-05-11に書き換え完了。詳細は各戦略の `signal_check.py` v2.0 ヘッダ参照。
 
 ---
 
@@ -140,15 +138,15 @@
 
 ---
 
-## 既存戦略コードの書き換え TODO
+## 既存戦略コードの新DB対応状況 (2026-05-11完了)
 
-### 優先度: 🔴 高 (今月中)
+全7戦略が新DB (`stocks_intraday`/`stocks_daily`、5桁code、JST naive) に書き換え済み。
+旧 `intraday_data` / `daily_stats` (RIC, UTC) や NAS MariaDB への依存は完全に除去された。
 
-新DBで動かすため、各 `signal_check.py` を以下の方針で書き換える:
+主な変更点:
 
 ```python
 # 旧 (RIC + UTC)
-PG_CONFIG = {...}
 sql = "SELECT timestamp, close FROM intraday_data WHERE symbol = '6920.T' ..."
 # timestamp = UTC、JST は +9h
 
@@ -157,11 +155,8 @@ sql = "SELECT ts, close FROM stocks_intraday WHERE code = '69200' ..."
 # ts = JST 直接、変換不要
 ```
 
-書換え対象 (5戦略):
-- topix_overnight, eneos_vwap_trend, vwap_morning_meanrevert, orb_breakout_long, lasertec_ma25_support
-
-### 優先度: 🔴 緊急 (今月中)
-- pair_portfolio: NAS MariaDB → PostgreSQL `stocks_daily` への完全書き換え
+`pair_portfolio` は内部に RIC→5桁変換ヘルパ (`_ric_to_code5`) を持つため
+PAIRS定義はRIC表記のまま維持されている。
 
 ---
 

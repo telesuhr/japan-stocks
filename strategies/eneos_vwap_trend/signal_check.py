@@ -1,88 +1,85 @@
 #!/usr/bin/env python3
 """
-ENEOS VWAP Trend シグナル自動判定スクリプト (v1.0)
+ENEOS VWAP Trend シグナル自動判定スクリプト (v2.0 — JQuants/PG新DB対応)
 
 9:30 頃に実行:
   python3 signal_check.py
 
-シグナル = 5020.T (ENEOS) の 9:30時点VWAP乖離 ≥ ±50bps
+シグナル = 5020.T (50200, ENEOS) の 9:30時点 VWAP乖離 ≥ ±50bps
 発動 → 9:31〜 成行エントリー → 15:30 引成決済
+
+DB: stocks_intraday (5桁code, ts は JST naive)
 """
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 import psycopg2
 import pandas as pd
 
 PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
 
-SYMBOL    = "5020.T"
-NAME      = "ENEOS"
+CODE5 = "50200"
+RIC   = "5020.T"
+NAME  = "ENEOS"
 THRESHOLD = 50  # bps
 SIGNAL_HOUR = 9
-SIGNAL_MIN  = 30
+SIGNAL_MIN = 30
 
 
-def fetch_vwap_dev():
-    """9:00〜9:30の1分足からVWAPと乖離を計算"""
-    today = date.today()
+def fetch_vwap_dev(target_date: date = None):
+    if target_date is None:
+        target_date = date.today()
     conn = psycopg2.connect(**PG_CONFIG)
-    q = f"""
-        SELECT timestamp, open, high, low, close, volume
-        FROM intraday_data
-        WHERE symbol = '{SYMBOL}'
-          AND DATE(timestamp + INTERVAL '9 hours') = '{today}'
-          AND close IS NOT NULL
-        ORDER BY timestamp
-    """
-    df = pd.read_sql(q, conn)
+    start = datetime.combine(target_date, datetime.min.time())
+    end = start + timedelta(days=1)
+    df = pd.read_sql(
+        "SELECT ts, open, high, low, close, volume FROM stocks_intraday "
+        "WHERE code = %s AND ts >= %s AND ts < %s ORDER BY ts",
+        conn, params=(CODE5, start, end))
     conn.close()
 
     if df.empty:
         return None
 
-    df['jst'] = pd.to_datetime(df['timestamp']) + pd.Timedelta(hours=9)
-    df = df.sort_values('jst').set_index('jst')
+    df["ts"] = pd.to_datetime(df["ts"])
+    df = df.set_index("ts").sort_index()
 
-    # 9:00以降のデータのみ
     morning = df[df.index.hour >= 9]
     if morning.empty:
         return None
 
-    # VWAP計算（累積）
-    vol = morning['volume'].fillna(0)
+    vol = morning["volume"].fillna(0)
     vol = vol.where(vol > 0, 1.0)
-    cum_pv  = (morning['close'] * vol).cumsum()
+    cum_pv = (morning["close"] * vol).cumsum()
     cum_vol = vol.cumsum()
     vwap_series = cum_pv / cum_vol
 
-    # 9:30バーを厳密に要求（minute == 30 のバーが存在しない場合はスキップ）
     bar_930 = morning[
         (morning.index.hour == SIGNAL_HOUR) & (morning.index.minute == SIGNAL_MIN)
     ]
     if bar_930.empty:
-        return None  # 9:30バー欠損 → 判定不能としてスキップ
+        return None
 
     latest = bar_930.iloc[-1]
-    close_930 = float(latest['close'])
-    vwap_930  = float(vwap_series.loc[bar_930.index[-1]])
-    dev_bps   = (close_930 / vwap_930 - 1) * 10000
+    close_930 = float(latest["close"])
+    vwap_930 = float(vwap_series.loc[bar_930.index[-1]])
+    dev_bps = (close_930 / vwap_930 - 1) * 10000
 
     return {
-        'time': bar_930.index[-1].strftime('%H:%M'),
-        'close': close_930,
-        'vwap': vwap_930,
-        'dev_bps': dev_bps,
+        "time": bar_930.index[-1].strftime("%H:%M"),
+        "close": close_930,
+        "vwap": vwap_930,
+        "dev_bps": dev_bps,
     }
 
 
 def check_signal():
     print("=" * 65)
-    print(f"ENEOS ({SYMBOL}) VWAP Trend シグナル判定")
+    print(f"ENEOS ({RIC}, code={CODE5}) VWAP Trend シグナル判定 (新DB v2.0)")
     print(f"実行時刻: {datetime.now().strftime('%Y-%m-%d %H:%M:%S JST')}")
     print("=" * 65)
 
     today = date.today()
-    weekday = today.strftime('%A')
+    weekday = today.strftime("%A")
     print(f"\n本日: {today} ({weekday})")
 
     if today.weekday() >= 5:
@@ -104,46 +101,25 @@ def check_signal():
     print(f"  VWAP:  ¥{g['vwap']:,.1f}")
     print(f"  乖離:  {g['dev_bps']:+.1f} bps  (閾値 ±{THRESHOLD}bps)")
 
-    if g['dev_bps'] >= THRESHOLD:
-        direction = "Long"
-        signal = True
-    elif g['dev_bps'] <= -THRESHOLD:
-        direction = "Short"
-        signal = True
+    if g["dev_bps"] >= THRESHOLD:
+        direction = "Long"; signal = True
+    elif g["dev_bps"] <= -THRESHOLD:
+        direction = "Short"; signal = True
     else:
-        direction = None
-        signal = False
+        direction = None; signal = False
 
     print(f"  判定:  {'✅ 通過 → ' + direction if signal else '❌ 不足 → スキップ'}")
 
     if not signal:
-        print("\n" + "=" * 65)
-        print("🚫 本日はシグナル不発 → スキップ")
-        print("   skipped_reason=dev_below_threshold")
-        print("=" * 65)
+        print("\n🚫 本日はシグナル不発 → スキップ")
         return 0
 
     print("\n" + "=" * 65)
     print(f"🟢 シグナル発動 → {direction} エントリー")
     print("=" * 65)
-
-    shares_1000 = int(10_000_000 / g['close'] / 100) * 100
-    print(f"\n[発注目安 ¥1,000万の場合]")
-    print(f"  株数: {shares_1000:,} 株 @ ¥{g['close']:,.1f}")
-    print(f"  金額: ¥{shares_1000 * g['close']:,.0f}")
-
-    print(f"\n[発注手順]")
-    print(f"  1. 銘柄: 5020 ENEOS")
-    print(f"  2. 売買: {'新規買い (Long)' if direction == 'Long' else '新規売り (Short)'}")
-    print(f"  3. 種別: 成行")
-    print(f"  4. 数量: [ポジションサイズ ÷ ¥{g['close']:,.0f}] 株")
-    print(f"\n[決済]")
-    print(f"  15:25-15:29: 引成 (CLO) で全量{'売り' if direction == 'Long' else '買い戻し'}")
-
-    print(f"\n[確認事項]")
-    print(f"  □ 本日の決算発表なし")
-    print(f"  □ 日経225先物が急変動中でない (±3%以内)")
-
+    shares_1000 = int(10_000_000 / g["close"] / 100) * 100
+    print(f"\n[発注目安 ¥1,000万の場合]  株数: {shares_1000:,}株 @ ¥{g['close']:,.1f}")
+    print(f"\n[決済] 15:25-15:29 引成 (CLO)")
     return 0
 
 

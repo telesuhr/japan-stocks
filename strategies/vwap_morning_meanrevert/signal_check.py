@@ -27,11 +27,11 @@ PG_CONFIG = {
     "user": "postgres", "dbname": "market_data",
 }
 
-# 対象銘柄
+# 対象銘柄 (JQuants 5桁code)
 TARGETS = {
-    "8035.T": "TEL",
-    "6146.T": "ディスコ",
-    "6920.T": "レーザー",
+    "80350": "TEL (8035.T)",
+    "61460": "ディスコ (6146.T)",
+    "69200": "レーザー (6920.T)",
 }
 
 # パラメータ
@@ -45,22 +45,21 @@ BASELINE_DAYS = 20            # ベースライン参照営業日数
 
 
 def load_today_intraday(sym, target_date):
-    """指定日 (JST) の 9:00-15:30 の1分足を取得"""
+    """指定日 (JST) の 9:00-15:30 の1分足を取得 (新DB stocks_intraday)"""
     conn = psycopg2.connect(**PG_CONFIG)
-    # UTC 保存、JST = UTC+9h。target_date JST 9:00 = target_date 00:00 UTC
-    start_utc = datetime.combine(target_date, datetime.min.time())
-    end_utc = start_utc + timedelta(hours=9)  # JST 9:00 〜 18:00 をカバー
+    # ts は JST naive 直接
+    start = datetime.combine(target_date, datetime.min.time())
+    end = start + timedelta(days=1)
     df = pd.read_sql(
-        "SELECT timestamp, open, high, low, close, volume FROM intraday_data "
-        "WHERE symbol=%s AND timestamp >= %s AND timestamp < %s ORDER BY timestamp",
-        conn, params=(sym, start_utc, end_utc),
+        "SELECT ts, open, high, low, close, volume FROM stocks_intraday "
+        "WHERE code=%s AND ts >= %s AND ts < %s ORDER BY ts",
+        conn, params=(sym, start, end),
     )
     conn.close()
     if df.empty:
         return None
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
-    df["jst"] = df["timestamp"] + pd.Timedelta(hours=9)
-    df = df.set_index("jst").sort_index()
+    df["ts"] = pd.to_datetime(df["ts"])
+    df = df.set_index("ts").sort_index()
     # 取引時間のみ
     h, m = df.index.hour, df.index.minute
     morning = (h == 9) | (h == 10) | ((h == 11) & (m <= 30))
@@ -111,20 +110,19 @@ def compute_first_hour_range_bps(df):
 def load_baseline_first_hour_range(sym, ref_date, n_days=BASELINE_DAYS):
     """過去 n_days 営業日の 9:00-10:00 レンジ中央値 (bps) を返す"""
     conn = psycopg2.connect(**PG_CONFIG)
-    start_utc = datetime.combine(ref_date - timedelta(days=int(n_days * 1.7) + 10),
-                                 datetime.min.time())
-    end_utc = datetime.combine(ref_date, datetime.min.time())
+    start = datetime.combine(ref_date - timedelta(days=int(n_days * 1.7) + 10),
+                             datetime.min.time())
+    end = datetime.combine(ref_date, datetime.min.time())
     df = pd.read_sql(
-        "SELECT timestamp, open, high, low FROM intraday_data "
-        "WHERE symbol=%s AND timestamp >= %s AND timestamp < %s ORDER BY timestamp",
-        conn, params=(sym, start_utc, end_utc),
+        "SELECT ts, open, high, low FROM stocks_intraday "
+        "WHERE code=%s AND ts >= %s AND ts < %s ORDER BY ts",
+        conn, params=(sym, start, end),
     )
     conn.close()
     if df.empty:
         return None
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
-    df["jst"] = df["timestamp"] + pd.Timedelta(hours=9)
-    df = df.set_index("jst").sort_index()
+    df["ts"] = pd.to_datetime(df["ts"])
+    df = df.set_index("ts").sort_index()
     # 9:00-10:00 のみ
     fh = df[df.index.hour == 9]
     ranges = []

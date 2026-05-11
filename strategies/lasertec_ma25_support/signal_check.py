@@ -21,7 +21,9 @@ import pandas as pd
 import psycopg2
 
 PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
-SYM = "6920.T"
+# 新DB (JQuants 5桁): 6920.T → 69200
+SYM = "69200"
+RIC = "6920.T"  # 旧表記参照用
 MA_PERIOD = 25
 DD_THRESH = 5.0
 TOUCH_TOL_PCT = 1.0
@@ -34,11 +36,11 @@ COOLDOWN_DAYS = 10  # 前回エントリーからN営業日以内は再エント
 def load_daily():
     conn = psycopg2.connect(**PG_CONFIG)
     df = pd.read_sql(
-        "SELECT trade_date, open, high, low, close FROM daily_stats "
-        "WHERE symbol=%s ORDER BY trade_date", conn, params=(SYM,))
+        "SELECT date, open, high, low, close FROM stocks_daily "
+        "WHERE code=%s ORDER BY date", conn, params=(SYM,))
     conn.close()
-    df["trade_date"] = pd.to_datetime(df["trade_date"])
-    df = df.set_index("trade_date").sort_index()
+    df["date"] = pd.to_datetime(df["date"])
+    df = df.set_index("date").sort_index()
     df = df.astype({c: float for c in ["open", "high", "low", "close"]})
     return df
 

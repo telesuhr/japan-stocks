@@ -24,39 +24,37 @@ import psycopg2
 
 PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
 
-# (symbol, name, OR_minutes)
+# (code5, name, OR_minutes) — JQuants 5桁
 TARGETS = [
-    ("5706.T", "三井金属", 30),
-    ("6146.T", "ディスコ", 60),
+    ("57060", "三井金属 (5706.T)", 30),
+    ("61460", "ディスコ (6146.T)", 60),
 ]
 EXIT_HM = (15, 25)
 
 # 他戦略との衝突解決
-#   vwap_morning_meanrevert: ディスコ (6146.T) 重複 → vwap 発動ならORB スキップ
-#   sox_overnight_short    : 市場下落バイアス日は ORB (Long) 回避
-VWAP_THRESH_BPS = 275.0        # vwap_morning_meanrevert と同値
+#   vwap_morning_meanrevert: ディスコ (61460) 重複 → vwap 発動ならORB スキップ
+#   sox_overnight_short は廃止 (LME/米マクロ依存戦略は _archive/ へ)
+VWAP_THRESH_BPS = 275.0
 VWAP_ENTRY_START = (10, 0)
 VWAP_ENTRY_END = (11, 30)
-VWAP_CONFLICT_SYMS = {"6146.T"}  # ディスコのみ重複
-SOX_THRESHOLD_PCT = -2.0       # sox_overnight_short と同値
+VWAP_CONFLICT_SYMS = {"61460"}  # ディスコのみ重複
 
 
 def load_today_intraday(sym, target_date):
-    """JST の target_date 9:00-15:30 の1分足を取得"""
+    """JST の target_date 9:00-15:30 の1分足を取得 (新DB stocks_intraday)"""
     conn = psycopg2.connect(**PG_CONFIG)
-    start_utc = datetime.combine(target_date, datetime.min.time())  # JST 9:00 = UTC 00:00
-    end_utc = start_utc + timedelta(hours=9)  # JST 9:00 〜 18:00
+    start = datetime.combine(target_date, datetime.min.time())
+    end = start + timedelta(days=1)
     df = pd.read_sql(
-        "SELECT timestamp, open, high, low, close, volume FROM intraday_data "
-        "WHERE symbol=%s AND timestamp >= %s AND timestamp < %s ORDER BY timestamp",
-        conn, params=(sym, start_utc, end_utc),
+        "SELECT ts, open, high, low, close, volume FROM stocks_intraday "
+        "WHERE code=%s AND ts >= %s AND ts < %s ORDER BY ts",
+        conn, params=(sym, start, end),
     )
     conn.close()
     if df.empty:
         return None
-    df["timestamp"] = pd.to_datetime(df["timestamp"])
-    df["jst"] = df["timestamp"] + pd.Timedelta(hours=9)
-    df = df.set_index("jst").sort_index()
+    df["ts"] = pd.to_datetime(df["ts"])
+    df = df.set_index("ts").sort_index()
     h, m = df.index.hour, df.index.minute
     morning = (h == 9) | (h == 10) | ((h == 11) & (m <= 30))
     afternoon = ((h == 12) & (m >= 30)) | (h == 13) | (h == 14) | ((h == 15) & (m <= 30))
@@ -91,30 +89,8 @@ def detect_vwap_conflict(df, up_to_time=None):
 
 
 def detect_sox_conflict(target_date):
-    """前営業日 .SOX リターン ≤ -2% なら sox_overnight_short が発動 → ORB スキップ。
-
-    データソースは sox_overnight_short と同じく NAS MariaDB daily_data。
-    接続できない場合は (None, エラーメッセージ) を返し、呼び出し側で判断可能にする。
-    """
-    try:
-        sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "sox_overnight_short"))
-        from signal_check import fetch_daily as _sox_fetch  # type: ignore
-    except Exception as e:
-        return None, f"sox import 失敗: {e}"
-    try:
-        sox = _sox_fetch(".SOX", days_back=10)
-    except Exception as e:
-        return None, f"MariaDB 接続失敗: {e}"
-    if sox is None or len(sox) < 2:
-        return None, ".SOX データ不足"
-    # target_date より前で最新の .SOX クローズ
-    sox = sox[sox["trade_date"].dt.date < target_date]
-    if sox.empty:
-        return None, "対象前日以前のデータなし"
-    last = sox.iloc[-1]
-    ret = float(last["ret_pct"])
-    active = ret <= SOX_THRESHOLD_PCT
-    return active, {"date": last["trade_date"].date(), "ret_pct": ret}
+    """旧: sox_overnight_short 衝突判定。LME/米マクロ依存戦略は廃止 → 常に non-active を返す。"""
+    return False, {"date": target_date, "ret_pct": 0.0, "note": "sox 戦略廃止のため常に通過"}
 
 
 def detect_orb_signal(df, or_minutes):
@@ -180,12 +156,8 @@ def run_for_date(target_date):
         print("   → 市場下落バイアス下での ORB Long は回避 → **当日全 ORB スキップ**")
         print("=" * 70)
         return
-    elif sox_active is None:
-        print(f"\n⚠️ sox 判定不能: {sox_info} (ORB 続行、手動で前日 .SOX を確認のこと)")
     else:
-        print(f"\n✅ sox チェック通過 "
-              f"(.SOX {sox_info['date']} ret={sox_info['ret_pct']:+.2f}% > "
-              f"{SOX_THRESHOLD_PCT:+.1f}%)")
+        print("\n✅ sox 判定: 廃止 (LME/米マクロ依存戦略は _archive/ へ) → ORB 続行")
 
     triggered = 0
     for sym, name, or_min in TARGETS:

@@ -30,15 +30,19 @@ import numpy as np
 import pandas as pd
 
 try:
-    import pymysql
+    import psycopg2
     import statsmodels.api as sm
 except ImportError as e:
     print(f"❌ 依存パッケージ不足: {e}")
     sys.exit(1)
 
-MARIA = dict(host='100.92.181.92', port=3306, user='rfnews',
-             password='Bleach@924', database='refinitiv_news')
-LAN_FALLBACK = '192.168.0.250'
+# 新DB (PostgreSQL market_data) — 2026-05-10 移行
+PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
+
+# RIC → JQuants 5桁 (RIC 4桁 + 末尾0)
+def _ric_to_code5(ric: str) -> str:
+    """'7011.T' → '70110'"""
+    return ric.replace(".T", "") + "0"
 
 # ペア定義: (p1, p2, ラベル, entry_z, z_window, max_hold, exit_z, stop_z)
 PAIRS = [
@@ -69,57 +73,66 @@ COST_BPS = 8.0
 STATE_FILE = Path(__file__).parent / "positions.json"
 
 
-def _connect_maria():
-    try:
-        return pymysql.connect(**MARIA, connect_timeout=5)
-    except Exception:
-        return pymysql.connect(**{**MARIA, 'host': LAN_FALLBACK}, connect_timeout=5)
-
-
 def verify_db():
     print("=" * 70)
-    print("pair_portfolio — MariaDB 依存性検証")
+    print("pair_portfolio — PostgreSQL (新DB) 依存性検証")
     print("=" * 70)
     try:
-        conn = _connect_maria()
+        conn = psycopg2.connect(**PG_CONFIG)
     except Exception as e:
-        print(f"❌ MariaDB 接続失敗: {e}")
+        print(f"❌ PostgreSQL 接続失敗: {e}")
         return 1
     cur = conn.cursor()
-    cur.execute("SHOW TABLES LIKE 'daily_data'")
+    cur.execute("""
+        SELECT 1 FROM information_schema.tables
+        WHERE table_schema='public' AND table_name='stocks_daily'
+    """)
     if not cur.fetchone():
-        print("❌ daily_data テーブルなし"); return 1
-    print("✓ daily_data テーブル存在")
-    needed = sorted({s for p1, p2, *_ in PAIRS for s in (p1, p2)})
-    placeholders = ",".join(["%s"] * len(needed))
-    cur.execute(f"SELECT symbol, COUNT(*), MAX(trade_date) FROM daily_data "
-                f"WHERE symbol IN ({placeholders}) GROUP BY symbol", tuple(needed))
+        print("❌ stocks_daily テーブルなし"); return 1
+    print("✓ stocks_daily テーブル存在")
+
+    needed_rics = sorted({s for p1, p2, *_ in PAIRS for s in (p1, p2)})
+    needed_codes = [_ric_to_code5(r) for r in needed_rics]
+    placeholders = ",".join(["%s"] * len(needed_codes))
+    cur.execute(f"""
+        SELECT code, COUNT(*), MAX(date) FROM stocks_daily
+        WHERE code IN ({placeholders}) GROUP BY code
+    """, tuple(needed_codes))
     rows = {r[0]: (r[1], r[2]) for r in cur.fetchall()}
-    missing = [s for s in needed if s not in rows]
+    missing = [(r, c) for r, c in zip(needed_rics, needed_codes) if c not in rows]
     if missing:
-        print(f"❌ 銘柄不足: {missing}"); return 1
+        print(f"❌ 銘柄不足: {missing}"); cur.close(); conn.close(); return 1
     oldest_last = min(rows.values(), key=lambda x: x[1])
-    print(f"✓ 45 銘柄全て存在、最古 last_date = {oldest_last[1]}")
+    print(f"✓ {len(needed_codes)} 銘柄全て存在、最古 last_date = {oldest_last[1]}")
     print(f"  レコード数範囲: {min(r[0] for r in rows.values())} 〜 "
           f"{max(r[0] for r in rows.values())}")
-    conn.close()
+    cur.close(); conn.close()
     return 0
 
 
 def load_closes(symbols, start_date, end_date):
-    conn = _connect_maria()
-    placeholders = ",".join(["%s"] * len(symbols))
-    q = f"""SELECT symbol, trade_date, close FROM daily_data
-            WHERE symbol IN ({placeholders})
-              AND trade_date BETWEEN %s AND %s
-            ORDER BY symbol, trade_date"""
-    params = tuple(symbols) + (start_date, end_date)
+    """
+    symbols: RIC のリスト (例 ['7011.T', '7013.T'])
+    返り値: 列 = RIC, インデックス = date, 値 = adj_close
+    """
+    code5_list = [_ric_to_code5(r) for r in symbols]
+    code5_to_ric = {c: r for c, r in zip(code5_list, symbols)}
+
+    conn = psycopg2.connect(**PG_CONFIG)
+    placeholders = ",".join(["%s"] * len(code5_list))
+    q = f"""SELECT code, date, COALESCE(adj_close, close) AS close
+            FROM stocks_daily
+            WHERE code IN ({placeholders})
+              AND date BETWEEN %s AND %s
+            ORDER BY code, date"""
+    params = tuple(code5_list) + (start_date, end_date)
     df = pd.read_sql(q, conn, params=params)
     conn.close()
     if df.empty:
         return pd.DataFrame()
-    df["trade_date"] = pd.to_datetime(df["trade_date"])
-    return df.pivot(index="trade_date", columns="symbol",
+    df["date"] = pd.to_datetime(df["date"])
+    df["symbol"] = df["code"].map(code5_to_ric)  # RIC列を復元 (PAIRS定義と互換)
+    return df.pivot(index="date", columns="symbol",
                     values="close").astype(float)
 
 
