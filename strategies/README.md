@@ -50,7 +50,7 @@
 
 ---
 
-## 戦略一覧 (5戦略)
+## 戦略一覧 (6戦略)
 
 | # | フォルダ | 型 | 発動頻度 | 直近Sharpe | N | 想定資金 |
 |:-:|---------|:--:|---------|:--:|:--:|---------|
@@ -59,6 +59,7 @@
 | 3 | [eneos_vwap_trend](eneos_vwap_trend/) | イントラ両方向 | 月5-6回 | **+2.97** | 97 | ¥1,000-3,000万 |
 | 4 | [lasertec_ma25_support](lasertec_ma25_support/) | スイング Long (10営業日) | 月1-2回 | **+2.95** | 39 | ¥500-1,000万 |
 | 5 | [orb_breakout_long](orb_breakout_long/) | イントラ Long | 月20-25回 | **+2.19** | 469 | ¥1,000-2,000万 |
+| 6 | [earnings_pead](earnings_pead/) | スイング Long (5営業日) | 月10-40回 (決算期集中) | **+2.19** | 1244 | ¥1,000万 (¥100万×10銘柄) |
 
 **Sharpe は [analyses/20260511_strategy_validation_jquants/](../analyses/20260511_strategy_validation_jquants/) の JQuants長期検証値**。
 イントラ系は2年検証 (2024-05〜2026-05)、日足系は5年検証 (2021-05〜2026-05)。
