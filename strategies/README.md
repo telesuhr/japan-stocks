@@ -50,7 +50,7 @@
 
 ---
 
-## 戦略一覧 (8戦略)
+## 戦略一覧 (9戦略)
 
 | # | フォルダ | 型 | 発動頻度 | 直近Sharpe | N | 想定資金 |
 |:-:|---------|:--:|---------|:--:|:--:|---------|
@@ -59,11 +59,13 @@
 | 3 | [oversold_ma25_reversal](oversold_ma25_reversal/) | スイング Long (5営業日) | 月10-30回 | **+3.21** | 1625 | ¥1,000万 (¥100万×10銘柄) ⚠ |
 | 4 | [eneos_vwap_trend](eneos_vwap_trend/) | イントラ両方向 | 月5-6回 | **+2.97** | 97 | ¥1,000-3,000万 |
 | 5 | [lasertec_ma25_support](lasertec_ma25_support/) | スイング Long (10営業日) | 月1-2回 | **+2.95** | 39 | ¥500-1,000万 |
-| 6 | [orb_breakout_long](orb_breakout_long/) | イントラ Long | 月20-25回 | **+2.19** | 469 | ¥1,000-2,000万 |
-| 7 | [earnings_pead](earnings_pead/) | スイング Long (5営業日) | 月10-40回 (決算期集中) | **+2.19** | 1244 | ¥1,000万 (¥100万×10銘柄) |
-| 8 | [pre_earnings_drift](pre_earnings_drift/) | スイング Long (3-5営業日) | 月50-200回 (決算期集中) | **+2.07** | 3959 | ¥1,500万 (¥100万×15銘柄) |
+| 6 | [large_cap_oversold_reversal](large_cap_oversold_reversal/) | スイング Long (5営業日) | 月10-20回 | **+2.92** | 642 | ¥800万 (¥100万×8銘柄) ★Core30+Large70限定 |
+| 7 | [orb_breakout_long](orb_breakout_long/) | イントラ Long | 月20-25回 | **+2.19** | 469 | ¥1,000-2,000万 |
+| 8 | [earnings_pead](earnings_pead/) | スイング Long (5営業日) | 月10-40回 (決算期集中) | **+2.19** | 1244 | ¥1,000万 (¥100万×10銘柄) |
+| 9 | [pre_earnings_drift](pre_earnings_drift/) | スイング Long (3-5営業日) | 月50-200回 (決算期集中) | **+2.07** | 3959 | ¥1,500万 (¥100万×15銘柄) |
 
 **⚠ oversold_ma25_reversal**: 2026年で性能反転 (Sharpe -0.58) のため月次モニター必須
+**★ large_cap_oversold_reversal**: 上記の大型株限定版、2026年もCore30はSharpe+0.83維持
 
 **Sharpe は [analyses/20260511_strategy_validation_jquants/](../analyses/20260511_strategy_validation_jquants/) の JQuants長期検証値**。
 イントラ系は2年検証 (2024-05〜2026-05)、日足系は5年検証 (2021-05〜2026-05)。
