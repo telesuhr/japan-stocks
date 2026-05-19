@@ -1,0 +1,5 @@
+strategy,sector,direction,train_time,train_sharpe,train_N,train_t,train_mean,oos_sharpe,oos_N,oos_t,oos_mean
+非鉄 BW Reversion,非鉄,Reversion,09:20:00,0.28,404,1.01,4.21,-0.09,88,0.21,-1.68
+非鉄 BW Momentum,非鉄,Momentum,14:00:00,0.15,404,1.78,0.99,-1.91,88,-0.56,-15.85
+AI半導体 BW Reversion,AI半導体,Reversion,11:00:00,-0.74,404,0.0,-7.99,-0.28,88,0.27,-3.01
+AI半導体 BW Momentum,AI半導体,Momentum,09:10:00,0.96,403,1.86,14.97,-2.88,88,-1.48,-64.01
