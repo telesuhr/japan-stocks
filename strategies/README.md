@@ -138,10 +138,14 @@
 
 ## 候補戦略 (analyses/ で検証中)
 
-| 候補 | Sharpe | N | 根拠分析 | 課題 |
-|------|--------|---|---------|------|
-| 9101 日本郵船 VWAP Breakout | +4.18 | 99 | [`vwap_comprehensive/`](../analyses/20260422_vwap_comprehensive/) | 銘柄集中リスク + 5年再検証必要 |
-| 1605 INPEX VWAP Trend | +15.56 | — | 同上 | eneos_vwap_trend との相関リスク確認 + 5年再検証必要 |
-| **pair_portfolio v2 (勝ち7ペアのみ)** | 推定+5前後 | — | [20260511_strategy_validation_jquants](../analyses/20260511_strategy_validation_jquants/) | 半TEL-レーザー +12.89, 通NTT-KDDI +7.13 など7ペアに絞り込み |
+| 候補 | OOS Sharpe | OOS DD | 根拠分析 | 課題 |
+|------|--------:|--------:|---------|------|
+| **oversold_rsi_reversal** (6銘柄予定) | **+6.15** (8銘柄ベース) | -4.1% | [20260522_strategy_true_oos_validation](../analyses/20260522_strategy_true_oos_validation/) | **真のOOS検証クリア (IS:2016-2020 / OOS:2021-2026)**。任天堂・三井物産除外で6銘柄(三菱商事/トヨタ/伊藤忠/TEL/ホンダ/レーザー)推奨。運用ドキュメント実装待ち |
+| **ma_cross_long_basket** (7銘柄) | **+2.87** | -11.0% | 同上 | **真のOOS検証クリア**。みずほ/アドバンテスト/古河電工/住友金属鉱山/三井金属/三菱マテ/ファストリテ。運用ドキュメント実装待ち |
+| 9101 日本郵船 VWAP Breakout | +4.18 (1年) | — | [`vwap_comprehensive/`](../analyses/20260422_vwap_comprehensive/) | 銘柄集中リスク + 5年再検証必要 |
+| 1605 INPEX VWAP Trend | +15.56 (1年) | — | 同上 | eneos_vwap_trend との相関リスク確認 + 5年再検証必要 |
+| pair_portfolio v2 (勝ち7ペアのみ) | 推定+5前後 | — | [20260511_strategy_validation_jquants](../analyses/20260511_strategy_validation_jquants/) | 半TEL-レーザー +12.89, 通NTT-KDDI +7.13 など7ペアに絞り込み |
+
+> **2026-05-22 追加**: テクニカル指標スクリーニング + 真のOOS検証 ([20260522_strategy_true_oos_validation/](../analyses/20260522_strategy_true_oos_validation/)) で2戦略が昇格基準クリア。`strategies/` 昇格は運用ドキュメント (signal_check.py / RULES.md / DAILY_CHECKLIST.md) 実装次第。
 
 新たに JQuants 固有データ (信用残・空売り比率・投資部門別) を活用した戦略候補も今後 `analyses/` で検討予定。
