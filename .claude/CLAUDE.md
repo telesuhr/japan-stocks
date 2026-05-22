@@ -14,9 +14,22 @@
 
 ## DB接続
 
+canonical DB は **OMEN (Win/WSL) PostgreSQL 17 の `market_data`**、Tailscale ホスト名 `omen` で接続。
+24h 起動マシンに集約。M4 Pro 直叩きは廃止。
+
 ```python
-PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
+import os
+PG_CONFIG = {
+    "host": os.environ.get("PGHOST", "omen"),
+    "port": int(os.environ.get("PGPORT", 5432)),
+    "user": os.environ.get("PGUSER", "postgres"),
+    "dbname": os.environ.get("PGDATABASE", "market_data"),
+}
+# password は ~/.pgpass (例: `omen:5432:market_data:postgres:postgres`) または
+# 環境変数 PGPASSWORD から libpq が拾う。リポにパスワード文字列は置かない。
 ```
+
+別マシンに繋ぎたい時は `PGHOST` を上書き (例: `PGHOST=100.94.216.39` で M4 Pro)。
 
 **新規分析は必ず以下のテーブルを使うこと。** DB の全体像・カラム詳細は [DATA_SCHEMA.md](../DATA_SCHEMA.md) 参照。
 
@@ -60,9 +73,15 @@ SELECT code5 FROM symbol_master WHERE ric = '7203.T';
 ### 新規分析テンプレ（コピペ用）
 
 ```python
+import os
 import psycopg2, pandas as pd
 
-PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
+PG_CONFIG = {
+    "host": os.environ.get("PGHOST", "omen"),
+    "port": int(os.environ.get("PGPORT", 5432)),
+    "user": os.environ.get("PGUSER", "postgres"),
+    "dbname": os.environ.get("PGDATABASE", "market_data"),
+}
 
 def load_minute(code5: str, start: str, end: str) -> pd.DataFrame:
     """5桁コード・JST文字列で 1分足を取得。返り値は ts インデックス（JST naive）"""

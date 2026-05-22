@@ -7,8 +7,19 @@
 - **ライセンス**: Refinitiv Eikon契約下、**再配布禁止**
 
 ## PostgreSQL接続
+
+canonical DB は **OMEN (Win/WSL) PostgreSQL 17** 上の `market_data`、Tailscale ホスト名 `omen` で接続。
+旧 `localhost` 前提は廃止。
+
 ```python
-PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
+import os
+PG_CONFIG = {
+    "host": os.environ.get("PGHOST", "omen"),
+    "port": int(os.environ.get("PGPORT", 5432)),
+    "user": os.environ.get("PGUSER", "postgres"),
+    "dbname": os.environ.get("PGDATABASE", "market_data"),
+}
+# password は ~/.pgpass か PGPASSWORD で。リポにパスワード文字列は置かない。
 ```
 
 ## メインテーブル: `intraday_data`
@@ -188,7 +199,7 @@ COST_BPS_LS = 8.0    # LS戦略: 片側2bps × 往復 × 2銘柄
 | サンプルCSV (5日×27銘柄, <3MB) | ✓ | `data/sample/` |
 | 集計アウトプット (CSV, PNG) | ✓ | `analyses/*/` |
 | 生1分足 全期間データ | ✗ | Refinitivライセンス違反 |
-| DB接続情報 | ✗ | コード内の `PG_CONFIG` はローカル前提 |
+| DB接続情報 | △ | host/user/dbname のみ。password は ~/.pgpass / PGPASSWORD 経由 |
 
 ---
 

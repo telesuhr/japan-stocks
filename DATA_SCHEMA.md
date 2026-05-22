@@ -5,10 +5,22 @@
 
 ## 接続情報
 
+canonical DB は **OMEN (Win/WSL) PostgreSQL 17** 上の `market_data`。Tailscale ホスト名 `omen` で接続する。
+24h 起動の OMEN に集約し、M4 Pro 直叩きは廃止（M4 Pro はサブ用途）。
+
 ```python
-PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
+import os
+PG_CONFIG = {
+    "host": os.environ.get("PGHOST", "omen"),
+    "port": int(os.environ.get("PGPORT", 5432)),
+    "user": os.environ.get("PGUSER", "postgres"),
+    "dbname": os.environ.get("PGDATABASE", "market_data"),
+}
+# password はリポに置かない。各マシンの ~/.pgpass か PGPASSWORD で渡す。
+# 例: ~/.pgpass に `omen:5432:market_data:postgres:postgres` (chmod 600)
 ```
 
+別ホストに繋ぎたい時は `PGHOST` を上書き（例: M4 Pro なら `PGHOST=100.94.216.39`）。
 NAS MariaDB (`100.92.181.92:3306`) は **2026-05 を最後にトレーディング用途では使わない**。
 NAS は今後バックアップ受け・長期保管のみ。
 
