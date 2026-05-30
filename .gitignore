@@ -26,3 +26,4 @@ signals_forward_returns.csv
 trades.csv
 daily_portfolio.csv
 factor_panel.csv
+close_events_raw.csv
