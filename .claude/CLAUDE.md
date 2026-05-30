@@ -1,7 +1,20 @@
 # Japan Stocks Trading
 
+共通DB仕様・スキーマ・銘柄コード体系・役割境界は親の `ClaudeCode/CLAUDE.md` を参照。
+このフォルダの役割は **一回性の研究分析・仮説検証・X投稿グラフ**（定常運用は `Dashboard_CC`）。
+
 ## プロジェクト概要
 日本株のイントラデイ・スキャルピング戦略の分析・バックテスト。
+
+## GitHub 同期
+- リモート: `github.com/telesuhr/japan-stocks` (private)
+- ブランチ: `main`（`origin/main` を追跡）
+- セッション末にまとめてコミット → 即 push（下記「Git・Push ルール」参照）
+
+## ファイル配置ルール
+- 本格的な分析は必ず `analyses/YYYYMMDD_テーマ/` 配下に置く
+- 一回性の確認・ユーティリティスクリプトは `analyses/_utils/` に置く
+- ルート直下にスクリプトを散らかさない（CLAUDE.md / README / .gitignore 等のみ）
 
 ## 主な分析対象
 - 半導体・電機セクター
