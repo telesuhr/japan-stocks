@@ -24,3 +24,4 @@ credentials.json
 *.pkl
 signals_forward_returns.csv
 trades.csv
+daily_portfolio.csv
