@@ -1,0 +1,11 @@
+SQLクエリ実行中...
+  9,775 observations (540 銘柄)
+集計完了: 25 rows
+result.png 保存完了
+
+=== Q1(gap最小) vs Q5(gap最大) ===
+  全期間                           : Q1=+1.1bps(t=0.12)  Q5=+18.2bps(t=1.75)  momentum=+17.0  fade=-17.0
+  IS(<2024)                     : Q1=+17.1bps(t=1.45)  Q5=+30.6bps(t=2.31)  momentum=+13.6  fade=-13.6
+  OOS(2024+)                    : Q1=-14.8bps(t=-1.08)  Q5=+0.8bps(t=0.05)  momentum=+15.7  fade=-15.7
+  大ギャップ上昇(≥150bps)              : Q1=+2.8bps(t=0.29)  Q5=+18.0bps(t=1.07)  momentum=+15.2  fade=-15.2
+  大ギャップ下落(≤-150bps)             : Q1=+24.0bps(t=1.54)  Q5=-2.7bps(t=-0.23)  momentum=-26.7  fade=+26.7

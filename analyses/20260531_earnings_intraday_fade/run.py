@@ -54,22 +54,29 @@ def load_earnings():
     print(f"  決算件数: {len(df):,} (引け後発表)")
     return df
 
-def load_daily_for_earnings(codes_dates):
-    """決算翌営業日の日足データ (open, prev_close) を取得"""
+def load_daily_for_earnings(codes):
+    """日足データ (open, prev_close) を流動性フィルタ後に取得"""
     conn = get_conn()
-    # 大量のcode+dateペアを扱うためにIN句で取得
-    all_codes = list(set([c for c,d in codes_dates]))
+    # まず流動性≥10億円の銘柄だけに絞る（60日平均売買代金）
     sql = """
-        SELECT code, date, open, close, volume, turnover_value,
-               LAG(close) OVER (PARTITION BY code ORDER BY date) as prev_close,
-               LAG(date) OVER (PARTITION BY code ORDER BY date) as prev_date
-        FROM stocks_daily
-        WHERE code = ANY(%s) AND date >= %s AND date < %s
-        ORDER BY code, date
+        WITH liq AS (
+            SELECT code
+            FROM stocks_daily
+            WHERE code = ANY(%s) AND date >= %s AND date < %s
+            GROUP BY code
+            HAVING avg(turnover_value) >= %s
+        )
+        SELECT d.code, d.date, d.open, d.close, d.turnover_value,
+               LAG(d.close) OVER (PARTITION BY d.code ORDER BY d.date) as prev_close
+        FROM stocks_daily d
+        JOIN liq USING(code)
+        WHERE d.date >= %s AND d.date < %s
+        ORDER BY d.code, d.date
     """
-    df = pd.read_sql(sql, conn, params=(all_codes, START, END))
+    df = pd.read_sql(sql, conn, params=(codes, START, END, MIN_LIQUIDITY, START, END))
     conn.close()
     df["date"] = pd.to_datetime(df["date"])
+    print(f"  流動性フィルタ後: {df['code'].nunique()} 銘柄, {len(df):,} rows")
     return df
 
 def load_intraday_for_dates(code_date_pairs, horizon_mins=None):
@@ -99,17 +106,13 @@ def main():
     print("決算データ読み込み...")
     earn = load_earnings()
 
-    print("日足データ読み込み...")
+    print("日足データ読み込み（流動性フィルタ込み）...")
     all_codes = earn["code"].unique().tolist()
-    daily = load_daily_for_earnings(
-        list(zip(all_codes, [None]*len(all_codes)))
-    )
+    print(f"  ユニーク銘柄数: {len(all_codes):,}")
+    daily = load_daily_for_earnings(all_codes)
 
-    # 流動性フィルタ: 60日平均売買代金 >= 10億円
-    daily["avg_to60"] = daily.groupby("code")["turnover_value"].transform(
-        lambda x: x.rolling(60, min_periods=20).mean()
-    )
-    liquid = daily[daily["avg_to60"] >= MIN_LIQUIDITY][["code","date"]].copy()
+    # 流動性フィルタはSQLで適用済み
+    liquid = daily[["code","date"]].copy()
     liquid["is_liquid"] = True
 
     # 決算翌営業日を特定: disc_date → 翌営業日 (next trading day in daily)

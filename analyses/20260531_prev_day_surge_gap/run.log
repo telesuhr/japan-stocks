@@ -1,0 +1,12 @@
+ユニバース読み込み...
+  SQLクエリ実行中（数分）...
+  1,291,789 rows, 600 銘柄
+集計完了: 96 rows
+result.png 保存完了
+
+=== IS/OOS両方プラスのエッジ（Sharpe > 0.2）===
+
+=== ギャップ予測（IS/OOSともSharpe>0.3）===
+  ★ gap: 上昇後/momentum thresh=5.0%: IS=1.92(t=13.51)  OOS=0.34(t=2.89)
+  ★ gap: 上昇後/momentum thresh=7.0%: IS=2.56(t=11.82)  OOS=0.88(t=5.08)
+  ★ gap: 上昇後/momentum thresh=10.0%: IS=3.77(t=10.79)  OOS=2.31(t=8.80)

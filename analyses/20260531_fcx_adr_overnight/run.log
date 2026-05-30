@@ -1,0 +1,32 @@
+マクロデータ読み込み...
+  1674 days, 12 symbols
+  最新: 2026-05-29
+日足データ読み込み...
+  11,390 rows
+
+バックテスト中...
+  FCX+2%→非鉄翌日Long: N=220
+  FCX+2%→非鉄翌日ギャップ: N=220
+  FCX-2%→非鉄翌日Short: N=206
+  SOX+2%→半導体翌日Long: N=192
+  SOX+2%→半導体翌日ギャップ: N=191
+  SOX-2%→半導体翌日Short: N=163
+  NQc1+1.5%→全体翌日Long: N=129
+  円高-1%→半導体5翌日Short: N=0 (少なすぎ, skip)
+  AUD+1%→非鉄翌日Long: N=63
+  TEL-ADR+3%→TEL翌日Long: N=0 (少なすぎ, skip)
+  LT-ADR+3%→LT翌日Long: N=0 (少なすぎ, skip)
+  SB-ADR+3%→9984翌日Long: N=0 (少なすぎ, skip)
+
+集計完了 -> signal_summary.csv
+result.png 保存完了
+
+=== IS/OOS両方プラスのエッジ候補 ===
+    FCX+2%→非鉄翌日Long                         : IS=+22.2bps(t=2.28, Sh=3.31)  OOS=-2.2bps(t=-0.11, Sh=-0.17)
+  ★ FCX+2%→非鉄翌日ギャップ                         : IS=+62.2bps(t=8.63, Sh=12.51)  OOS=+164.9bps(t=7.19, Sh=11.31)
+    FCX-2%→非鉄翌日Short                        : IS=-11.2bps(t=-1.08, Sh=-1.53)  OOS=-23.3bps(t=-0.94, Sh=-1.67)
+    SOX+2%→半導体翌日Long                        : IS=-8.9bps(t=-1.05, Sh=-1.62)  OOS=-32.1bps(t=-2.71, Sh=-4.60)
+  ★ SOX+2%→半導体翌日ギャップ                        : IS=+39.3bps(t=6.12, Sh=9.49)  OOS=+100.9bps(t=5.59, Sh=9.47)
+    SOX-2%→半導体翌日Short                       : IS=-13.9bps(t=-1.33, Sh=-2.15)  OOS=+16.6bps(t=0.78, Sh=1.49)
+    NQc1+1.5%→全体翌日Long                      : IS=+4.2bps(t=0.45, Sh=0.75)  OOS=-63.5bps(t=-3.12, Sh=-7.71)
+    AUD+1%→非鉄翌日Long                         : IS=-18.0bps(t=-1.15, Sh=-2.70)  OOS=-16.5bps(t=-0.34, Sh=-1.28)
