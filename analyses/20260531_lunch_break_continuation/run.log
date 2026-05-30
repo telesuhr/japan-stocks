@@ -1,0 +1,13 @@
+データ読み込み...
+  1,578,679 rows (12 codes)
+  panel: 5,550 code-days
+  集計完了 -> lunch_summary.csv (135 rows)
+result.png 保存完了
+
+=== Q1(前場弱)・Q5(前場強) の後場リターン比較 ===
+  非鉄_全日                      Q1=+18.1bps(t=3.16)  Q5=-11.5bps(t=-1.91)  spread=-29.6bps
+  半導体_全日                     Q1=-0.4bps(t=-0.05)  Q5=-2.5bps(t=-0.32)  spread=-2.1bps
+  非鉄_LME+1%                  Q1=-19.0bps(t=-1.74)  Q5=-3.0bps(t=-0.28)  spread=+16.0bps
+  非鉄_LME-1%                  Q1=+56.9bps(t=3.58)  Q5=-13.8bps(t=-0.75)  spread=-70.7bps
+  非鉄_曜日_火                    Q1=-14.3bps(t=-0.94)  Q5=-37.2bps(t=-2.85)  spread=-22.9bps
+  非鉄_曜日_木                    Q1=+22.7bps(t=2.50)  Q5=-30.7bps(t=-2.02)  spread=-53.4bps
