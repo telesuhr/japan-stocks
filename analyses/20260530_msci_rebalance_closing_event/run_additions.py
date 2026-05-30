@@ -62,25 +62,36 @@ def main():
         if len(after_a)==0 or len(before_e)==0: continue
         d_a1=after_a[0]; d_e=dts[dts<=e][-1]; d_em1=before_e[-1]
         d_e1=after_e[0] if len(after_e)>0 else None
+        # 公表日以前の営業日（公表織り込み窓の起点）
+        upto_a=dts[dts<=a]
+        d_a=upto_a[-1] if len(upto_a)>0 else None           # 公表当日(以前最新)
+        d_pre20=upto_a[-21] if len(upto_a)>=21 else None    # 公表20営業日前
+        d_pre10=upto_a[-11] if len(upto_a)>=11 else None    # 公表10営業日前
         def ret(p0_dt,p0_fld,p1_dt,p1_fld):
             try:
+                if p0_dt is None or p1_dt is None: return np.nan
                 s=px.loc[p0_dt,p0_fld]; t=px.loc[p1_dt,p1_fld]
                 ts=topix.loc[p0_dt,p0_fld]; tt=topix.loc[p1_dt,p1_fld]
                 return (t/s-1)*100-(tt/ts-1)*100   # TOPIX超過(%)
             except Exception: return np.nan
-        r1=ret(d_a1,"open",d_em1,"close")   # 公表ドリフト(先回り)
-        r2=ret(d_a1,"open",d_e,"close")     # 公表→発効引け
+        # 予想織り込み局面（公表"前"のドリフト）
+        p20=ret(d_pre20,"close",d_a,"close")  # 公表20営業日前→公表日
+        p10=ret(d_pre10,"close",d_a,"close")  # 公表10営業日前→公表日
+        # 公表後
+        r1=ret(d_a1,"open",d_em1,"close")   # 公表翌→発効前日(先回り)
+        r2=ret(d_a1,"open",d_e,"close")     # 公表翌→発効引け
         r3=ret(d_e,"open",d_e,"close")      # 発効当日
         r4=ret(d_e,"close",d_e1,"close") if d_e1 is not None else np.nan  # 発効翌日反転
         rows.append({"grp":grp,"code":code,"name":name,
-            "R1_公表ドリフト":round(r1,1),"R2_公表→発効引":round(r2,1),
+            "P20_公表前20d":round(p20,1),"P10_公表前10d":round(p10,1),
+            "R1_公表後ドリフト":round(r1,1),"R2_公表→発効引":round(r2,1),
             "R3_発効当日":round(r3,1),"R4_発効翌日":round(r4,1)})
     conn.close()
     res=pd.DataFrame(rows); res.to_csv(OUT/"additions_returns.csv",index=False)
     print("\n===== MSCI採用銘柄 TOPIX超過リターン(%) =====")
     print(res.to_string(index=False))
     print("\n===== 平均 (n={}) =====".format(len(res)))
-    for c in ["R1_公表ドリフト","R2_公表→発効引","R3_発効当日","R4_発効翌日"]:
+    for c in ["P20_公表前20d","P10_公表前10d","R1_公表後ドリフト","R2_公表→発効引","R3_発効当日","R4_発効翌日"]:
         v=res[c].dropna()
         print(f"  {c:16s} 平均{v.mean():6.1f}%  中央{v.median():6.1f}%  勝率{(v>0).mean():.0%}  (n={len(v)})")
 
