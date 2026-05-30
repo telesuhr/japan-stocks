@@ -34,9 +34,9 @@ for i, (_, r) in enumerate(a.iterrows()):
     ax.text(r["mean_bps"] + (1 if r["mean_bps"] >= 0 else -1), i, f"t={r['t_stat']:.1f}",
             va="center", ha="left" if r["mean_bps"] >= 0 else "right", fontsize=7, color="#555")
 
-fig.suptitle("平均回帰には実在エッジ、ブレイクアウトはほぼ無し（全上場・流動性≥10億円・10年）",
-             fontsize=13.5, fontweight="bold", y=0.98)
-ax.set_title("青=平均回帰 / 赤=ブレイクアウト　t統計量は有意でもper-tradeリターンは小さい（要・分散ポートフォリオ化）",
+fig.suptitle("平均回帰は効くが2022年以降に偏在、ブレイクアウトは全期間ダメ（全上場・流動性≥10億円・10年）",
+             fontsize=13, fontweight="bold", y=0.98)
+ax.set_title("青=平均回帰 / 赤=ブレイクアウト　t値は大きいがzスコア系の利益はOOSに集中＝レジーム依存の疑い",
              fontsize=9.5, color="#444", pad=8)
 fig.text(0.99, 0.01,
          "データ: 2016-05〜2026-05 / 日本株日足 (JQuants, 分割調整) / 流動性: トレーリング60日平均売買代金≥10億円/日",
