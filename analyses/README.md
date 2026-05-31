@@ -32,6 +32,12 @@
 > Long-only: IS Sharpe=**4.13** / OOS=**9.83** (V4比 +2.47/+2.93)。
 > グリッドサーチ最安定: M+T (S不要)。V6 = r20_adj + d75 を推奨。
 >
+> ### [V6スコア 50銘柄 クロスセクショナル L/S](20260531_v6_universe50_ls/) ⭐⭐⭐
+> 50銘柄に拡張し top8/bottom8 でL/S。**V6b (r20_adj+0.5d75) が最良**:
+> 全期間 L/S Sharpe=**4.65** (t=10.06)、IS=2.64・OOS=7.58、全期間でV4を上回る。
+> M/T/生r20 はIS期間のクロスセクションICがマイナス → ボラ正規化が決定的。
+> 累積 OOS +297% (MaxDD -16%)。**グラフ**: [result.png](20260531_v6_universe50_ls/result.png)
+>
 > ### [auKabu 板imbalanceエッジ検証](20260531_aukabu_imbalance_edge/) ⛔
 > クロスセクションL/S: 全フィーチャーでgross≈0bps (コスト5bpsで完全に負け)。
 > ただし個別銘柄の時系列ICで有意な銘柄あり (285A: t=4.2, 6920: t=3.0)。
