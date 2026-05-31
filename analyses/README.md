@@ -9,6 +9,11 @@
 
 ## 最新分析 (2026-05-31) — V4/V5/V6スコア研究 + 既存戦略Sharpe測定法監査
 
+> ### [戦略バスケット 日次ポートフォリオSharpe](20260531_portfolio_daily_sharpe/) ⭐⭐(重要)
+> 価格ベース4戦略を再構築し日次資金曲線で評価。**個別の日次PF Sharpe=eneos0.95/lasertec1.20/vwap1.48/bank4.21**(headlineより低下)。
+> だが**戦略間相関ほぼゼロ→等加重バスケットSharpe=5.28**(個別平均2.66から+2.62)。**真の価値は個別でなく低相関分散効果**。
+> 注: bank上限なしで楽観寄り。恒久エンジンはバスケットとして本物=headline√252でなくバスケット資金曲線で評価すべき。
+>
 > ### [既存6戦略 Sharpe測定法の監査](20260531_strategy_sharpe_audit/) ⚠️(重要)
 > 全戦略が per-trade Sharpe ×√252 (年間252トレード仮定) で年率化。実頻度は8〜52回/年。
 > **standalone年率Sharpe補正値: vwap1.78 / pre_earnings3.70 / bank0.93 / lasertec0.47 / earnings0.91 / eneos0.82**。
