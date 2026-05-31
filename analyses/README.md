@@ -7,7 +7,30 @@
 
 ---
 
-## 最新分析 (2026-05-31) — テクニカル分析エッジ検証シリーズ
+## 最新分析 (2026-05-31) — テクニカル分析エッジ検証シリーズ + 戦略OOSモニタリング
+
+> ### [採用6戦略 OOSモニタリング](../Dashboard_CC/strategy_oos_monitor.py) — 直近90日 (2026-02-28〜05-29)
+>
+> | 戦略 | n | Sharpe(OOS) | Sharpe(IS) | 判定 |
+> |---|---|---|---|---|
+> | bank_absorption | 52 | 1.29 | 3.94 | WARNING |
+> | lasertec_ma25_support | 3 | N/A | 2.95 | N/A (信号少) |
+> | earnings_pead | 120 | 1.07 | 2.19 | WARNING |
+> | pre_earnings_drift | 1023 | 1.63 | 2.07 | OK |
+> | vwap_morning_meanrevert | 20 | 4.24 | 6.76 | OK |
+> | **eneos_vwap_trend** | 29 | **-1.27** | 3.81 | **CRITICAL** |
+>
+> `eneos_vwap_trend` が直近90日でSharpe-1.27 → 戦略停止・再検証が必要。
+> `bank_absorption` / `earnings_pead` も IS比50%未満で監視継続。
+
+> ### [auKabu 板imbalanceエッジ検証](20260531_aukabu_imbalance_edge/) ⛔
+> クロスセクションL/S: 全フィーチャーでgross≈0bps (コスト5bpsで完全に負け)。
+> ただし個別銘柄の時系列ICで有意な銘柄あり (285A: t=4.2, 6920: t=3.0)。
+> データ6日間のみ → 月次再実行で統計パワー向上待ち。
+
+> ### [月曜エントリーフィルター × PEAD gap≥7%](20260531_monday_pead_filter/) ⛔
+> gap≥7% Long-only全体Sharpe=-0.32、月曜限定=-0.27。差なし。
+> ISとOOSで月曜効果の符号逆転 → 過学習。フィルター追加は不要。
 
 > ### [PEAD拡張: セクター中立化・サプライズフィルター](20260531_pead_enhanced/) ⛔
 > Sharpe 0.38 にセクター中立化 → -0.24。**セクターβの幻確定**。
