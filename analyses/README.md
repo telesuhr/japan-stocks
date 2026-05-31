@@ -10,8 +10,8 @@
 ## 最新分析 (2026-05-31) — レポート柱検証 + V6スコア研究 + 既存戦略監査
 
 > ### [採用戦略の足元エッジ確認 (90/180/365日窓)](20260531_strategy_recency_check/) ⚠️(eneos停止推奨)
-> proper年率化√(245/hold)で複数窓検証。**6戦略中5戦略は足元でも正のエッジ維持** (pre_earnings_drift t12.9/earnings_pead/vwap/lasertec健在、bank弱いが正)。
-> **eneos_vwap_trendのみ直近半年Sharpe約-1.2で機能停止→一時停止推奨**。新候補closing_auction_reboundも健在。注: IS基準の多くは√252過大評価でoos_ratioは割引いて解釈。
+> proper年率化√(245/hold)で複数窓検証。**6戦略すべて足元でシグナル生存(gross正)**。pre_earnings_drift(t12.9)/earnings_pead/vwap/lasertec健在、bank弱いが正。
+> **eneosは当初「機能停止」判定→[訂正](20260531_strategy_recency_check/eneos_diagnosis.md): 「CRITICAL」はモニタ一律20bpsコストのアーティファクトでシグナルは健在(gross Sh1.25-2.92)、ただし薄利でコスト感度高**。新候補closing_auction_reboundも健在。注: IS基準は√252過大評価、モニタコストは戦略別に要修正。
 
 > ### [出来高(volume)エッジ探索](20260531_volume_edge/) ⛔(単体エッジなし)
 > 出来高ショック/大商い方向/Amihud非流動性/出来高枯れを横断検証。**全てIC≈0でIS/OOS符号反転、L/S net負**。

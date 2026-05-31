@@ -30,8 +30,11 @@
 - **健在 (足元エッジ明確) 4戦略**: pre_earnings_drift / earnings_pead / vwap_morning_meanrevert /
   lasertec_ma25_support。全窓で正、Sharpe 1.5〜4.3、N十分なものは t も有意。
 - **弱体化 1戦略**: bank_absorption。正(Sharpe 0.8〜1.3)だがIS比で大幅減衰。要監視・継続。
-- **壊れている 1戦略**: **eneos_vwap_trend**。直近90/180日でSharpe約-1.2(マイナス)、365日でも+0.24と
-  ほぼゼロ。**直近半年は損失。レジームシフトで機能停止 → 一時停止を推奨**。
+- **要注意・薄利 1戦略 (当初「壊れている」と判定→訂正)**: **eneos_vwap_trend**。
+  詳細診断 [eneos_diagnosis.md](eneos_diagnosis.md) → **「CRITICAL -1.27」はモニタの一律往復20bps
+  コスト前提によるアーティファクト。シグナルは反転しておらず gross は全窓プラス (Sharpe1.25-2.92)、
+  戦略本来の4bpsでは net +6.8bps(90日)とプラス**。ただし直近の gross ~10.8bps は薄く、現実的
+  コスト~10bpsではほぼトントン。**停止はしないが最低確信度・要コスト実測**。
 - **新候補 健在**: closing_auction_rebound (net Sharpe 2.15, 新制度ならではの足元エッジ)。
 
 ## 重要な注意点 (IS基準との比較は割引いて解釈)
@@ -46,10 +49,10 @@
 
 ## 結論
 
-**6戦略中5戦略は足元でも正のエッジを維持** (pre_earnings_drift/earnings_pead/vwap/lasertec が健在、
-bank は弱いが正)。**eneos_vwap_trend のみ直近半年で機能停止 (Sharpe約-1.2) → 一時停止すべき**。
-新候補 closing_auction_rebound も足元で健在。恒久エンジンは概ね機能しているが、
-eneos の停止と bank の監視継続が必要。
+**6戦略すべて足元でシグナルは生存** (gross正)。pre_earnings_drift/earnings_pead/vwap/lasertec が
+明確に健在、bank は弱いが正、**eneos はシグナル健在だが薄利・コスト感度高 (当初「壊れ」判定は
+コスト前提アーティファクトと判明し訂正)**。新候補 closing_auction_rebound も足元で健在。
+恒久エンジンは機能している。要対応は bank の監視継続と eneos の実コスト実測・サイズ管理。
 
 ## 次のアクション候補
 
