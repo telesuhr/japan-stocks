@@ -140,6 +140,7 @@
 
 | 候補 | OOS Sharpe | OOS DD | 根拠分析 | 課題 |
 |------|--------:|--------:|---------|------|
+| **closing_auction_rebound** ([docs実装済](closing_auction_rebound/)) | **net +2.15** (IS+1.82) | — | [20260531_closing_auction_exec](../analyses/20260531_closing_auction_exec/) | **新制度2024-11クロージングオークション下落リバウンド。引けで売られた銘柄(jump≤-50bps)を引けMOC買い→翌朝決済。net Sharpe2.0(往復10bps)/IS1.82/OOS2.15一貫、既存と無相関(+0.077, バスケット+0.74)。残課題=プレクロージング気配での実約定検証(auKabu)+ペーパー追跡** |
 | **oversold_rsi_reversal** (6銘柄予定) | **+6.15** (8銘柄ベース) | -4.1% | [20260522_strategy_true_oos_validation](../analyses/20260522_strategy_true_oos_validation/) | **真のOOS検証クリア (IS:2016-2020 / OOS:2021-2026)**。任天堂・三井物産除外で6銘柄(三菱商事/トヨタ/伊藤忠/TEL/ホンダ/レーザー)推奨。運用ドキュメント実装待ち |
 | **ma_cross_long_basket** (7銘柄) | **+2.87** | -11.0% | 同上 | **真のOOS検証クリア**。みずほ/アドバンテスト/古河電工/住友金属鉱山/三井金属/三菱マテ/ファストリテ。運用ドキュメント実装待ち |
 | 9101 日本郵船 VWAP Breakout | +4.18 (1年) | — | [`vwap_comprehensive/`](../analyses/20260422_vwap_comprehensive/) | 銘柄集中リスク + 5年再検証必要 |
