@@ -7,8 +7,14 @@
 
 ---
 
-## 最新分析 (2026-05-31) — V4/V5/V6スコアリング日次エントリー研究 + OOSモニタリング
+## 最新分析 (2026-05-31) — V4/V5/V6スコア研究 + 既存戦略Sharpe測定法監査
 
+> ### [既存6戦略 Sharpe測定法の監査](20260531_strategy_sharpe_audit/) ⚠️(重要)
+> 全戦略が per-trade Sharpe ×√252 (年間252トレード仮定) で年率化。実頻度は8〜52回/年。
+> **standalone年率Sharpe補正値: vwap1.78 / pre_earnings3.70 / bank0.93 / lasertec0.47 / earnings0.91 / eneos0.82**。
+> ただしV6の「幻」と違い per-tradeエッジは実在 (t値良好)。問題は年率換算の前提のみ。
+> 正しい評価=日次ポートフォリオ収益系列Sharpe or 6戦略バスケット資金曲線。pre_earnings_driftは√(252/4)で最も誠実。
+>
 > ### [採用6戦略 OOSモニタリング](../Dashboard_CC/strategy_oos_monitor.py) — 直近90日 (2026-02-28〜05-29)
 >
 > | 戦略 | n | Sharpe(OOS) | Sharpe(IS) | 判定 |

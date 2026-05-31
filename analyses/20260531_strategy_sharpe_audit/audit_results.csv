@@ -1,0 +1,7 @@
+strategy,reported,per_trade_sharpe,trades_per_year,corrected_sharpe,cluster
+vwap_morning_meanrevert,4.46,0.281,40.0,1.78,False
+eneos_vwap_trend,1.81,0.114,52.0,0.82,False
+lasertec_ma25_support,2.69,0.169,7.8,0.47,False
+bank_absorption,3.94,0.248,14.0,0.93,True
+earnings_pead,2.19,0.138,43.2,0.91,True
+pre_earnings_drift,2.07,0.261,201.4,3.7,True
