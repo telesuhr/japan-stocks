@@ -1,0 +1,4 @@
+feature,thresh,fwd_bars,n_signals,n_ts,gross_bps,net_bps,win_rate,ann_sharpe,t_stat
+avg_l1_imb,0.3,1,21584,1814,0.43,-4.57,0.283,-114.28,-17.12
+avg_l1_imb,0.5,1,12911,1724,0.74,-4.26,0.338,-78.09,-11.4
+avg_l1_imb,0.7,1,4258,833,0.63,-4.37,0.369,-46.86,-4.76
