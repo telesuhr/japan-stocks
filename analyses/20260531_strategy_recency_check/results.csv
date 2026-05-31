@@ -1,0 +1,8 @@
+strategy,win90_sharpe,win90_n,win180_sharpe,win180_n,win365_sharpe,win365_n,verdict
+pre_earnings_drift,1.63,1023,1.67,2043,1.56,4184,ALIVE_STRONG
+earnings_pead,1.07,120,1.71,251,1.61,479,ALIVE
+vwap_morning_mr,4.24,20,2.86,25,4.26,37,ALIVE
+lasertec_ma25,,3,3.26,9,2.97,17,ALIVE_LOWFREQ
+bank_absorption,1.29,52,0.83,89,1.20,181,WEAK
+eneos_vwap_trend,-1.27,29,-1.21,44,0.24,72,BROKEN
+closing_auction_rebound,,,,,2.15,1127,ALIVE_CANDIDATE
