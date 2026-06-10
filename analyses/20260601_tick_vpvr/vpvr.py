@@ -10,7 +10,7 @@
 """
 import sys
 sys.stdout.reconfigure(line_buffering=True)
-sys.path.insert(0, "/mnt/d/Root/ClaudeCode/DataFetcher")
+sys.path.insert(0, "/mnt/d/Root/ClaudeCode/01_Trading/DataFetcher")
 
 from datetime import date, timedelta
 import numpy as np

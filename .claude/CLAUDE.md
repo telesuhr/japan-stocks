@@ -23,7 +23,7 @@
 
 ## 共通知識
 `~/.claude/rules/intraday-trading.md` を参照。
-タイムスタンプは必ず +9h でJST変換。
+DB(market_data)はJST格納のため +9h 変換は不要（`ts` はJST naive）。
 
 ## DB接続
 
