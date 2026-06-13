@@ -14,7 +14,8 @@ HORIZONS=[5,10,20,40]; COST_RT=0.0020; OOS=pd.Timestamp("2025-03-01"); HOLD=40
 conn=psycopg2.connect(**PG)
 ev=pd.read_sql("""SELECT issuer_code5 code, submit_date, filer_name, COALESCE(purpose,'') purpose
                   FROM public.edinet_large_holdings
-                  WHERE prev_holding_ratio IS NULL AND submit_date BETWEEN '2024-06-01' AND '2025-10-31'
+                  WHERE prev_holding_ratio IS NULL AND doc_type_code='350'  -- 350初回のみ(360訂正を除外)
+                    AND submit_date BETWEEN '2024-06-01' AND '2025-10-31'
                     AND issuer_code5 IS NOT NULL""",conn)
 sd=pd.read_sql("SELECT code,date,adj_open,adj_close FROM stocks_daily WHERE code=ANY(%s) AND date>='2024-02-01'",conn,params=[list(ev.code.unique())])
 idx=pd.read_sql("SELECT code,date,open,close FROM index_daily WHERE code IN ('0040','0041','0043','0045') AND date>='2024-02-01'",conn)
@@ -22,12 +23,16 @@ wt=pd.read_sql("SELECT code5,size_class FROM public.topix_weights WHERE ref_date
 conn.close()
 
 # filer分類
+GLOBAL_AM=(r"アセット.?マネジ|アセットマネジ|投信|インベストメント|マネジメント・アンド・リサーチ|"
+           r"ブラックロック|フィデリティ|ＦＭＲ|FMR|エフエムアール|バンガード|ステート・?ストリート|"
+           r"キャピタル・(リサーチ|グループ|インターナショナル|マネージメント)|ウエリントン|ベイリー・?ギフォード|シュローダー|"
+           r"インベスコ|アムンディ|ニッセイ|ピクテ|ディメンショナル|ティー・?ロウ|ヌビーン|アライアンス・?バーンスタイン|"
+           r"ＳＳＧＡ|グローバル・アドバイザーズ|野村アセット|大和アセット|三井住友")
 def classify(filer,purpose):
-    t=filer+" "+purpose
     if re.search(r"商品在庫|ディーリング|一時保有|証券業務", purpose) or "証券" in filer: return "dealer"
     if "政策投資" in purpose or re.search(r"銀行|フィナンシャル・?グループ", filer): return "policy"
-    if re.search(r"アセット ?・?マネジメント|投信|インベストメント|アセットマネジメント", filer): return "passive_am"
-    return "active"
+    if re.search(GLOBAL_AM, filer): return "global_am"   # 大手分散運用(パッシブ/active問わず=高確信でない)
+    return "active"   # 残り=アクティビスト/戦略/個人/集中ファンド
 ev["cls"]=[classify(f,p) for f,p in zip(ev.filer_name,ev.purpose)]
 ev=ev.drop_duplicates(["code","submit_date","cls"])   # 同日同銘柄同クラスは1件
 print("=== 新規5%超 クラス別件数 ===")
@@ -104,7 +109,7 @@ try:
     fm.fontManager.addfont("/root/.fonts/NotoSansJP.ttf"); plt.rcParams["font.family"]="Noto Sans JP"; plt.rcParams["axes.unicode_minus"]=False
 except Exception: pass
 fig,(ax1,ax2)=plt.subplots(1,2,figsize=(13.5,5.2))
-order=["active","passive_am","policy","dealer"]; col={"active":"#27ae60","passive_am":"#95a5a6","policy":"#e67e22","dealer":"#c0392b"}
+order=["active","global_am","policy","dealer"]; col={"active":"#27ae60","global_am":"#95a5a6","policy":"#e67e22","dealer":"#c0392b"}
 for c in order:
     if c in g.index: ax1.plot(HORIZONS,[g.loc[c,f"d{h}"] for h in HORIZONS],"o-",label=f"{c}(n={int(g.loc[c,'n'])})",color=col[c],lw=1.8)
 ax1.axhline(0,color="k",lw=.8); ax1.set_xlabel("保有日数"); ax1.set_ylabel("サイズ調整ドリフト(bp)")
