@@ -119,6 +119,7 @@ def compute_trades(start_date: str, end_date: str) -> pd.DataFrame:
         rows.append({
             "entry_date": entry_date,
             "exit_date": exit_date,
+            "earn_date": earnings_date,
             "symbol": code,
             "fq": ec_row["fq"],
             "gross_ret": gross,
@@ -126,7 +127,7 @@ def compute_trades(start_date: str, end_date: str) -> pd.DataFrame:
         })
 
     return pd.DataFrame(rows) if rows else pd.DataFrame(
-        columns=["entry_date", "exit_date", "symbol", "fq", "gross_ret", "net_ret"])
+        columns=["entry_date", "exit_date", "earn_date", "symbol", "fq", "gross_ret", "net_ret"])
 
 
 def health(start_date: str, end_date: str) -> dict:
