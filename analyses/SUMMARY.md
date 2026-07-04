@@ -24,10 +24,10 @@
 |---|---|---|---|---|
 | 1 | pre_earnings_drift | 決算前ドリフト | +2.07 | ✅ 足元Sh1.56(t12.9) |
 | 2 | earnings_pead | 決算後PEAD | +2.19 | ✅ 足元Sh1.61 |
-| 3 | vwap_morning_meanrevert | VWAP朝平均回帰 | +6.76 | ✅ 足元Sh4.26 |
+| 3 | vwap_morning_meanrevert | VWAP朝平均回帰 | +6.76 | 🚨 一時停止 (Sh-8.60, 勝率30%) |
 | 4 | lasertec_ma25_support | レーザーテックMA25 | +7.57 | ✅ 足元Sh2.97 |
 | 5 | bank_absorption | 銀行出来高吸収 | +3.94 | ⚠️ 弱体化中(Sh1.2) |
-| 6 | eneos_vwap_trend | ENEOSVWAPトレンド | +3.81 | ⚠️ 薄利・コスト感度高 |
+| 6 | eneos_vwap_trend | ENEOSVWAPトレンド | +3.81 | 🚨 一時停止 (Sh-7.01, 勝率33%) |
 | 候補 | closing_auction_rebound | 引け板寄せ反転Long | net 2.0-2.8 | ✅ 昇格判断フェーズ |
 
 ---
@@ -39,11 +39,11 @@
 | 戦略名 | Sharpe(正規化後) | 発火頻度 | 状態 | 備考 |
 |---|---|---|---|---|
 | pre_earnings_drift | +2.07 (proper √252/4) | 週次1,000件以上/年 | ✅ 最頑健 | 決算前4日ドリフト |
-| vwap_morning_meanrevert | +1.78 (監査後standalone) | 週1-2回 | ✅ 健在 | 8035/6146/6920 朝VWAP乖離 |
+| vwap_morning_meanrevert | +1.78 (監査後standalone) | 週1-2回 | 🚨 一時停止 | ⚠️ 6月レジーム変化 (Sh-8.60, 勝率30%) — 半導体調整局面中はモメンタム継続で平均回帰不成立。正常化後に再評価 |
 | earnings_pead | +0.91 (同) | 月複数回 | ✅ 健在 | 大幅ギャップ+7%以上 |
 | lasertec_ma25_support | +0.47 (同) / 実実績+7.57 | 月1-2回 | ✅ 低頻度・高精度 | 10日クールダウンあり |
 | bank_absorption | +0.93 (同) | 週1-2回 | ⚠️ 弱体化監視中 | OOS Sh 1.2、IS比低下 |
-| eneos_vwap_trend | +0.82 (同) | 週1-2回 | ⚠️ 停止推奨水準 | Gross Sh1.25-2.92 だが実コストでほぼ損益分岐 |
+| eneos_vwap_trend | +0.82 (同) | 週1-2回 | 🚨 一時停止 | エッジ完全消失 (Sh-7.01, 勝率33%) — Long/Short両方向ともマイナス。原油レジーム変化・株価構造変化の調査後に再評価 |
 
 **注**: Sharpe正規化後の値は `20260531_strategy_sharpe_audit` で算出した正しい√(252/hold)換算値。
 IS基準の headline Sharpe (bank: 3.94等) は √252 仮定の過大評価であり、バスケット日次収益系列で評価するのが正しい。
