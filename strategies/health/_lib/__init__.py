@@ -25,7 +25,9 @@ def trading_days_between(start: str, end: str) -> list:
     conn = get_conn()
     try:
         df = pd.read_sql(
-            "SELECT date FROM trading_calendar WHERE date >= %s AND date <= %s ORDER BY date",
+            # hol_div=1 が営業日 (フィルタ無しだと土日祝も返る)
+            "SELECT date FROM trading_calendar WHERE date >= %s AND date <= %s "
+            "AND hol_div::text = '1' ORDER BY date",
             conn, params=(start, end)
         )
         return df["date"].tolist()

@@ -31,6 +31,7 @@ from _lib import vwap_morning_meanrevert
 from _lib import lasertec_ma25_support
 from _lib import bank_absorption
 from _lib import eneos_vwap_trend
+from _lib import closing_auction_rebound
 
 # IS基準値 (SUMMARY.md より)
 IS_BASELINE = {
@@ -40,6 +41,8 @@ IS_BASELINE = {
     "lasertec_ma25_support":   {"sharpe": 7.57, "freq_label": "月1-2回"},
     "bank_absorption":         {"sharpe": 3.94, "freq_label": "週1-2回"},
     "eneos_vwap_trend":        {"sharpe": 3.81, "freq_label": "週1-2回"},
+    # 候補(ペーパー段階)。基準は refined 版 net Sharpe (往復6-10bps) の下限
+    "closing_auction_rebound": {"sharpe": 2.00, "freq_label": "ほぼ毎日3-6銘柄"},
 }
 
 MODULES = [
@@ -49,6 +52,7 @@ MODULES = [
     ("lasertec_ma25_support",   lasertec_ma25_support),
     ("bank_absorption",         bank_absorption),
     ("eneos_vwap_trend",        eneos_vwap_trend),
+    ("closing_auction_rebound", closing_auction_rebound),
 ]
 
 
@@ -57,7 +61,9 @@ def get_bdays(start_str: str, end_str: str) -> list:
     try:
         conn = get_conn()
         df = pd.read_sql(
-            "SELECT date FROM trading_calendar WHERE date >= %s AND date <= %s ORDER BY date",
+            # hol_div=1 が営業日。フィルタ無しだと土日祝も返り「60営業日」が暦日60日に化ける
+            "SELECT date FROM trading_calendar WHERE date >= %s AND date <= %s "
+            "AND hol_div::text = '1' ORDER BY date",
             conn, params=(start_str, end_str)
         )
         conn.close()
