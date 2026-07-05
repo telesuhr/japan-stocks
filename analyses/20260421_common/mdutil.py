@@ -5,13 +5,15 @@
   1. ローカル PostgreSQL (localhost:5432)
   2. NAS MariaDB (100.92.181.92:3306) ← PGが落ちているときの自動フォールバック
 """
+import os
 import pandas as pd
 import numpy as np
 from datetime import date, time as dtime
 
 PG_CONFIG = {"host": "localhost", "port": 5432, "user": "postgres", "dbname": "market_data"}
+# NASパスワードは環境変数から。ハードコード禁止（公開リポジトリのため）
 NAS_CONFIG = {"host": "100.92.181.92", "port": 3306, "user": "rfnews",
-              "password": "Bleach@924", "database": "refinitiv_news"}
+              "password": os.environ.get("NAS_PASSWORD", ""), "database": "refinitiv_news"}
 
 START = "2025-04-01"
 END = "2026-04-24"
