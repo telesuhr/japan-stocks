@@ -7,9 +7,14 @@
 日本株のイントラデイ・スキャルピング戦略の分析・バックテスト。
 
 ## GitHub 同期
-- リモート: `github.com/telesuhr/japan-stocks` (private)
+- リモート: `github.com/telesuhr/japan-stocks`（**PUBLIC — 誰でも閲覧できる**）
 - ブランチ: `main`（`origin/main` を追跡）
 - セッション末にまとめてコミット → 即 push（下記「Git・Push ルール」参照）
+
+### ⛔ 秘密情報の絶対禁止（PUBLICリポジトリのため）
+- **パスワード・APIキー・Webhook URLをコードに書かない**。環境変数か `.env`（gitignore済）から読む
+- 過去の analyses/ には旧NASパスワードをハードコードしたファイルが残っている（凍結記録のため
+  書き換えない）。**これらをテンプレートとしてコピーしない**。雛形は下記「新規分析テンプレ」が正
 
 ## ファイル配置ルール
 - 本格的な分析は必ず `analyses/YYYYMMDD_テーマ/` 配下に置く
@@ -62,7 +67,7 @@ PG_CONFIG = {
 | 財務サマリ | `fin_summary` | `(code, disc_no)` | — |
 | ティック | (DBなし) | — | DuckDB 経由 |
 
-ティックは `~/claude-code/DataFetcher/src/ticks.py` の `TickQuery` を使う。
+ティックは `01_Trading/DataFetcher/src/ticks.py` の `TickQuery` を使う（実体: `/root/Data/jquants_trades/` のCSV.gz）。
 
 ### 銘柄コードは必ず JQuants 5桁
 
@@ -83,58 +88,29 @@ SELECT code5 FROM symbol_master WHERE ric = '7203.T';
 
 過去戦略 (`strategies/*/signal_check.py`) はまだ旧テーブル名を参照しているが、これは未移行コードなので新規分析の参考にしないこと。
 
-### 新規分析テンプレ（コピペ用）
+### 新規分析テンプレ（コピペ用）— jstock 必須
+
+**`psycopg2.connect` / PG_CONFIG を手書きしない**（editable install済の共通ライブラリ jstock を使う）:
 
 ```python
-import os
-import psycopg2, pandas as pd
+from jstock import db, data, jcal, costs, stats
 
-PG_CONFIG = {
-    "host": os.environ.get("PGHOST", "omen"),
-    "port": int(os.environ.get("PGPORT", 5432)),
-    "user": os.environ.get("PGUSER", "postgres"),
-    "dbname": os.environ.get("PGDATABASE", "market_data"),
-}
-
-def load_minute(code5: str, start: str, end: str) -> pd.DataFrame:
-    """5桁コード・JST文字列で 1分足を取得。返り値は ts インデックス（JST naive）"""
-    conn = psycopg2.connect(**PG_CONFIG)
-    sql = """
-        SELECT ts, open, high, low, close, volume, turnover_value
-        FROM stocks_intraday
-        WHERE code = %s AND ts >= %s AND ts < %s
-        ORDER BY ts
-    """
-    df = pd.read_sql(sql, conn, params=(code5, start, end))
-    conn.close()
-    return df.set_index('ts')
-
-def load_daily(code5: str, start: str, end: str) -> pd.DataFrame:
-    conn = psycopg2.connect(**PG_CONFIG)
-    sql = """
-        SELECT date, open, high, low, close, volume,
-               adj_open, adj_high, adj_low, adj_close, adj_volume
-        FROM stocks_daily
-        WHERE code = %s AND date BETWEEN %s AND %s ORDER BY date
-    """
-    df = pd.read_sql(sql, conn, params=(code5, start, end))
-    conn.close()
-    return df.set_index('date')
-
-def ric_to_code5(ric: str) -> str:
-    """'7203.T' → '72030' （symbol_master 経由）"""
-    conn = psycopg2.connect(**PG_CONFIG)
-    cur = conn.cursor()
-    cur.execute("SELECT code5 FROM symbol_master WHERE ric=%s", (ric,))
-    r = cur.fetchone()
-    conn.close()
-    return r[0] if r else None
+df   = data.load_daily(codes=["7203"], start="2025-04-01")        # 調整後OHLCV（5桁変換込み・4桁でOK）
+intr = data.load_intraday(["7203"], "2026-06-01", "2026-07-01")   # 1分足 (ts=JST naive)
+any_ = db.read_sql("SELECT code5 FROM symbol_master WHERE ric=%s", ["7203.T"])  # 任意SQL
+days = jcal.trading_days("2025-01-01")                            # 営業日リスト
+net  = costs.net_returns(gross, ls=True)                          # コスト控除（教訓2）
+rep  = stats.summary(daily_returns, "label")                      # Sharpe/t/MDD/勝率
 ```
+
+- 接続先は環境変数で解決（OMEN上=未設定でlocalhostが正 / 外部マシンからは `PGHOST=omen`）
+- jstock に無い共通処理を書いたら使い捨てにせず jstock へ昇格させる
+- 過去の analyses/ にある手書き `PG_CONFIG` はjstock以前の遺産。**コピーしない**
 
 ### ティック取得テンプレ
 
 ```python
-import sys; sys.path.insert(0, '/Users/Yusuke/claude-code/DataFetcher')
+import sys; sys.path.insert(0, '/mnt/d/Root/ClaudeCode/01_Trading/DataFetcher')
 from src.ticks import TickQuery
 tq = TickQuery()
 bars = tq.bars(code='72030', start='2025-01-01', end='2025-01-31', freq='5min')
