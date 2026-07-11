@@ -15,20 +15,30 @@
 | **Overlay** | 日経/TOPIX夜間+0.3% → コア5 Long | +4.7 | 週1-2回 | ✅ 健在 |
 | **Satellite** | LME累積LB=10 +5% → Long | +8.25 | 月1-2回 | ✅ lme_on後継候補 |
 
-### 実運用推奨セット (2026-06-01 現在)
+### 実運用推奨セット (2026-07-11 更新)
 
-現在の採用セットは6+1戦略のバスケット。
-**バスケット全体の日次Sharpe = 6.01 (5戦略等加重)**、戦略間相関がほぼゼロで分散効果が本質的な価値。
+**バスケット全体**: 戦略間相関ほぼゼロの分散効果が本質的な価値。
 
-| # | 戦略名 | 種別 | Sharpe(IS) | OOS状態 |
-|---|---|---|---|---|
-| 1 | pre_earnings_drift | 決算前ドリフト | +2.07 | ✅ 足元Sh1.56(t12.9) |
-| 2 | earnings_pead | 決算後PEAD | +2.19 | ✅ 足元Sh1.61 |
-| 3 | vwap_morning_meanrevert | VWAP朝平均回帰 | +6.76 | 🚨 一時停止 (Sh-8.60, 勝率30%) |
-| 4 | lasertec_ma25_support | レーザーテックMA25 | +7.57 | ✅ 足元Sh2.97 |
-| 5 | bank_absorption | 銀行出来高吸収 | +3.94 | ⚠️ 弱体化中(Sh1.2) |
-| 6 | eneos_vwap_trend | ENEOSVWAPトレンド | +3.81 | 🚨 一時停止 (Sh-7.01, 勝率33%) |
-| 候補 | closing_auction_rebound | 引け板寄せ反転Long | net 2.0-2.8 | ✅ 昇格判断フェーズ |
+| # | 戦略名 | 種別 | Sharpe(IS) | OOS状態 | 配分 |
+|---|---|---|---|---|---|
+| 1 | pre_earnings_drift | 決算前ドリフト | +2.07 | ✅ 足元Sh1.56(t12.9) | — |
+| 2 | earnings_pead | 決算後PEAD | +2.19 | ✅ 足元Sh1.61 | — |
+| 3 | vwap_morning_meanrevert | VWAP朝平均回帰 | +6.76 | 🚨 一時停止 (Sh-8.60, 勝率30%) | — |
+| 4 | lasertec_ma25_support | レーザーテックMA25 | +7.57 | ✅ 足元Sh2.97 | — |
+| 5 | bank_absorption | 銀行出来高吸収 | +3.94 | ⚠️ 弱体化中(Sh1.2) | — |
+| 6 | eneos_vwap_trend | ENEOSVWAPトレンド | +3.81 | 🚨 一時停止 (Sh-7.01, 勝率33%) | — |
+| **7** | **sector_mom_topix_ls** | **月次セクターMOM L/S** | **Sh L/S net +1.37** | **✅ 採用 (2026-07-11)** | **20%** |
+| 候補 | closing_auction_rebound | 引け板寄せ反転Long | net 2.0-2.8 | ✅ 昇格判断フェーズ | — |
+
+**#7 sector_mom_topix_ls 実装仕様**:
+- 月末にセクター17分類の等加重リターン（ADV≥10億）を計算
+- 上位3セクター × ADV上位10銘柄 = **約30銘柄 LONG**（等加重）
+- **TOPIX等額 SHORT**（1306 ETF空売り、またはTOPIX先物）
+- ヘッジコスト: ETF借入 ≈ 10bps/月（年率1.2%）込みで Sh=+1.37
+- MDD: Long-only -23% → L/S後 **-7.5%** に大幅改善
+- 既存バスケットとの相関: **+0.09（ほぼ無相関）** → 分散寄与大
+- 詳細: `20260711_sector_mom_topix_hedged_ls/`
+- シグナル生成: `01_Trading/Dashboard_CC/sector_mom_ls_signal.py`
 
 ---
 
