@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "jstock"
+version = "0.1.0"
+description = "日本株リサーチ共通ライブラリ (market_data DBアクセス・営業日カレンダー・コストモデル・統計)"
+requires-python = ">=3.10"
+# psycopg2 / pandas は各環境に導入済みのため依存宣言しない（editable installで環境を汚さない）
+dependencies = []
+
+[tool.setuptools]
+packages = ["jstock"]

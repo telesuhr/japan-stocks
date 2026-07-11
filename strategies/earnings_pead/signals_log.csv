@@ -1,0 +1,2 @@
+signal_date,code,name,sector,doc_type,disc_time,gap_pct,tp1_close,turnover_oku,selected,sl_price,exit_target_date
+2026-07-10,63230,ローツェ,機械,1QFinancialStatements_Consolidated_JP,15:30:00,7.63,4655.0,435.2,Y,4422.2,2026-07-17

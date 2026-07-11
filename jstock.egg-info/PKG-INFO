@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: jstock
+Version: 0.1.0
+Summary: 日本株リサーチ共通ライブラリ (market_data DBアクセス・営業日カレンダー・コストモデル・統計)
+Requires-Python: >=3.10

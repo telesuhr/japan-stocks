@@ -1,0 +1,12 @@
+pyproject.toml
+setup.py
+jstock/__init__.py
+jstock/costs.py
+jstock/data.py
+jstock/db.py
+jstock/jcal.py
+jstock/stats.py
+jstock.egg-info/PKG-INFO
+jstock.egg-info/SOURCES.txt
+jstock.egg-info/dependency_links.txt
+jstock.egg-info/top_level.txt
