@@ -1,2 +1,9 @@
 signal_date,code,name,sector,doc_type,disc_time,gap_pct,tp1_close,turnover_oku,selected,sl_price,exit_target_date
 2026-07-10,63230,ローツェ,機械,1QFinancialStatements_Consolidated_JP,15:30:00,7.63,4655.0,435.2,Y,4422.2,2026-07-17
+2026-07-13,74530,良品計画,小売業,3QFinancialStatements_Consolidated_JP,15:30:00,11.95,4233.0,705.9,Y,4021.3,2026-07-20
+2026-07-13,61360,オーエスジー,機械,2QFinancialStatements_Consolidated_JP,15:30:00,11.12,4058.0,50.7,Y,3855.1,2026-07-20
+2026-07-13,68140,古野電気,電気機器,1QFinancialStatements_Consolidated_JP,15:30:00,10.95,7390.0,79.2,Y,7020.5,2026-07-20
+2026-07-14,75130,コジマ,小売業,3QFinancialStatements_NonConsolidated_JP,15:30:00,7.05,1312.0,17.9,Y,1246.4,2026-07-21
+2026-07-15,575A0,前澤ホールディングス,機械,EarnForecastRevision,15:30:00,11.97,1789.0,18.1,Y,1699.5,2026-07-22
+2026-07-16,75810,サイゼリヤ,小売業,3QFinancialStatements_Consolidated_JP,15:30:00,17.30,6780.0,23.5,Y,6441.0,2026-07-23
+2026-07-24,69990,ＫＯＡ,電気機器,1QFinancialStatements_Consolidated_JP,15:30:00,8.02,2782.0,215.1,Y,2642.9,2026-07-31
