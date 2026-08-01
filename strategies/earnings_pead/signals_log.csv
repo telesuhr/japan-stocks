@@ -7,3 +7,19 @@ signal_date,code,name,sector,doc_type,disc_time,gap_pct,tp1_close,turnover_oku,s
 2026-07-15,575A0,前澤ホールディングス,機械,EarnForecastRevision,15:30:00,11.97,1789.0,18.1,Y,1699.5,2026-07-22
 2026-07-16,75810,サイゼリヤ,小売業,3QFinancialStatements_Consolidated_JP,15:30:00,17.30,6780.0,23.5,Y,6441.0,2026-07-23
 2026-07-24,69990,ＫＯＡ,電気機器,1QFinancialStatements_Consolidated_JP,15:30:00,8.02,2782.0,215.1,Y,2642.9,2026-07-31
+2026-07-28,27670,円谷フィールズホールディングス,卸売業,1QFinancialStatements_Consolidated_JP,15:30:00,26.14,1930.0,6.2,Y,1833.5,2026-08-04
+2026-07-29,68610,キーエンス,電気機器,1QFinancialStatements_Consolidated_JP,16:00:00,13.88,77590.0,1484.5,Y,73710.5,2026-08-05
+2026-07-29,96970,カプコン,情報･通信業,1QFinancialStatements_Consolidated_JP,15:40:00,9.92,4229.0,722.1,Y,4017.5,2026-08-05
+2026-07-29,82180,コメリ,小売業,1QFinancialStatements_Consolidated_JP,15:30:00,8.82,4065.0,22.8,Y,3861.8,2026-08-05
+2026-07-30,44610,第一工業製薬,化学,1QFinancialStatements_Consolidated_JP,16:00:00,16.65,10330.0,23.7,Y,9813.5,2026-08-06
+2026-07-30,68570,アドバンテスト,電気機器,1QFinancialStatements_Consolidated_IFRS,15:30:00,13.02,27935.0,4633.9,Y,26538.2,2026-08-06
+2026-07-30,63490,小森コーポレーション,機械,1QFinancialStatements_Consolidated_JP,15:30:00,9.56,1932.0,24.0,Y,1835.4,2026-08-06
+2026-07-30,67010,日本電気,電気機器,1QFinancialStatements_Consolidated_IFRS,15:30:00,7.59,5002.0,917.4,Y,4751.9,2026-08-06
+2026-07-31,67520,パナソニック　ホールディングス,電気機器,1QFinancialStatements_Consolidated_IFRS,15:30:00,19.53,4284.0,159.2,Y,4069.8,2026-08-07
+2026-07-31,65040,富士電機,電気機器,1QFinancialStatements_Consolidated_JP,15:30:00,18.91,14285.0,425.6,N,13570.8,2026-08-07
+2026-07-31,53330,ＮＧＫ,ガラス･土石製品,1QFinancialStatements_Consolidated_JP,15:40:00,15.25,5594.0,188.6,N,5314.3,2026-08-07
+2026-07-31,80350,東京エレクトロン,電気機器,1QFinancialStatements_Consolidated_JP,16:00:00,13.40,55500.0,7955.4,N,52725.0,2026-08-07
+2026-07-31,64710,日本精工,機械,1QFinancialStatements_Consolidated_IFRS,15:30:00,9.78,1152.0,90.3,N,1094.4,2026-08-07
+2026-07-31,40920,日本化学工業,化学,DividendForecastRevision,16:00:00,7.21,5930.0,25.8,N,5633.5,2026-08-07
+2026-07-31,69710,京セラ,電気機器,1QFinancialStatements_Consolidated_IFRS,15:30:00,7.04,3691.0,395.4,N,3506.4,2026-08-07
+2026-07-31,64540,マックス,機械,1QFinancialStatements_Consolidated_JP,15:30:00,7.02,1843.0,19.8,N,1750.8,2026-08-07
